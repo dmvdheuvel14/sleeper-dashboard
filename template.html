@@ -203,7 +203,17 @@ button.chip{cursor:pointer}
 .pdr.sel{background:var(--deep)}
 .pdr.sel .n{color:var(--ink);font-weight:700}
 .pdr.sel .n::before{content:"";display:inline-block;width:3px;height:12px;border-radius:2px;background:var(--accent);margin-right:6px;vertical-align:-1px}
-.pdb{display:flex;gap:2px;height:22px}
+.pdw{display:flex;align-items:center;gap:8px;min-width:0}
+.pdw em{font-style:normal;font-size:12px;color:var(--ink-2);white-space:nowrap}
+.pdb{display:flex;gap:2px;height:22px;min-width:0}
+.pd-c{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:flex-end}
+.pd-c .seg{flex-wrap:wrap}
+.pdt tr.avg td{color:var(--ink-3);border-top:1px solid var(--line)}
+.pdh th,.pdh td{padding:2px;border:0;text-align:center}
+.pdh th:first-child,.pdh td.team{text-align:left;padding:2px 10px 2px 6px;font-weight:500;color:var(--ink-2)}
+.pdh tr.sel td.team{color:var(--ink);font-weight:700}
+.pdh td span{display:block;min-width:52px;padding:6px 4px;border-radius:4px;font-size:12px;color:var(--ink);cursor:default}
+.pdh td span.strong{color:var(--accent-ink);font-weight:600}
 .pdb span{background:var(--pc);border-radius:2px;min-width:0;display:flex;align-items:center;justify-content:center;font:600 10.5px/1 var(--body);color:#fff;overflow:hidden;white-space:nowrap;cursor:default}
 .pdb span:first-child{border-radius:4px 2px 2px 4px}.pdb span:last-child{border-radius:2px 4px 4px 2px}
 .pdt th,.pdt td{padding:6px 8px}
@@ -226,7 +236,7 @@ button.chip{cursor:pointer}
 .db[data-filter="bw"] .pk:not([data-f~="bw"]){opacity:.12}
 .db[data-filter="gone"] .pk:not([data-f~="gone"]){opacity:.12}
 .db[data-filter="gone"] .pk.gone{opacity:1}
-.pos-QB{--pc:#3987e5}.pos-RB{--pc:#199e70}.pos-WR{--pc:#c98500}.pos-TE{--pc:#9085e9}.pos-K{--pc:#c0569e}.pos-DEF{--pc:#d95926}
+.pos-QB{--pc:#3987e5}.pos-RB{--pc:#199e70}.pos-WR{--pc:#c98500}.pos-TE{--pc:#9085e9}.pos-K{--pc:#c0569e}.pos-DEF{--pc:#d95926}.pos-BN{--pc:repeating-linear-gradient(135deg,#7d8bb0 0 3px,#5d6b92 3px 6px)}
 .poskey i{display:inline-block;width:4px;height:12px;border-radius:2px;background:var(--pc);margin:0 3px 0 6px;vertical-align:-1px}
 .ir-k{font:700 9px/1 var(--body);font-style:normal;padding:3px 4px;border-radius:3px;background:var(--red);color:#fff}
 .dk{width:14px;height:14px;border-radius:3px;display:inline-block;background:var(--deep);border:1px solid var(--line)}
@@ -355,8 +365,9 @@ button.chip{cursor:pointer}
     <div class="panel">
       <div class="tp" id="raProfile"></div>
       <div class="pd">
-        <div class="pd-h"><div><b>Puntenverdeling per positie</b><div class="sub">Aandeel van de starterpunten per positie, alle weken (FLEX telt mee bij de positie van de speler)</div></div>
-          <div class="seg" id="pdMode"><button type="button" data-k="bar" aria-pressed="true">Balken</button><button type="button" data-k="tab" aria-pressed="false">Tabel</button></div></div>
+        <div class="pd-h"><div><b>Puntenverdeling per positie</b><div class="sub" id="pdSub"></div></div>
+          <div class="pd-c"><div class="seg" id="pdScope" aria-label="Welke punten"><button type="button" data-k="st">Starters</button><button type="button" data-k="all">Starters + bank</button><button type="button" data-k="bn">Alleen bank</button></div>
+          <div class="seg" id="pdMode" aria-label="Weergave"><button type="button" data-k="bar">Aandeel</button><button type="button" data-k="pts">Punten/week</button><button type="button" data-k="dev">Vs. gemiddelde</button><button type="button" data-k="tab">Tabel</button></div></div></div>
         <div class="poskey" id="pdKey"></div>
         <div id="pd"></div>
       </div>
@@ -1040,33 +1051,60 @@ function renderWV(){
       <td>${f1(t.wv.tot / M.weeks.length)}</td><td>${t.wv.adds}</td><td style="text-align:left">${b ? `${esc(M.players[b[0]]?.name || b[0])} <span class="sub">${esc(M.players[b[0]]?.pos || "")} · ${f1(b[1])} pt</span>` : "–"}</td></tr>`; }).join("")}</tbody>`;
 }
 const PD_POS = ["QB","RB","WR","TE","K","DEF"];
-let pdMode = "bar";
-// Starterpunten per positie per team over alle weken.
-function posSplit(M){ for(const t of M.teams){ const o = Object.fromEntries(PD_POS.map(p => [p, 0]));
-    for(const w of M.weeks){ const m = M.mx[t.rid][w]; if(!m) continue;
-      for(const pid of m.starters || []){ if(!pid || pid === "0") continue; const pos = M.players[pid]?.pos; if(pos in o) o[pos] += m.players_points?.[pid] || 0; } }
-    const tot = Object.values(o).reduce((a,b) => a+b, 0) || 1; t.pd = {pts:o, pct:Object.fromEntries(PD_POS.map(p => [p, o[p] / tot * 100])), tot}; } }
+let pdMode = "bar", pdScope = "st";
+// Punten per positie per team over alle weken, apart voor starters en bank.
+function posSplit(M){ for(const t of M.teams){ const st = Object.fromEntries(PD_POS.map(p => [p, 0])), bn = {...st};
+    for(const w of M.weeks){ const m = M.mx[t.rid][w]; if(!m) continue; const S = new Set(m.starters || []);
+      for(const pid of m.players || []){ const pos = M.players[pid]?.pos; if(!(pos in st)) continue; (S.has(pid) ? st : bn)[pos] += m.players_points?.[pid] || 0; } }
+    t.pdRaw = {st, bn}; } }
+// Categorieën en waarden voor de gekozen scope.
+function pdData(){
+  const cats = pdScope === "all" ? [...PD_POS, "BN"] : PD_POS, nW = M.weeks.length || 1;
+  for(const t of M.teams){ const {st, bn} = t.pdRaw, pts = {};
+    if(pdScope === "bn") PD_POS.forEach(p => pts[p] = bn[p]);
+    else { PD_POS.forEach(p => pts[p] = st[p]); if(pdScope === "all") pts.BN = PD_POS.reduce((a,p) => a + bn[p], 0); }
+    const tot = cats.reduce((a,c) => a + pts[c], 0);
+    t.pd = {pts, tot, pw:Object.fromEntries(cats.map(c => [c, pts[c] / nW])), pct:Object.fromEntries(cats.map(c => [c, tot ? pts[c] / tot * 100 : 0]))}; }
+  const avg = Object.fromEntries(cats.map(c => [c, M.teams.reduce((a,t) => a + t.pd.pct[c], 0) / M.teams.length]));
+  return {cats, avg, nW};
+}
+const PD_SUB = {st:"Aandeel van de starterpunten per positie, alle weken (FLEX telt mee bij de positie van de speler)",
+  all:"Alle punten van het roster: starters per positie plus alles wat op de bank bleef liggen",
+  bn:"Punten die op de bank bleven liggen, per positie"};
+const PD_LBL = c => c === "BN" ? "Bank" : c;
 function renderPD(rid){
-  if(!M.teams[0].pd) posSplit(M);
-  const N = M.teams.length, rank = p => { const r = [...M.teams].sort((a,b) => b.pd.pct[p] - a.pd.pct[p]); return t => r.indexOf(t) + 1; };
-  const rk = Object.fromEntries(PD_POS.map(p => [p, rank(p)]));
-  $("#pdKey").innerHTML = PD_POS.map(p => `<span class="pos-${p}"><i style="background:var(--pc)"></i>${p}</span>`).join("");
-  $("#pdMode").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === pdMode));
-  const S = M.standings;
+  if(!M.teams[0].pdRaw) posSplit(M);
+  const {cats, avg, nW} = pdData(), N = M.teams.length, S = M.standings;
+  const rk = Object.fromEntries(cats.map(c => { const r = [...M.teams].sort((a,b) => b.pd.pct[c] - a.pd.pct[c]); return [c, t => r.indexOf(t) + 1]; }));
+  $("#pdSub").textContent = PD_SUB[pdScope];
+  $("#pdKey").innerHTML = pdMode === "dev" ? `<span><i style="background:var(--accent)"></i>meer dan league-gemiddelde</span><span><i style="background:var(--neg)"></i>minder dan gemiddeld</span><span>(verschil in procentpunten)</span>`
+    : pdMode === "tab" ? "" : cats.map(c => `<span class="pos-${c}"><i style="background:var(--pc)"></i>${PD_LBL(c)}</span>`).join("");
+  [["#pdMode", pdMode], ["#pdScope", pdScope]].forEach(([id, v]) => $(id).querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === v)));
+  const tipFor = (t, c) => `<b>${esc(t.name)}</b><br>${PD_LBL(c)}: ${f1(t.pd.pts[c])} pt · ${f1(t.pd.pw[c])} per week<br>${f1(t.pd.pct[c])}% (league gem. ${f1(avg[c])}%)<br>${rk[c](t)}e hoogste aandeel van ${N}`;
+  const wire = sel => $("#pd").querySelectorAll(sel).forEach(el => { el.addEventListener("pointermove", e => showTip(e, tipFor(M.byRid[el.dataset.rid], el.dataset.p))); el.addEventListener("pointerleave", hideTip); });
   if(pdMode === "tab"){
-    $("#pd").innerHTML = `<div class="scroll"><table class="pdt"><thead><tr><th></th><th>Team</th>${PD_POS.map(p => `<th>${p}</th>`).join("")}<th>Totaal</th></tr></thead><tbody>${S.map(t =>
-      `<tr class="${t.rid === rid ? "sel" : ""}"><td class="rk">${t.rank}</td><td class="team">${esc(t.name)}</td>${PD_POS.map(p => { const r = rk[p](t), c = r <= 3 ? "top" : r > N - 3 ? "bot" : "";
-        return `<td title="${f1(t.pd.pts[p])} pt · ${r}e van ${N}"><span class="hl ${c}">${f1(t.pd.pct[p])}%</span></td>`; }).join("")}<td>${f1(t.pd.tot)}</td></tr>`).join("")}</tbody></table></div>
+    $("#pd").innerHTML = `<div class="scroll"><table class="pdt"><thead><tr><th></th><th>Team</th>${cats.map(c => `<th>${PD_LBL(c)}</th>`).join("")}<th title="Totaal per week">Pt/week</th></tr></thead><tbody>${S.map(t =>
+      `<tr class="${t.rid === rid ? "sel" : ""}"><td class="rk">${t.rank}</td><td class="team">${esc(t.name)}</td>${cats.map(c => { const r = rk[c](t), cl = r <= 3 ? "top" : r > N - 3 ? "bot" : "";
+        return `<td data-rid="${t.rid}" data-p="${c}"><span class="hl ${cl}">${f1(t.pd.pct[c])}%</span></td>`; }).join("")}<td>${f1(t.pd.tot / nW)}</td></tr>`).join("")}
+      <tr class="avg"><td></td><td class="team">League-gemiddelde</td>${cats.map(c => `<td>${f1(avg[c])}%</td>`).join("")}<td>${f1(M.teams.reduce((a,t) => a + t.pd.tot, 0) / N / nW)}</td></tr></tbody></table></div>
       <div class="keys"><span><i class="hl-k top">00%</i> top 3 aandeel</span><span><i class="hl-k bot">00%</i> laagste 3 aandeel</span></div>`;
-    return; }
-  $("#pd").innerHTML = S.map(t => `<div class="pdr ${t.rid === rid ? "sel" : ""}"><span class="n">${esc(t.name)}</span><div class="pdb" role="img" aria-label="${esc(t.name)}: ${PD_POS.map(p => `${p} ${f1(t.pd.pct[p])}%`).join(", ")}">${PD_POS.map(p => t.pd.pct[p] > 0 ?
-    `<span class="pos-${p}" style="flex:${t.pd.pct[p]} 1 0" data-rid="${t.rid}" data-p="${p}">${t.pd.pct[p] >= 9 ? `${p} ${Math.round(t.pd.pct[p])}%` : ""}</span>` : "").join("")}</div></div>`).join("");
-  // Labels die niet passen inkorten tot alleen het percentage, of weglaten.
-  const fit = () => $("#pd").querySelectorAll(".pdb span").forEach(el => { const t = M.byRid[el.dataset.rid], v = t.pd.pct[el.dataset.p];
-    el.textContent = v >= 9 ? `${el.dataset.p} ${Math.round(v)}%` : ""; if(el.scrollWidth > el.clientWidth) el.textContent = `${Math.round(v)}%`; if(el.scrollWidth > el.clientWidth) el.textContent = ""; });
-  fit(); if(!renderPD.ro){ renderPD.ro = new ResizeObserver(() => fit()); renderPD.ro.observe($("#pd")); } renderPD.fit = fit;
-  $("#pd").querySelectorAll(".pdb span").forEach(el => { el.addEventListener("pointermove", e => { const t = M.byRid[el.dataset.rid], p = el.dataset.p;
-    showTip(e, `<b>${esc(t.name)}</b><br>${p}: ${f1(t.pd.pts[p])} pt (${f1(t.pd.pct[p])}%)<br>${rk[p](t)}e hoogste ${p}-aandeel van ${N}`); }); el.addEventListener("pointerleave", hideTip); });
+    wire("td[data-p]"); return; }
+  if(pdMode === "dev"){
+    const d = (t, c) => t.pd.pct[c] - avg[c], mx = Math.max(1, ...M.teams.flatMap(t => cats.map(c => Math.abs(d(t, c)))));
+    $("#pd").innerHTML = `<div class="scroll"><table class="pdh"><thead><tr><th>Team</th>${cats.map(c => `<th>${PD_LBL(c)}</th>`).join("")}</tr></thead><tbody>${S.map(t =>
+      `<tr class="${t.rid === rid ? "sel" : ""}"><td class="team">${esc(t.name)}</td>${cats.map(c => { const v = d(t, c), a = Math.round(Math.min(1, Math.abs(v) / mx) * 85);
+        return `<td data-rid="${t.rid}" data-p="${c}"><span style="background:color-mix(in srgb, ${v >= 0 ? "var(--accent)" : "var(--neg)"} ${a}%, var(--deep))" class="${a > 50 ? "strong" : ""}">${v >= 0 ? "+" : "−"}${f1(Math.abs(v))}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table></div>`;
+    wire("td[data-p]"); return; }
+  // Balken: "bar" = aandeel (100%), "pts" = punten per week (lengte = totaal).
+  const maxW = Math.max(...M.teams.map(t => t.pd.tot / nW));
+  $("#pd").innerHTML = S.map(t => { const w = pdMode === "pts" ? t.pd.tot / nW / maxW * 100 : 100;
+    return `<div class="pdr ${t.rid === rid ? "sel" : ""}"><span class="n">${esc(t.name)}</span><div class="pdw"><div class="pdb" style="width:${w}%" role="img" aria-label="${esc(t.name)}: ${cats.map(c => `${PD_LBL(c)} ${f1(t.pd.pct[c])}%`).join(", ")}">${cats.map(c => t.pd.pct[c] > 0 ?
+      `<span class="pos-${c}" style="flex:${t.pd.pct[c]} 1 0" data-rid="${t.rid}" data-p="${c}"></span>` : "").join("")}</div>${pdMode === "pts" ? `<em>${f1(t.pd.tot / nW)}</em>` : ""}</div></div>`; }).join("");
+  // Labels die niet passen inkorten tot alleen de waarde, of weglaten.
+  const fit = () => $("#pd").querySelectorAll(".pdb span").forEach(el => { const t = M.byRid[el.dataset.rid], c = el.dataset.p, v = pdMode === "pts" ? f1(t.pd.pw[c]) : Math.round(t.pd.pct[c]) + "%";
+    el.textContent = `${PD_LBL(c)} ${v}`; if(el.scrollWidth > el.clientWidth) el.textContent = v; if(el.scrollWidth > el.clientWidth) el.textContent = ""; });
+  fit(); if(!renderPD.ro){ renderPD.ro = new ResizeObserver(() => { if(["bar","pts"].includes(pdMode)) renderPD.fit?.(); }); renderPD.ro.observe($("#pd")); } renderPD.fit = fit;
+  wire(".pdb span");
 }
 function renderRA(){
   renderRosterDetail();
@@ -1124,7 +1162,8 @@ function renderRosterDetail(){
   ].join("");
 }
 $("#dFilter").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; dFilter = b.dataset.k; renderDraft(); });
-$("#pdMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; pdMode = b.dataset.k; renderPD(+$("#raSel").value); });
+$("#pdMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; pdMode = b.dataset.k; hideTip(); renderPD(+$("#raSel").value); });
+$("#pdScope").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; pdScope = b.dataset.k; hideTip(); renderPD(+$("#raSel").value); });
 $("#raSel").addEventListener("change", e => { store.set("rtg-ra", e.target.value); renderRA(); });
 $("#isMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; isMode = b.dataset.k; renderIS(); });
 $("#weeks").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; curWeek = +b.dataset.w; sbOpen = null; renderWeeks(); renderSB(); renderTiles(); });
