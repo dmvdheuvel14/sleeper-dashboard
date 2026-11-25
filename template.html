@@ -117,6 +117,39 @@ button.chip{cursor:pointer}
 .sbr .ap b{font-weight:500;color:var(--ink-2)}
 .sbr.lose .n{color:var(--ink-2)}
 .sbr.win .n{font-weight:600}
+.sbg{cursor:pointer;transition:border-color .15s}
+.sbg:hover{border-color:var(--ink-3)}
+.sbg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sbg.open{grid-column:1/-1;border-color:var(--accent)}
+.sbr .pf{grid-column:2/-1;margin-top:-6px;display:flex;flex-wrap:wrap;gap:2px 12px;font-size:12px;color:var(--ink-3)}
+.sbr .pf span{white-space:nowrap}
+.sbr .pf b{font-weight:600;color:var(--ink-2)}
+.sbr .pf .hi i{color:var(--accent);font-style:normal}
+.sbr .pf .lo i{color:var(--neg);font-style:normal}
+.sbg .more{display:flex;justify-content:center;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);padding:2px 0 4px;border-top:1px solid var(--grid)}
+.sbg.open .more{color:var(--accent)}
+.mu{border-top:1px solid var(--line);margin:0 -12px;padding:4px 12px 8px;cursor:default}
+.mur{display:grid;grid-template-columns:minmax(0,1fr) 52px 44px 52px minmax(0,1fr);align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--grid)}
+.mur:last-child{border-bottom:0}
+.mu > .mur{max-width:820px;margin-inline:auto}
+.mur .pl{min-width:0;line-height:1.25}
+.mur .pl.r{text-align:right}
+.mur .pl b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mur .pl small{display:block;font-size:11.5px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mur .pl small i{display:inline-block;width:4px;height:10px;border-radius:2px;background:var(--pc);margin-right:5px;vertical-align:-1px}
+.mur .pt{text-align:center;font-weight:500;color:var(--ink-2);border-radius:4px;padding:2px 0}
+.mur .pt.w{color:var(--ink);font-weight:700}
+.mur .pt.hi{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.mur .pt.lo{box-shadow:inset 0 0 0 1.5px var(--neg);color:var(--ink)}
+.mur .sl{text-align:center;font:600 10.5px/1 var(--body);letter-spacing:.04em;color:var(--ink-3);background:var(--deep);border-radius:4px;padding:5px 0}
+.mur.th{border-bottom:1px solid var(--line);padding:8px 0}
+.mur.th .pl b{font:var(--dw) 20px/1 var(--display);letter-spacing:.02em}
+.mur.th .pt{font:var(--dw) 22px/1 var(--display);color:var(--ink)}
+.mur.th .pt.w{color:var(--accent)}
+.mur.grp{grid-template-columns:1fr;padding:10px 0 4px;font:600 11px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);text-align:center}
+.mur.bn .pl b{font-weight:500;color:var(--ink-2)}
+.mur.empty .pl b{color:var(--ink-3);font-weight:400}
+@media (max-width:520px){.mur{grid-template-columns:minmax(0,1fr) 44px 34px 44px minmax(0,1fr);gap:5px}.mur .pt{font-size:12.5px}.mur .pl b{font-size:13px}.mur.th .pl b{font-size:16px}}
 .tr{display:grid;gap:0}
 .trr{display:grid;grid-template-columns:minmax(140px,200px) auto minmax(0,1fr);gap:8px 20px;align-items:center;padding:12px 0;border-bottom:1px solid var(--grid)}
 .trr:last-child{border-bottom:0}
@@ -245,7 +278,7 @@ button.chip{cursor:pointer}
 
   <section>
     <div class="sec-head"><h2>Weekly scoreboard</h2><div class="weeks" id="weeks"></div></div>
-    <div class="keys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span></div>
+    <div class="keys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span><span><b style="color:var(--accent)">▲</b>beste starter</span><span><b style="color:var(--neg)">▼</b>slechtste starter</span><span>Klik op een matchup voor beide rosters</span></div>
     <div class="sb" id="sb"></div>
   </section>
 
@@ -880,14 +913,50 @@ function renderWeeks(){
   curWeek = M.weeks.includes(curWeek) ? curWeek : M.weeks.at(-1);
   $("#weeks").innerHTML = M.weeks.map(w => `<button type="button" data-w="${w}" aria-pressed="${w === curWeek}">W${w}</button>`).join("");
 }
+const POS_ORDER = ["QB","RB","WR","TE","K","DEF"];
+let sbOpen = null;
+// Korte spelersnaam: "J. Allen", defenses als "BUF DEF".
+function shortName(pid){ const p = M.players[pid]; if(!p) return pid;
+  if(p.pos === "DEF") return (p.team || pid) + " DEF";
+  const parts = (p.name || pid).split(" "); return parts.length > 1 ? parts[0][0] + ". " + parts.slice(1).join(" ") : p.name; }
+// Starters van een team in een week, met slot en punten (lege slots "0" blijven staan voor de roster-weergave).
+function muStarters(m){ return (m?.starters || []).map((pid, i) => ({pid, slot:M.slots[i] || "–", p:m.players_points?.[pid] ?? 0, empty:!pid || pid === "0"})); }
+function muHiLo(m){ const s = muStarters(m).filter(x => !x.empty); if(!s.length) return {};
+  return {hi:s.reduce((a,b) => b.p > a.p ? b : a), lo:s.reduce((a,b) => b.p < a.p ? b : a)}; }
+function muBench(m){ const st = new Set(m?.starters || []);
+  return (m?.players || []).filter(pid => !st.has(pid)).map(pid => ({pid, slot:"BN", p:m.players_points?.[pid] ?? 0}))
+    .sort((a,b) => POS_ORDER.indexOf(M.players[a.pid]?.pos) - POS_ORDER.indexOf(M.players[b.pid]?.pos) || b.p - a.p); }
 function renderSB(){
   const st = M.wk[curWeek];
   $("#sbMed").textContent = `Week ${curWeek} · mediaan ${f2(st.med)} · gemiddelde ${f2(st.avg)}`;
-  const row = (rid, w) => { const r = M.byRid[rid].results.find(x => x.w === w);
+  const row = (rid, w) => { const r = M.byRid[rid].results.find(x => x.w === w), hl = muHiLo(M.mx[rid][w]);
+    const pf = hl.hi ? `<div class="pf"><span class="hi"><i>▲</i> ${esc(shortName(hl.hi.pid))} <b>${f1(hl.hi.p)}</b></span><span class="lo"><i>▼</i> ${esc(shortName(hl.lo.pid))} <b>${f1(hl.lo.p)}</b></span></div>` : "";
     return `<div class="sbr ${r.r === "W" ? "win" : r.r === "L" ? "lose" : ""}"><span class="res ${r.r}">${r.r === "W" ? "W" : r.r === "L" ? "L" : "G"}</span>
-      <span class="n">${nm(rid)}</span><span class="ap">all-play <b>${r.apW}-${r.apL}</b></span><span><span class="scorehl ${r.up ? "up" : ""}">${f2(r.pts)}</span></span></div>`; };
+      <span class="n">${nm(rid)}</span><span class="ap">all-play <b>${r.apW}-${r.apL}</b></span><span><span class="scorehl ${r.up ? "up" : ""}">${f2(r.pts)}</span></span>${pf}</div>`; };
   $("#sb").innerHTML = M.games.filter(g => g.w === curWeek).sort((a,b) => Math.max(b.pa,b.pb) - Math.max(a.pa,a.pb))
-    .map(g => `<div class="sbg">${[g.a,g.b].sort((x,y) => M.score[y][curWeek] - M.score[x][curWeek]).map(r => row(r, curWeek)).join("")}</div>`).join("");
+    .map(g => { const [a, b] = [g.a, g.b].sort((x,y) => M.score[y][curWeek] - M.score[x][curWeek]), key = `${curWeek}:${a}-${b}`, open = sbOpen === key;
+      return `<div class="sbg ${open ? "open" : ""}" role="button" tabindex="0" aria-expanded="${open}" data-key="${key}">${row(a, curWeek)}${row(b, curWeek)}
+        <div class="more">${open ? "▲ Rosters verbergen" : "▼ Rosters bekijken"}</div>${open ? matchupDetail(a, b, curWeek) : ""}</div>`; }).join("");
+}
+// Uitgeklapte matchup zoals in Sleeper: links team A, rechts team B, slot in het midden.
+function matchupDetail(a, b, w){
+  const ma = M.mx[a][w], mb = M.mx[b][w], sa = muStarters(ma), sb = muStarters(mb), ha = muHiLo(ma), hb = muHiLo(mb);
+  const pl = (x, side) => { if(!x) return `<div class="pl ${side}"></div>`;
+    if(x.empty) return `<div class="pl ${side}"><b>Leeg slot</b></div>`;
+    const p = M.players[x.pid] || {name:x.pid, pos:"?"};
+    return `<div class="pl ${side} pos-${esc(p.pos)}"><b>${esc(p.name)}</b><small><i></i>${esc(p.pos || "")}${p.team ? " · " + esc(p.team) : ""}</small></div>`; };
+  const pt = (x, o, h) => { if(!x) return `<div class="pt"></div>`; if(x.empty) return `<div class="pt">–</div>`;
+    const cls = [h?.hi?.pid === x.pid ? "hi" : h?.lo?.pid === x.pid ? "lo" : "", o && !o.empty && x.p > o.p ? "w" : ""].join(" ");
+    return `<div class="pt ${cls}">${f1(x.p)}</div>`; };
+  const line = (x, y, slot, ex = "") => `<div class="mur ${ex} ${x?.empty && y?.empty ? "empty" : ""}">${pl(x, "")}${pt(x, y, ex ? null : ha)}<div class="sl">${esc(slot)}</div>${pt(y, x, ex ? null : hb)}${pl(y, "r")}</div>`;
+  const n = Math.max(sa.length, sb.length), ba = muBench(ma), bb = muBench(mb), nb = Math.max(ba.length, bb.length);
+  const pa = M.score[a][w], pb = M.score[b][w];
+  return `<div class="mu" data-stop="1">
+    <div class="mur th"><div class="pl"><b>${nm(a)}</b><small>${esc(M.byRid[a].owner)}</small></div><div class="pt ${pa > pb ? "w" : ""}">${f2(pa)}</div><div></div><div class="pt ${pb > pa ? "w" : ""}">${f2(pb)}</div><div class="pl r"><b>${nm(b)}</b><small>${esc(M.byRid[b].owner)}</small></div></div>
+    <div class="mur grp">Starters</div>
+    ${Array.from({length:n}, (_, i) => line(sa[i], sb[i], sa[i]?.slot || sb[i]?.slot || "–")).join("")}
+    ${nb ? `<div class="mur grp">Bank</div>${Array.from({length:nb}, (_, i) => line(ba[i], bb[i], "BN", "bn")).join("")}` : ""}
+  </div>`;
 }
 function renderTrends(){
   $("#trends").innerHTML = M.standings.map(t => `<div class="trr">
@@ -1003,7 +1072,11 @@ function renderRosterDetail(){
 $("#dFilter").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; dFilter = b.dataset.k; renderDraft(); });
 $("#raSel").addEventListener("change", e => { store.set("rtg-ra", e.target.value); renderRA(); });
 $("#isMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; isMode = b.dataset.k; renderIS(); });
-$("#weeks").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; curWeek = +b.dataset.w; renderWeeks(); renderSB(); renderTiles(); });
+$("#weeks").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; curWeek = +b.dataset.w; sbOpen = null; renderWeeks(); renderSB(); renderTiles(); });
+function toggleSB(card){ sbOpen = sbOpen === card.dataset.key ? null : card.dataset.key; renderSB();
+  const el = document.querySelector(`.sbg[data-key="${sbOpen || card.dataset.key}"]`); if(el){ el.focus({preventScroll:true}); if(sbOpen) el.scrollIntoView({block:"nearest", behavior:"smooth"}); } }
+$("#sb").addEventListener("click", e => { if(e.target.closest("[data-stop]")) return; const c = e.target.closest(".sbg"); if(c) toggleSB(c); });
+$("#sb").addEventListener("keydown", e => { if(e.key !== "Enter" && e.key !== " ") return; const c = e.target.closest(".sbg"); if(!c || e.target !== c) return; e.preventDefault(); toggleSB(c); });
 
 function load(snap, live){ M = buildModel(snap); computeKPIs(M); render();
   $("#src").classList.toggle("live", live); $("#srcTxt").textContent = live ? "Live data" : "Snapshot"; }
