@@ -296,9 +296,16 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .mur .pt.pj{color:var(--ink-3);font-style:italic;font-weight:400}
 .sw.dots{background:repeating-linear-gradient(90deg,var(--accent) 0 2px,transparent 2px 5px)}
 .br-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
-.brk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.brc{display:grid;gap:10px;align-content:start;min-width:0}
-.brc h3{margin:0;font:600 11px/1.2 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.brk{display:grid;gap:10px}
+.bwrap-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:8px}
+.bwrap-h h3{margin:0;font:var(--dw) 22px/1 var(--display);letter-spacing:.02em}
+.bwrap{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);column-gap:44px;width:100%;padding-bottom:4px}
+.blinks{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.bcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.bcol h4{margin:0;font:600 11px/1.2 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.bgames{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:14px}
+.bm{position:relative;z-index:1;min-width:0}
+.bplace{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px;margin-bottom:8px}
 .bg{background:var(--deep);border:1px solid var(--line);border-radius:8px;min-width:0}
 .bg.final{border-color:var(--accent)}
 .bg .bt{font-size:11px;color:var(--ink-3);padding:7px 10px 0;letter-spacing:.04em}
@@ -313,7 +320,6 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .bs.fav .p{color:var(--accent)}
 .bs.won .n b{color:var(--accent)}.bs.lost{opacity:.5}
 .bg.champ .bs .p{color:var(--ink)}
-@media (max-width:760px){.brk{grid-template-columns:1fr}}
 .fcp{margin-top:12px;display:grid;gap:12px}
 .fc td:nth-child(2),.fc th:nth-child(2){text-align:left}
 .fc td.pr{min-width:92px}
@@ -540,9 +546,10 @@ async function fetchLive(leagueId){
   // Toekomstige weken van de reguliere competitie: matchups en projecties (die veranderen nog, dus altijd vers ophalen).
   const regEnd = (league.settings.playoff_week_start || 15) - 1, fw = [];
   for(let w = last + 1; w <= regEnd; w++) fw.push(w);
-  const [users, rosters, weeks, txs, futs, bracket] = await Promise.all([getJSON(`${L}/users`), getJSON(`${L}/rosters`),
+  const [users, rosters, weeks, txs, futs, bracket, lbracket] = await Promise.all([getJSON(`${L}/users`), getJSON(`${L}/rosters`),
     Promise.all(wk.map(w => getJSON(`${L}/matchups/${w}`))), Promise.all(wk.map(w => getJSON(`${L}/transactions/${w}`))),
-    Promise.all(fw.map(w => getJSON(`${L}/matchups/${w}`).catch(() => []))), getJSON(`${L}/winners_bracket`).catch(() => SNAPSHOT?.bracket || [])]);
+    Promise.all(fw.map(w => getJSON(`${L}/matchups/${w}`).catch(() => []))), getJSON(`${L}/winners_bracket`).catch(() => SNAPSHOT?.bracket || []),
+    getJSON(`${L}/losers_bracket`).catch(() => SNAPSHOT?.lbracket || [])]);
   const trimM = m => ({roster_id:m.roster_id, matchup_id:m.matchup_id, points:m.points||0, players_points:m.players_points||{}, starters:m.starters||[], players:m.players||[]});
   const matchups = {}, transactions = {}, future = {};
   weeks.forEach((w, i) => matchups[i+1] = w.map(trimM));
@@ -557,7 +564,7 @@ async function fetchLive(leagueId){
   return {fetched_at:new Date().toISOString(), league:{league_id:league.league_id, name:league.name, season:league.season, status:league.status, total_rosters:league.total_rosters, settings:league.settings},
     users:users.map(u => ({user_id:u.user_id, display_name:u.display_name, team_name:(u.metadata||{}).team_name})),
     rosters:rosters.map(r => ({roster_id:r.roster_id, owner_id:r.owner_id, players:r.players||[], starters:r.starters||[], reserve:r.reserve||[]})),
-    roster_positions:league.roster_positions || [], matchups, transactions, players, future, bracket,
+    roster_positions:league.roster_positions || [], matchups, transactions, players, future, bracket, lbracket,
     scoring:{fum_lost:league.scoring_settings?.fum_lost || 0, pass_int:league.scoring_settings?.pass_int || 0, rec:league.scoring_settings?.rec || 0, rec_yd:league.scoring_settings?.rec_yd || 0},
     stats:await liveStats(league.season, wk, ids),
     season_rank:await getJSON(`/stats/nfl/regular/${league.season}`).then(ss => { const o = {}; Object.keys({...players, ...Object.fromEntries((SNAPSHOT?.draft?.picks || []).map(p => [p.player_id, 1]))}).forEach(id => { const x = ss[id]; if(x?.pos_rank_ppr) o[id] = [x.pos_rank_ppr, x.pts_ppr]; }); return o; }).catch(() => SNAPSHOT?.season_rank || {}),
@@ -591,7 +598,7 @@ function buildModel(s){
     players:s.players || {}, rosters:Object.fromEntries((s.rosters || []).map(r => [r.roster_id, r])),
     slots:(s.roster_positions || []).filter(x => x !== "BN" && x !== "IR" && x !== "TAXI"), tx:s.transactions || {},
     stats:s.stats || {}, scoring:s.scoring || {}, srank:s.season_rank || {}, draft:s.draft || null, proj:s.proj || {},
-    fmx:fmx(s, weeks), bracket:s.bracket || null};
+    fmx:fmx(s, weeks), bracket:s.bracket || null, lbracket:s.lbracket || null};
 }
 // Toekomstige weken: matchup per team per week (alleen weken die nog niet gespeeld zijn).
 function fmx(s, played){ const o = {};
@@ -793,11 +800,14 @@ function projTeam(M, rid, w, cur){
   return {st, bench, proj, scored, live:scored > 0, mean:scored + left, frac:proj ? Math.min(1, left / proj) : 1, mid:m?.matchup_id};
 }
 // Playoffschema: uit Sleeper (rosters → huidige seed), anders het standaardschema voor 6 teams.
-function brTemplate(M){
+// Seed = plek in de stand (1..12); in de Toilet Bowl dus 7..12.
+function brTemplate(M, B = M.bracket, losers = false){
   const rk = Object.fromEntries(M.standings.map(t => [t.rid, t.rank])), cut = M.league.settings?.playoff_teams || 6;
   const slot = (t, from) => from ? {from} : t != null ? {seed:rk[t]} : {};
-  if(M.bracket?.length) return M.bracket.map(g => ({m:g.m, r:g.r, p:g.p, s1:slot(g.t1, g.t1_from), s2:slot(g.t2, g.t2_from), w:g.w ?? null}));
+  if(B?.length) return B.map(g => ({m:g.m, r:g.r, p:g.p, s1:slot(g.t1, g.t1_from), s2:slot(g.t2, g.t2_from), w:g.w ?? null}));
   if(cut !== 6) return null;
+  if(losers) return [{m:1,r:1,s1:{seed:9},s2:{seed:8}}, {m:2,r:1,s1:{seed:7},s2:{seed:10}}, {m:3,r:2,s1:{seed:12},s2:{from:{w:1}}}, {m:4,r:2,s1:{seed:11},s2:{from:{w:2}}},
+    {m:5,r:2,p:5,s1:{from:{l:1}},s2:{from:{l:2}}}, {m:6,r:3,p:1,s1:{from:{w:3}},s2:{from:{w:4}}}, {m:7,r:3,p:3,s1:{from:{l:3}},s2:{from:{l:4}}}];
   return [{m:1,r:1,s1:{seed:4},s2:{seed:5}}, {m:2,r:1,s1:{seed:3},s2:{seed:6}}, {m:3,r:2,s1:{seed:1},s2:{from:{w:1}}}, {m:4,r:2,s1:{seed:2},s2:{from:{w:2}}},
     {m:5,r:2,p:5,s1:{from:{l:1}},s2:{from:{l:2}}}, {m:6,r:3,p:1,s1:{from:{w:3}},s2:{from:{w:4}}}, {m:7,r:3,p:3,s1:{from:{l:3}},s2:{from:{l:4}}}];
 }
@@ -869,7 +879,7 @@ function forecast(M){
   // Prognose voor de lijn in Standings over time: gemiddelde plek per week, omgezet naar een volgorde 1..N.
   const sotF = {}; fw.forEach((w, wi) => { const avg = Object.fromEntries(T.map((t, i) => [t.rid, wkRank[wi][i] / SIMS]));
     const ord = [...T].sort((a,b) => avg[a.rid] - avg[b.rid]); sotF[w] = {avg, ord:Object.fromEntries(ord.map((t, i) => [t.rid, i + 1]))}; });
-  M.fc = {fw, P, games, team, order:ordExp, tpl, started, nBye, cut, pWin, sotF};
+  M.fc = {fw, P, games, team, order:ordExp, tpl, ltpl:brTemplate(M, M.lbracket, true), started, nBye, cut, pWin, sotF};
 }
 
 /* ---------- Tooltip ---------- */
@@ -1243,41 +1253,63 @@ function renderStandMode(){
   $("#standTab").hidden = standMode !== "tab"; $("#standPO").hidden = standMode !== "po";
 }
 function renderBracket(){
-  const F = M.fc, tpl = F.tpl, pw = M.league.settings?.playoff_week_start || 15;
+  const F = M.fc, pw = M.league.settings?.playoff_week_start || 15;
   $("#brSeed").hidden = F.started;
   $("#brSeed").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === brSeed));
-  if(!tpl){ $("#brk").innerHTML = `<p class="sub">Geen playoffschema gevonden in Sleeper.</p>`; $("#brSub").textContent = ""; return; }
-  const order = F.started || brSeed === "now" ? M.standings : F.order, seeds = order.slice(0, F.cut).map(t => t.rid);
-  const seedOf = Object.fromEntries(seeds.map((rid, i) => [rid, i + 1])), D = bracketDist(tpl, seeds, F.pWin);
-  $("#brSub").textContent = F.started ? "Playoffschema uit Sleeper. Percentages = winkans per duel op basis van de geprojecteerde rosterkracht."
-    : brSeed === "exp" ? "Seeding volgens de verwachte eindstand. Percentages = kans dat dat team het duel wint (geprojecteerde rosterkracht)."
-    : "Seeding als de playoffs nu zouden beginnen. Percentages = kans dat dat team het duel wint (geprojecteerde rosterkracht).";
+  const seeds = (F.started || brSeed === "now" ? M.standings : F.order).map(t => t.rid);
+  $("#brSub").textContent = (F.started ? "Seeding en uitslagen uit Sleeper." : brSeed === "exp" ? "Seeding volgens de verwachte eindstand." : "Seeding als de playoffs nu zouden beginnen.")
+    + " Percentages = kans om het duel te winnen, op basis van de geprojecteerde rosterkracht.";
+  $("#brk").innerHTML = F.tpl ? bracketHTML(F.tpl, seeds, false, pw) + (F.ltpl ? bracketHTML(F.ltpl, seeds, true, pw) : "")
+    : `<p class="sub">Geen playoffschema gevonden in Sleeper.</p>`;
+  drawBrLinks();
+}
+// Eén bracket zoals in Sleeper: rondes naast elkaar, elk duel tussen de duels die het voeden, plaatsingsduels eronder.
+// Toilet Bowl: de verliezer van een duel schuift door; wie de laatste ronde "wint" (verliest) eindigt als laatste.
+function bracketHTML(tpl, seeds, losers, pw){
+  const F = M.fc, seedOf = Object.fromEntries(seeds.map((rid, i) => [rid, i + 1]));
+  const D = bracketDist(tpl, seeds, losers ? (a, b) => 1 - F.pWin(a, b) : F.pWin);
   const rec = rid => { const t = M.byRid[rid], f = F.team[rid];
     return F.started || brSeed === "now" ? `${t.W}-${t.L}${t.T ? "-" + t.T : ""}` : `verwacht ${fmtRec(f.xW, f.xL)}`; };
+  const main = tpl.filter(g => !g.p || g.p === 1), byM = Object.fromEntries(main.map(g => [g.m, g]));
+  const rounds = [...new Set(main.map(g => g.r))].sort((a,b) => a - b), last = rounds.at(-1), cols = Object.fromEntries(rounds.map(r => [r, []]));
+  // Volgorde per ronde: vanaf de finale terug, zodat elk duel naast de duels staat die het voeden.
+  const seen = new Set(), visit = g => { if(seen.has(g.m)) return; seen.add(g.m); cols[g.r].push(g);
+    [g.s1, g.s2].forEach(s => { const k = s.from?.w; if(k != null && byM[k]) visit(byM[k]); }); };
+  main.filter(g => g.r === last).forEach(visit); brSorted(main).forEach(visit);
+  const adv = losers ? ["Verliezer", "Winnaar"] : ["Winnaar", "Verliezer"];
   const gLbl = m => { const g = tpl.find(x => x.m === m); if(!g) return "?";
     if(g.s1.seed && g.s2.seed) return `#${Math.min(g.s1.seed, g.s2.seed)}/#${Math.max(g.s1.seed, g.s2.seed)}`;
-    return g.p === 1 ? "finale" : `halve finale ${brSorted(tpl).filter(x => x.r === g.r && !x.p).indexOf(g) + 1}`; };
-  const slot = (dist, s, pw, g, winRid) => { if(!dist.size) return `<div class="bs tbd"><span class="sd">–</span><span class="n"><b>Nog onbekend</b></span><span></span></div>`;
+    return g.r === last ? "finale" : `halve finale ${cols[g.r]?.indexOf(g) + 1}`; };
+  const slot = (dist, s, win, g) => { if(!dist.size) return `<div class="bs tbd"><span class="sd">–</span><span class="n"><b>Nog onbekend</b></span><span></span></div>`;
     const top = [...dist].sort((a,b) => b[1] - a[1]), [rid, q] = top[0], sure = q > .999;
-    const from = s.from ? `${s.from.w != null ? "Winnaar" : "Verliezer"} ${gLbl(s.from.w ?? s.from.l)}` : "";
+    const from = s.from ? `${s.from.w != null ? adv[0] : adv[1]} ${gLbl(s.from.w ?? s.from.l)}` : "";
     const sub = sure ? `${esc(M.byRid[rid].owner)} · ${rec(rid)}` : `${from} · ${Math.round(q * 100)}%${top[1] ? `, anders ${esc(M.byRid[top[1][0]].name)} ${Math.round(top[1][1] * 100)}%` : ""}`;
-    const st = winRid == null ? "" : winRid === rid ? "won" : "lost";
-    return `<div class="bs ${sure ? "" : "tbd"} ${pw >= .5 ? "fav" : ""} ${st}"><span class="sd">${seedOf[rid] ? "#" + seedOf[rid] : ""}</span><span class="n"><b>${nm(rid)}</b><small>${sub}</small></span><span class="p">${g.w != null ? (st === "won" ? "W" : "") : Math.round(pw * 100) + "%"}</span></div>`; };
-  const game = (g, title) => { const d = D[g.m];
-    return `<div class="bg ${g.p === 1 ? "final" : ""}"><div class="bt">${title}</div>${slot(d.A, g.s1, d.pA, g, g.w)}${slot(d.B, g.s2, 1 - d.pA, g, g.w)}</div>`; };
-  const rounds = [...new Set(tpl.map(g => g.r))].sort((a,b) => a - b), last = rounds.at(-1);
-  const byes = seeds.slice(0, F.nBye);
-  const cols = rounds.map(r => { const gs = brSorted(tpl).filter(g => g.r === r), wk = pw + r - 1;
-    const name = r === last ? "Finale" : r === last - 1 ? "Halve finale" : `Ronde ${r}`;
-    let h = `<h3>${name} · week ${wk}</h3>`;
-    if(r === 1 && byes.length) h += `<div class="bg"><div class="bt">Bye (direct naar de halve finale)</div>${byes.map(rid => `<div class="bs"><span class="sd">#${seedOf[rid]}</span><span class="n"><b>${nm(rid)}</b><small>${esc(M.byRid[rid].owner)} · ${rec(rid)}</small></span><span></span></div>`).join("")}</div>`;
-    h += gs.filter(g => !g.p || g.p === 1).map(g => game(g, g.p === 1 ? "Finale" : `Duel ${gLbl(g.m)}`)).join("");
-    h += gs.filter(g => g.p && g.p !== 1).map(g => game(g, `Om plek ${g.p}`)).join("");
-    if(r === last){ const f = tpl.find(g => g.p === 1), ch = f ? [...D[f.m].W].sort((a,b) => b[1] - a[1]).slice(0, 4) : [];
-      if(ch.length) h += `<div class="bg champ"><div class="bt">Kampioenskans bij deze seeding</div>${ch.map(([rid, q]) => `<div class="bs"><span class="sd">#${seedOf[rid]}</span><span class="n"><b>${nm(rid)}</b></span><span class="p">${pct(q)}</span></div>`).join("")}</div>`; }
-    return `<div class="brc">${h}</div>`; });
-  $("#brk").innerHTML = cols.join("");
+    const st = g.w == null ? "" : g.w === rid ? "won" : "lost";
+    return `<div class="bs ${sure ? "" : "tbd"} ${g.w == null && win >= .5 ? "fav" : ""} ${st}"><span class="sd">${seedOf[rid] ? "#" + seedOf[rid] : ""}</span><span class="n"><b>${nm(rid)}</b><small>${sub}</small></span><span class="p">${g.w != null ? (st === "won" ? (losers ? "door" : "W") : "") : Math.round(win * 100) + "%"}</span></div>`; };
+  const game = (g, title) => { const d = D[g.m], wA = losers ? 1 - d.pA : d.pA;
+    return `<div class="bm" data-m="${g.m}"><div class="bg ${g.p === 1 ? "final" : ""}"><div class="bt">${title}</div>${slot(d.A, g.s1, wA, g)}${slot(d.B, g.s2, 1 - wA, g)}</div></div>`; };
+  const rName = r => r === last ? (losers ? "Toilet Bowl-finale" : "Finale") : r === last - 1 ? "Halve finale" : `Ronde ${r}`;
+  const pName = p => losers ? {3:"Om plek 9", 5:"Om plek 7"}[p] || `Plaatsingsduel` : `Om plek ${p}`;
+  const links = main.flatMap(g => [g.s1, g.s2].map((s, i) => s.from?.w != null && byM[s.from.w] ? `${s.from.w}>${g.m}:${i}` : null).filter(Boolean)).join(",");
+  const f = tpl.find(g => g.p === 1), ch = f ? [...D[f.m].W].sort((a,b) => b[1] - a[1]).slice(0, 4) : [];
+  const place = tpl.filter(g => g.p && g.p !== 1).sort((a,b) => a.p - b.p);
+  return `<div class="bwrap-h"><h3>${losers ? "Toilet Bowl" : "Winners bracket"}</h3><span class="sub">${losers ? `Onderste ${seeds.length - F.cut} teams. De verliezer schuift door; wie ook de laatste ronde verliest, eindigt als laatste.` : `Top ${F.cut}, de nummers 1 en 2 hebben een bye.`}</span></div>
+  <div class="scroll"><div class="bwrap" data-links="${links}" style="min-width:${rounds.length * 230 + (rounds.length - 1) * 44}px"><svg class="blinks" aria-hidden="true"></svg>
+    ${rounds.map(r => `<div class="bcol"><h4>${rName(r)} · week ${pw + r - 1}</h4><div class="bgames">${cols[r].map(g => game(g, `Week ${pw + r - 1}${g.s1.seed && g.s2.seed ? " · " + gLbl(g.m) : ""}`)).join("")}</div></div>`).join("")}
+  </div></div>
+  <div class="bplace">${place.map(g => game(g, `${pName(g.p)} · week ${pw + g.r - 1}`)).join("")}
+    ${ch.length ? `<div class="bm"><div class="bg champ"><div class="bt">${losers ? "Kans op de laatste plek" : "Kampioenskans"} bij deze seeding</div>${ch.map(([rid, q]) => `<div class="bs"><span class="sd">#${seedOf[rid]}</span><span class="n"><b>${nm(rid)}</b></span><span class="p">${pct(q)}</span></div>`).join("")}</div></div>` : ""}</div>`;
 }
+// Verbindingslijnen tussen de duels (pas te tekenen als de bracket zichtbaar is).
+function drawBrLinks(){
+  document.querySelectorAll(".bwrap").forEach(w => { const svg = w.querySelector(".blinks"), R = w.getBoundingClientRect();
+    if(!R.width) return; svg.setAttribute("width", w.scrollWidth); svg.setAttribute("height", w.scrollHeight);
+    svg.innerHTML = (w.dataset.links || "").split(",").filter(Boolean).map(l => { const [, a, b, i] = l.match(/(\d+)>(\d+):(\d)/);
+      const A = w.querySelector(`.bm[data-m="${a}"] .bg`), B = w.querySelectorAll(`.bm[data-m="${b}"] .bs`)[+i]; if(!A || !B) return "";
+      const ra = A.getBoundingClientRect(), rb = B.getBoundingClientRect(), x1 = ra.right - R.left, y1 = ra.top + ra.height / 2 - R.top, x2 = rb.left - R.left, y2 = rb.top + rb.height / 2 - R.top, xm = (x1 + x2) / 2;
+      return `<path d="M${x1} ${y1}H${xm}V${y2}H${x2}" fill="none" stroke="var(--line)" stroke-width="2"/>`; }).join(""); });
+}
+addEventListener("resize", () => { if(M) drawBrLinks(); });
 const fmtRec = (w, l) => `${f1(w).replace(".0", "")}-${f1(l).replace(".0", "")}`;
 
 /* ---------- Prognose: verwachte eindstand en samenvatting per team ---------- */
@@ -1503,7 +1535,7 @@ $("#pd").addEventListener("click", e => { const b = e.target.closest("th[data-so
 $("#pdScope").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; pdScope = b.dataset.k; hideTip(); renderPD(+$("#raSel").value); });
 $("#raSel").addEventListener("change", e => { store.set("rtg-ra", e.target.value); renderRA(); });
 $("#isMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; isMode = b.dataset.k; renderIS(); });
-$("#standMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; standMode = b.dataset.k; store.set("rtg-stand", standMode); renderStandMode(); });
+$("#standMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; standMode = b.dataset.k; store.set("rtg-stand", standMode); renderStandMode(); drawBrLinks(); });
 $("#brSeed").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; brSeed = b.dataset.k; renderBracket(); });
 $("#weeks").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; curWeek = +b.dataset.w; sbOpen = null; renderWeeks(); renderSB(); renderTiles(); });
 function toggleSB(card){ sbOpen = sbOpen === card.dataset.key ? null : card.dataset.key; renderSB();

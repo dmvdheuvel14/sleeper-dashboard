@@ -76,6 +76,7 @@ def main():
     fut_weeks = list(range(last_week + 1, reg_end + 1))
     snap["future"] = {str(w): trim_matchups(get(f"/league/{a.league}/matchups/{w}")) for w in fut_weeks}
     snap["bracket"] = get(f"/league/{a.league}/winners_bracket") or []
+    snap["lbracket"] = get(f"/league/{a.league}/losers_bracket") or []
     # Spelersdatabase (groot, ~15 MB): alleen spelers die in deze league voorkomen bewaren.
     ids = {pid for r in snap["rosters"] for pid in r["players"]}
     ids |= {pid for ms in snap["matchups"].values() for m in ms for pid in m["players"]}
