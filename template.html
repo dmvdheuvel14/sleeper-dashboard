@@ -285,6 +285,59 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .inj{display:inline-block;font-size:10.5px;font-weight:600;padding:1px 6px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
 @media (max-width:640px){.trr{grid-template-columns:1fr}}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.weeks button.fut{border-style:dashed;color:var(--ink-2)}
+.weeks button.fut[aria-pressed="true"]{border-style:solid;color:var(--accent-ink)}
+.weeks .wsep{align-self:center;font:600 10.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin:0 2px 0 6px}
+.sbg.fut{border-style:dashed}.sbg.fut.open{border-style:solid}
+.sbr.f{grid-template-columns:40px minmax(0,1fr) auto auto}
+.wp{display:inline-block;text-align:center;font-size:11.5px;font-weight:700;padding:2px 0;border-radius:999px;background:var(--deep);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line)}
+.wp.fav{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.livetag{display:inline-block;font:700 9.5px/1 var(--body);letter-spacing:.06em;padding:3px 5px;border-radius:3px;background:var(--accent);color:var(--accent-ink);margin-right:6px;vertical-align:1px}
+.mur .pt.pj{color:var(--ink-3);font-style:italic;font-weight:400}
+.sw.dots{background:repeating-linear-gradient(90deg,var(--accent) 0 2px,transparent 2px 5px)}
+.br-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
+.brk{display:grid;gap:10px}
+.bwrap-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:8px}
+.bwrap-h h3{margin:0;font:var(--dw) 22px/1 var(--display);letter-spacing:.02em}
+.bwrap{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,1fr);column-gap:44px;width:100%;padding-bottom:4px}
+.blinks{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.bcol{display:flex;flex-direction:column;gap:8px;min-width:0}
+.bcol h4{margin:0;font:600 11px/1.2 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.bgames{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:14px}
+.bm{position:relative;z-index:1;min-width:0}
+.bplace{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px;margin-bottom:8px}
+.bg{background:var(--deep);border:1px solid var(--line);border-radius:8px;min-width:0}
+.bg.final{border-color:var(--accent)}
+.bg .bt{font-size:11px;color:var(--ink-3);padding:7px 10px 0;letter-spacing:.04em}
+.bs{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 10px}
+.bs + .bs{border-top:1px solid var(--line)}
+.bs .sd{font:var(--dw) 17px/1 var(--display);color:var(--ink-3);text-align:center}
+.bs .n{min-width:0;line-height:1.25}
+.bs .n b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bs .n small{display:block;font-size:11.5px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bs.tbd .n b{color:var(--ink-2);font-weight:500}
+.bs .p{font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.bs.fav .p{color:var(--accent)}
+.bs.won .n b{color:var(--accent)}.bs.lost{opacity:.5}
+.bg.champ .bs .p{color:var(--ink)}
+.fcp{margin-top:12px;display:grid;gap:12px}
+.fc td:nth-child(2),.fc th:nth-child(2){text-align:left}
+.fc td.pr{min-width:92px}
+.pbar{display:inline-block;width:44px;height:6px;border-radius:3px;background:var(--deep);vertical-align:middle;margin-left:6px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.pbar i{display:block;height:100%;background:var(--accent)}
+.rdist{display:inline-flex;align-items:flex-end;gap:1px;height:20px;vertical-align:middle}
+.rdist i{width:5px;min-height:1px;background:var(--ink-3);border-radius:1px 1px 0 0;display:block}
+.rdist i.po{background:var(--accent)}
+.fcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px}
+.fcc{background:var(--deep);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;gap:8px;align-content:start}
+.fcc.sel{border-color:var(--accent)}
+.fcc .h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.fcc .h b{font:var(--dw) 20px/1.05 var(--display);letter-spacing:.02em;min-width:0;overflow-wrap:anywhere}
+.fcc .h span{font-size:12px;color:var(--ink-3);white-space:nowrap}
+.fcc .h span strong{color:var(--accent);font-weight:700}
+.fcc p{margin:0;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.fcc .chips{margin:0}
+.chip.fav{color:var(--ink)}.chip.fav b{color:var(--accent)}
 #tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--accent-ink);padding:8px 10px;border-radius:6px;font-size:12px;line-height:1.45;z-index:20;max-width:260px}
 .notes{font-size:12.5px;color:var(--ink-2)}
 .notes li{margin:2px 0}
@@ -314,21 +367,32 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 
   <section>
     <div class="sec-head"><h2>Weekly scoreboard</h2><div class="weeks" id="weeks"></div></div>
-    <div class="keys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span><span><b style="color:var(--accent)">▲</b>beste starter</span><span><b style="color:var(--neg)">▼</b>slechtste starter</span><span>Klik op een matchup voor beide rosters</span></div>
+    <div class="keys" id="sbKeys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span><span><b style="color:var(--accent)">▲</b>beste starter</span><span><b style="color:var(--neg)">▼</b>slechtste starter</span><span>Klik op een matchup voor beide rosters</span></div>
     <div class="sb" id="sb"></div>
   </section>
 
   <section>
-    <div class="sec-head"><h2>Stand</h2><span class="sub" id="standSub"></span></div>
-    <div class="panel scroll"><table id="stand"></table></div>
+    <div class="sec-head"><h2>Stand</h2><span class="sub" id="standSub"></span>
+      <div class="seg" id="standMode"><button type="button" data-k="tab" aria-pressed="true">Stand</button><button type="button" data-k="po" aria-pressed="false">Playoffs</button></div></div>
+    <div class="panel scroll" id="standTab"><table id="stand"></table></div>
+    <div class="panel" id="standPO" hidden>
+      <div class="br-h"><span class="sub" id="brSub"></span>
+        <div class="seg" id="brSeed"><button type="button" data-k="exp" aria-pressed="true">Verwachte eindstand</button><button type="button" data-k="now" aria-pressed="false">Huidige stand</button></div></div>
+      <div class="brk" id="brk"></div>
+    </div>
   </section>
 
   <section>
     <div class="sec-head"><h2>Standings over time</h2>
-      <div class="legend"><span><i class="sw"></i>Echte stand</span><span><i class="sw dash"></i>Verwachte stand (all-play)</span></div></div>
+      <div class="legend"><span><i class="sw"></i>Echte stand</span><span><i class="sw dash"></i>Verwachte stand (all-play)</span><span id="sotFcKey"><i class="sw dots"></i>Prognose komende weken</span></div></div>
     <div class="panel">
       <div class="chips" id="sotTeams" style="margin:0 0 10px"></div>
-      <svg id="sot" class="chart" role="img" aria-label="Positie in de stand per week voor alle teams, echt en verwacht"></svg>
+      <svg id="sot" class="chart" role="img" aria-label="Positie in de stand per week voor alle teams, echt en verwacht, plus prognose voor de resterende weken"></svg>
+    </div>
+    <div class="panel fcp" id="fcP">
+      <div class="pd-h"><b>Verwachte eindstand</b><span class="sub" id="fcSub"></span></div>
+      <div class="scroll"><table id="fcT" class="fc"></table></div>
+      <div class="fcs" id="fcS"></div>
     </div>
   </section>
 
@@ -419,6 +483,9 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     <ul class="notes">
       <li>Alleen afgeronde weken tellen mee (t/m de laatst gescoorde week volgens Sleeper). Playoffweken worden nog niet apart behandeld.</li>
       <li>Rangorde: meeste winsten, daarna meeste punten (PF). Stippellijn = playoffgrens.</li>
+      <li>Prognose (toekomstige weken): per team de som van de Sleeper-projecties (PPR) van de starters. Voor de lopende week is dat de opstelling die nu in Sleeper staat (al gescoorde punten tellen echt, wie nog moet spelen telt met zijn projectie); voor latere weken de beste opstelling van het huidige roster volgens de projecties, zonder spelers op IR. Winkans = normale verdeling rond die projecties, met per team een spreiding van half de eigen weekspreiding en half het leaguegemiddelde.</li>
+      <li>Verwachte eindstand: de rest van de reguliere competitie en de playoffs worden 10.000 keer gesimuleerd. Verwacht record en PF zijn gemiddelden; playoffs/bye/titel = aandeel simulaties. Voor de playoffs telt de gemiddelde rosterprojectie van de resterende weken. Volgorde = gemiddelde eindplek. Sleutelduel = het resterende duel waarvan winst of verlies de playoffkans het meest verschuift.</li>
+      <li>Playoffschema: structuur uit Sleeper (top 6, de nummers 1 en 2 hebben een bye). "Verwachte eindstand" zet de teams op hun verwachte seed; "Huidige stand" alsof de playoffs nu beginnen. Zodra de playoffs lopen, toont het schema de echte seeding en uitslagen uit Sleeper.</li>
       <li>All-play: elke week speel je virtueel tegen alle andere teams. Verwachte winsten = som van (gewonnen virtuele duels ÷ 11).</li>
       <li>Bankpunten = punten van alle spelers op je roster min je startende score (incl. IR, indien Sleeper die meetelt).</li>
       <li>Teamnaam = Sleeper teamnaam, anders de gebruikersnaam.</li>
@@ -453,9 +520,9 @@ async function getJSON(p){const r = await fetch(API + p); if(!r.ok) throw new Er
 // NFL-weekstats: oude weken uit de snapshot, alleen de laatste en ontbrekende weken live ophalen (~0,5 MB per week).
 const STAT_KEYS = ["pos_rank_ppr","fum_lost","pass_int","rec_drop","pass_yd","rush_yd","rec_yd","pass_td","rush_td","rec_td","fgm","xpm","sack","int","fum_rec","def_td","def_st_td","safe","pts_allow"];
 // DEF-spelers zijn teamcodes (bv. DET); die ook meenemen.
-async function liveProj(season, wk, ids){
+async function liveProj(season, wk, ids, fresh = []){
   const out = {...(SNAPSHOT?.proj || {})}, last = wk.at(-1);
-  await Promise.all(wk.filter(w => !out[w] || w === last).map(async w => {
+  await Promise.all(wk.filter(w => !out[w] || w === last || fresh.includes(w)).map(async w => {
     const pr = await getJSON(`/projections/nfl/regular/${season}/${w}`).catch(() => null); if(!pr) return;
     const o = {}; ids.forEach(id => { if(pr[id]?.pts_ppr) o[id] = pr[id].pts_ppr; }); out[w] = o; }));
   return out;
@@ -476,10 +543,17 @@ async function fetchLive(leagueId){
   const L = `/league/${leagueId}`;
   const league = await getJSON(L);
   const last = league.settings.last_scored_leg || 0, wk = Array.from({length:last}, (_, i) => i+1);
-  const [users, rosters, weeks, txs] = await Promise.all([getJSON(`${L}/users`), getJSON(`${L}/rosters`),
-    Promise.all(wk.map(w => getJSON(`${L}/matchups/${w}`))), Promise.all(wk.map(w => getJSON(`${L}/transactions/${w}`)))]);
-  const matchups = {}, transactions = {};
-  weeks.forEach((w, i) => matchups[i+1] = w.map(m => ({roster_id:m.roster_id, matchup_id:m.matchup_id, points:m.points||0, players_points:m.players_points||{}, starters:m.starters||[], players:m.players||[]})));
+  // Toekomstige weken van de reguliere competitie: matchups en projecties (die veranderen nog, dus altijd vers ophalen).
+  const regEnd = (league.settings.playoff_week_start || 15) - 1, fw = [];
+  for(let w = last + 1; w <= regEnd; w++) fw.push(w);
+  const [users, rosters, weeks, txs, futs, bracket, lbracket] = await Promise.all([getJSON(`${L}/users`), getJSON(`${L}/rosters`),
+    Promise.all(wk.map(w => getJSON(`${L}/matchups/${w}`))), Promise.all(wk.map(w => getJSON(`${L}/transactions/${w}`))),
+    Promise.all(fw.map(w => getJSON(`${L}/matchups/${w}`).catch(() => []))), getJSON(`${L}/winners_bracket`).catch(() => SNAPSHOT?.bracket || []),
+    getJSON(`${L}/losers_bracket`).catch(() => SNAPSHOT?.lbracket || [])]);
+  const trimM = m => ({roster_id:m.roster_id, matchup_id:m.matchup_id, points:m.points||0, players_points:m.players_points||{}, starters:m.starters||[], players:m.players||[]});
+  const matchups = {}, transactions = {}, future = {};
+  weeks.forEach((w, i) => matchups[i+1] = w.map(trimM));
+  futs.forEach((w, i) => future[fw[i]] = (w || []).map(trimM));
   txs.forEach((w, i) => transactions[i+1] = w.filter(t => t.status === "complete").map(t => ({type:t.type, leg:t.leg, created:t.created, adds:t.adds||{}, drops:t.drops||{}, roster_ids:t.roster_ids||[], draft_picks:t.draft_picks||[], waiver_budget:t.waiver_budget||[]})));
   const players = {...(SNAPSHOT?.players || {})};
   const ids = new Set([...rosters.flatMap(r => r.players || []), ...Object.values(matchups).flat().flatMap(m => m.players)]);
@@ -490,12 +564,12 @@ async function fetchLive(leagueId){
   return {fetched_at:new Date().toISOString(), league:{league_id:league.league_id, name:league.name, season:league.season, status:league.status, total_rosters:league.total_rosters, settings:league.settings},
     users:users.map(u => ({user_id:u.user_id, display_name:u.display_name, team_name:(u.metadata||{}).team_name})),
     rosters:rosters.map(r => ({roster_id:r.roster_id, owner_id:r.owner_id, players:r.players||[], starters:r.starters||[], reserve:r.reserve||[]})),
-    roster_positions:league.roster_positions || [], matchups, transactions, players,
+    roster_positions:league.roster_positions || [], matchups, transactions, players, future, bracket, lbracket,
     scoring:{fum_lost:league.scoring_settings?.fum_lost || 0, pass_int:league.scoring_settings?.pass_int || 0, rec:league.scoring_settings?.rec || 0, rec_yd:league.scoring_settings?.rec_yd || 0},
     stats:await liveStats(league.season, wk, ids),
     season_rank:await getJSON(`/stats/nfl/regular/${league.season}`).then(ss => { const o = {}; Object.keys({...players, ...Object.fromEntries((SNAPSHOT?.draft?.picks || []).map(p => [p.player_id, 1]))}).forEach(id => { const x = ss[id]; if(x?.pos_rank_ppr) o[id] = [x.pos_rank_ppr, x.pts_ppr]; }); return o; }).catch(() => SNAPSHOT?.season_rank || {}),
     draft:SNAPSHOT?.draft || null,
-    proj:await liveProj(league.season, wk, ids)};
+    proj:await liveProj(league.season, [...wk, ...fw], ids, fw)};
 }
 
 /* ---------- Model: teams, weken, wedstrijden ---------- */
@@ -523,7 +597,14 @@ function buildModel(s){
   return {league:s.league, fetched_at:s.fetched_at, teams, byRid, weeks, score, bench, games, mx,
     players:s.players || {}, rosters:Object.fromEntries((s.rosters || []).map(r => [r.roster_id, r])),
     slots:(s.roster_positions || []).filter(x => x !== "BN" && x !== "IR" && x !== "TAXI"), tx:s.transactions || {},
-    stats:s.stats || {}, scoring:s.scoring || {}, srank:s.season_rank || {}, draft:s.draft || null, proj:s.proj || {}};
+    stats:s.stats || {}, scoring:s.scoring || {}, srank:s.season_rank || {}, draft:s.draft || null, proj:s.proj || {},
+    fmx:fmx(s, weeks), bracket:s.bracket || null, lbracket:s.lbracket || null};
+}
+// Toekomstige weken: matchup per team per week (alleen weken die nog niet gespeeld zijn).
+function fmx(s, played){ const o = {};
+  Object.keys(s.future || {}).map(Number).filter(w => !played.includes(w)).forEach(w => {
+    o[w] = Object.fromEntries((s.future[w] || []).map(m => [m.roster_id, m])); });
+  return o;
 }
 
 /* ---------- KPI's per team (uitbreidbaar: voeg een functie toe aan KPIS) ---------- */
@@ -685,7 +766,121 @@ function teamProfile(M){
     t.prof = Object.fromEntries(Object.entries(tot).map(([k,v]) => [k, v / (n || 1)])); }
 }
 function computeKPIs(M){ weekStats(M); M.teams.forEach(t => KPIS.forEach(k => k(M, t))); trueWins(M); playerLevel(M); standingsOverTime(M); luckLevel(M); teamProfile(M); draftLevel(M); pointsLuck(M); outIR(M); tradeLevel(M);
-  M.standings = [...M.teams].sort((a,b) => (b.W + b.T/2) - (a.W + a.T/2) || b.PF - a.PF); M.standings.forEach((t,i) => t.rank = i+1); }
+  M.standings = [...M.teams].sort((a,b) => (b.W + b.T/2) - (a.W + a.T/2) || b.PF - a.PF); M.standings.forEach((t,i) => t.rank = i+1);
+  forecast(M); }
+
+/* ---------- Prognose: toekomstige weken, verwachte eindstand en playoffs ---------- */
+const SIMS = 10000;
+// Vaste seed: de percentages verspringen niet bij elke herlaadbeurt zolang de data gelijk blijft.
+function rng(seed){ return () => { seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function normal(r){ let u = 0; while(!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+// Normale verdelingsfunctie (benadering van Abramowitz & Stegun).
+function Phi(z){ const t = 1 / (1 + .2316419 * Math.abs(z)), d = .3989423 * Math.exp(-z * z / 2);
+  const p = d * t * (.3193815 + t * (-.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z > 0 ? 1 - p : p; }
+// Beste opstelling volgens projecties: per slot de hoogst geprojecteerde geschikte speler (eerst vaste slots, dan flex).
+function bestLineup(M, pids, pr){
+  const order = M.slots.map((s,i) => [s,i]).sort((a,b) => (FLEX[a[0]] ? 1 : 0) - (FLEX[b[0]] ? 1 : 0)), used = new Set(), st = [];
+  for(const [slot, i] of order){ let best = null;
+    for(const pid of pids) if(!used.has(pid) && fits(M, pid, slot) && (best === null || (pr[pid] || 0) > (pr[best] || 0))) best = pid;
+    if(best !== null) used.add(best); st[i] = best ?? "0"; }
+  return st;
+}
+// Geprojecteerde score van een team in een toekomstige week.
+// Lopende week: de opstelling die nu in Sleeper staat; gescoorde punten tellen, wie nog moet spelen telt met zijn projectie.
+// Latere weken: de beste opstelling van het huidige roster (zonder IR) volgens de Sleeper-projecties.
+function projTeam(M, rid, w, cur){
+  const m = M.fmx[w]?.[rid], pr = M.proj[w] || {}, r = M.rosters[rid] || {}, res = new Set(r.reserve || []);
+  const pool = (r.players?.length ? r.players : m?.players || []).filter(pid => !res.has(pid));
+  const starters = cur && m?.starters?.length ? m.starters : bestLineup(M, pool, pr), pts = cur ? m?.players_points || {} : {};
+  const st = starters.map((pid, i) => ({pid, slot:M.slots[i] || "–", proj:pr[pid] || 0, p:pts[pid] || 0, empty:!pid || pid === "0"}));
+  const used = new Set(starters), bp = cur && m?.players?.length ? m.players : pool;
+  const bench = bp.filter(pid => !used.has(pid)).map(pid => ({pid, slot:"BN", proj:pr[pid] || 0, p:pts[pid] || 0}))
+    .sort((a,b) => POS_ORDER.indexOf(M.players[a.pid]?.pos) - POS_ORDER.indexOf(M.players[b.pid]?.pos) || b.proj - a.proj);
+  const proj = st.reduce((a,x) => a + x.proj, 0), scored = st.reduce((a,x) => a + x.p, 0), left = st.reduce((a,x) => a + (x.p ? 0 : x.proj), 0);
+  return {st, bench, proj, scored, live:scored > 0, mean:scored + left, frac:proj ? Math.min(1, left / proj) : 1, mid:m?.matchup_id};
+}
+// Playoffschema: uit Sleeper (rosters → huidige seed), anders het standaardschema voor 6 teams.
+// Seed = plek in de stand (1..12); in de Toilet Bowl dus 7..12.
+function brTemplate(M, B = M.bracket, losers = false){
+  const rk = Object.fromEntries(M.standings.map(t => [t.rid, t.rank])), cut = M.league.settings?.playoff_teams || 6;
+  const slot = (t, from) => from ? {from} : t != null ? {seed:rk[t]} : {};
+  if(B?.length) return B.map(g => ({m:g.m, r:g.r, p:g.p, s1:slot(g.t1, g.t1_from), s2:slot(g.t2, g.t2_from), w:g.w ?? null}));
+  if(cut !== 6) return null;
+  if(losers) return [{m:1,r:1,s1:{seed:9},s2:{seed:8}}, {m:2,r:1,s1:{seed:7},s2:{seed:10}}, {m:3,r:2,s1:{seed:12},s2:{from:{w:1}}}, {m:4,r:2,s1:{seed:11},s2:{from:{w:2}}},
+    {m:5,r:2,p:5,s1:{from:{l:1}},s2:{from:{l:2}}}, {m:6,r:3,p:1,s1:{from:{w:3}},s2:{from:{w:4}}}, {m:7,r:3,p:3,s1:{from:{l:3}},s2:{from:{l:4}}}];
+  return [{m:1,r:1,s1:{seed:4},s2:{seed:5}}, {m:2,r:1,s1:{seed:3},s2:{seed:6}}, {m:3,r:2,s1:{seed:1},s2:{from:{w:1}}}, {m:4,r:2,s1:{seed:2},s2:{from:{w:2}}},
+    {m:5,r:2,p:5,s1:{from:{l:1}},s2:{from:{l:2}}}, {m:6,r:3,p:1,s1:{from:{w:3}},s2:{from:{w:4}}}, {m:7,r:3,p:3,s1:{from:{l:3}},s2:{from:{l:4}}}];
+}
+const brSorted = tpl => [...tpl].sort((a,b) => a.r - b.r || a.m - b.m);
+const fromKey = f => f.w != null ? ["w", f.w] : ["l", f.l];
+// Eén playoffrun: play(a, b) → true als a wint. Al gespeelde duels (winnaar in Sleeper) liggen vast.
+function runBracket(tpl, seeds, play){ const res = {};
+  const who = s => s.seed ? seeds[s.seed - 1] : s.from ? res[fromKey(s.from)[1]]?.[fromKey(s.from)[0]] : null;
+  for(const g of brSorted(tpl)){ const a = who(g.s1), b = who(g.s2);
+    if(a == null || b == null){ res[g.m] = {w:a ?? b, l:null}; continue; }
+    const aw = g.w === a || g.w === b ? g.w === a : play(a, b); res[g.m] = {w:aw ? a : b, l:aw ? b : a}; }
+  return res; }
+// Exacte kansverdeling per slot in het schema, gegeven een seeding.
+function bracketDist(tpl, seeds, pWin){ const D = {};
+  const dist = s => s.seed ? new Map(seeds[s.seed - 1] != null ? [[seeds[s.seed - 1], 1]] : []) : s.from ? D[fromKey(s.from)[1]]?.[fromKey(s.from)[0] === "w" ? "W" : "L"] || new Map() : new Map();
+  const add = (m, k, v) => m.set(k, (m.get(k) || 0) + v);
+  for(const g of brSorted(tpl)){ const A = dist(g.s1), B = dist(g.s2), W = new Map(), L = new Map(); let pA = 0;
+    if(!A.size || !B.size){ D[g.m] = {A, B, W:new Map([...A, ...B]), L, pA:A.size ? 1 : 0}; continue; }
+    for(const [a, qa] of A) for(const [b, qb] of B){ const q = g.w === a || g.w === b ? +(g.w === a) : pWin(a, b), j = qa * qb;
+      add(W, a, j * q); add(W, b, j * (1 - q)); add(L, b, j * q); add(L, a, j * (1 - q)); pA += j * q; }
+    D[g.m] = {A, B, W, L, pA}; }
+  return D; }
+function forecast(M){
+  const T = M.teams, N = T.length, S = M.league.settings || {}, cut = S.playoff_teams || 6, cur = S.leg;
+  const fw = Object.keys(M.fmx).map(Number).sort((a,b) => a - b), idx = Object.fromEntries(T.map((t,i) => [t.rid, i]));
+  // Spreiding per team: half eigen standaardafwijking, half leaguegemiddelde (stabieler na weinig weken).
+  const lgSD = T.reduce((a,t) => a + t.sd, 0) / N || 25;
+  T.forEach(t => t.sdF = Math.sqrt((t.sd ** 2 + lgSD ** 2) / 2) || 25);
+  const P = {}, games = [];
+  fw.forEach(w => { P[w] = {}; T.forEach(t => P[w][t.rid] = projTeam(M, t.rid, w, w === cur));
+    const g = {}; T.forEach(t => { const mid = P[w][t.rid].mid; if(mid != null) (g[mid] ||= []).push(t.rid); });
+    Object.values(g).forEach(([a, b]) => { if(b == null) return; const A = P[w][a], B = P[w][b];
+      const sa = M.byRid[a].sdF * Math.sqrt(A.frac), sb = M.byRid[b].sdF * Math.sqrt(B.frac);
+      games.push({w, a, b, ma:A.mean, mb:B.mean, sa, sb, pa:Phi((A.mean - B.mean) / (Math.hypot(sa, sb) || 1e-6))}); }); });
+  // Rosterkracht voor de playoffs: gemiddelde projectie over de resterende weken, anders het seizoensgemiddelde.
+  T.forEach(t => { const v = fw.map(w => P[w][t.rid].proj).filter(x => x > 0); t.ppg = v.length ? v.reduce((a,b) => a + b, 0) / v.length : t.avg; });
+  const pWin = (a, b) => { const A = M.byRid[a], B = M.byRid[b]; return Phi((A.ppg - B.ppg) / Math.hypot(A.sdF, B.sdF)); };
+  const tpl = brTemplate(M), started = (cur || 0) >= (S.playoff_week_start || 99) || M.league.status === "post_season" || M.league.status === "complete";
+  const nBye = tpl ? new Set(tpl.filter(g => g.r > 1).flatMap(g => [g.s1.seed, g.s2.seed]).filter(Boolean)).size : 0;
+  const r = rng(20261125), W0 = T.map(t => t.W + t.T / 2), F0 = T.map(t => t.PF);
+  const rankCnt = T.map(() => new Array(N).fill(0)), wkRank = fw.map(() => new Array(N).fill(0));
+  const po = new Array(N).fill(0), bye = po.slice(), champ = po.slice(), fin = po.slice(), sW = po.slice(), sF = po.slice();
+  const lev = games.map(() => ({aw:0, awp:0, alp:0, bwp:0, blp:0})), out = new Array(games.length), pos = new Array(N);
+  const play = (a, b) => { const A = M.byRid[a], B = M.byRid[b]; return A.ppg + A.sdF * normal(r) > B.ppg + B.sdF * normal(r); };
+  const order = (W, F) => T.map((_, i) => i).sort((x,y) => W[y] - W[x] || F[y] - F[x]);
+  for(let s = 0; s < SIMS; s++){
+    const W = W0.slice(), F = F0.slice(); let gi = 0;
+    fw.forEach((w, wi) => {
+      for(; gi < games.length && games[gi].w === w; gi++){ const g = games[gi], ia = idx[g.a], ib = idx[g.b];
+        const xa = g.ma + g.sa * normal(r), xb = g.mb + g.sb * normal(r), aw = xa > xb;
+        F[ia] += xa; F[ib] += xb; W[aw ? ia : ib]++; out[gi] = aw; }
+      order(W, F).forEach((i, k) => wkRank[wi][i] += k + 1); });
+    const ord = order(W, F); ord.forEach((i, k) => { pos[i] = k; rankCnt[i][k]++; });
+    for(let i = 0; i < N; i++){ sW[i] += W[i]; sF[i] += F[i]; if(pos[i] < cut) po[i]++; if(pos[i] < nBye) bye[i]++; }
+    games.forEach((g, gi) => { const L = lev[gi], ia = idx[g.a], ib = idx[g.b];
+      if(out[gi]){ L.aw++; if(pos[ia] < cut) L.awp++; if(pos[ib] < cut) L.blp++; } else { if(pos[ia] < cut) L.alp++; if(pos[ib] < cut) L.bwp++; } });
+    if(tpl){ const res = runBracket(tpl, ord.slice(0, cut).map(i => T[i].rid), play), f = tpl.find(g => g.p === 1);
+      if(f && res[f.m]){ if(res[f.m].w != null) champ[idx[res[f.m].w]]++; [res[f.m].w, res[f.m].l].forEach(x => x != null && fin[idx[x]]++); } }
+  }
+  const team = {};
+  T.forEach((t, i) => { const left = games.filter(g => g.a === t.rid || g.b === t.rid).length, xW = sW[i] / SIMS;
+    team[t.rid] = {po:po[i] / SIMS, bye:bye[i] / SIMS, champ:champ[i] / SIMS, fin:fin[i] / SIMS, xW, xL:t.W + t.L + t.T + left - xW, xPF:sF[i] / SIMS,
+      dist:rankCnt[i].map(c => c / SIMS), avgRank:rankCnt[i].reduce((a,c,k) => a + c * (k + 1), 0) / SIMS, sched:[]}; });
+  games.forEach((g, gi) => { const L = lev[gi], nl = SIMS - L.aw;
+    team[g.a].sched.push({w:g.w, oid:g.b, p:g.pa, ifW:L.aw ? L.awp / L.aw : null, ifL:nl ? L.alp / nl : null});
+    team[g.b].sched.push({w:g.w, oid:g.a, p:1 - g.pa, ifW:nl ? L.bwp / nl : null, ifL:L.aw ? L.blp / L.aw : null}); });
+  const ordExp = [...T].sort((a,b) => team[a.rid].avgRank - team[b.rid].avgRank || team[b.rid].xW - team[a.rid].xW);
+  ordExp.forEach((t, i) => team[t.rid].order = i + 1);
+  // Prognose voor de lijn in Standings over time: gemiddelde plek per week, omgezet naar een volgorde 1..N.
+  const sotF = {}; fw.forEach((w, wi) => { const avg = Object.fromEntries(T.map((t, i) => [t.rid, wkRank[wi][i] / SIMS]));
+    const ord = [...T].sort((a,b) => avg[a.rid] - avg[b.rid]); sotF[w] = {avg, ord:Object.fromEntries(ord.map((t, i) => [t.rid, i + 1]))}; });
+  M.fc = {fw, P, games, team, order:ordExp, tpl, ltpl:brTemplate(M, M.lbracket, true), started, nBye, cut, pWin, sotF};
+}
 
 /* ---------- Tooltip ---------- */
 const tip = $("#tip");
@@ -700,8 +895,8 @@ function render(){
   const L = M.league;
   $("#lname").textContent = L.name; $("#season").textContent = `Sleeper · seizoen ${L.season} · ${M.teams.length} teams`;
   $("#asof").textContent = `Weken 1–${M.weeks.at(-1) || 0} · opgehaald ${new Date(M.fetched_at).toLocaleString("nl-NL", {dateStyle:"medium", timeStyle:"short"})}`;
-  curWeek = M.weeks.includes(curWeek) ? curWeek : M.weeks.at(-1);
-  renderTiles(); renderStandings(); renderSOT(); renderHeat(); renderLuck(); renderDraft(); renderWeeks(); renderSB(); renderTrends(); renderSC(); renderTW(); renderIS(); renderWV(); renderTrades(); renderRA();
+  curWeek = M.weeks.includes(curWeek) || M.fc.fw.includes(curWeek) ? curWeek : M.weeks.at(-1);
+  renderTiles(); renderStandings(); renderStandMode(); renderBracket(); renderSOT(); renderFC(); renderHeat(); renderLuck(); renderDraft(); renderWeeks(); renderSB(); renderTrends(); renderSC(); renderTW(); renderIS(); renderWV(); renderTrades(); renderRA();
 }
 function nm(rid){ return esc(M.byRid[rid].name); }
 
@@ -783,36 +978,47 @@ function standingsOverTime(M){
 }
 let sotSel = null;
 function renderSOT(){
-  const S = M.standings;
+  const S = M.standings, fw = M.fc.fw, sf = M.fc.sotF;
   if(!M.byRid[sotSel]) sotSel = M.byRid[Number(store.get("rtg-sot"))] ? Number(store.get("rtg-sot")) : S[0].rid;
   $("#sotTeams").innerHTML = S.map(t => `<button type="button" class="chip ${t.rid === sotSel ? "sel" : ""}" data-rid="${t.rid}" aria-pressed="${t.rid === sotSel}">${esc(t.name)}</button>`).join("");
-  const svg = $("#sot"), W = 1000, H = 380, m = {l:34, r:150, t:12, b:30}, iw = W - m.l - m.r, ih = H - m.t - m.b, wk = M.weeks, N = M.teams.length;
-  const x = i => m.l + (wk.length === 1 ? iw/2 : i * iw / (wk.length - 1)), y = r => m.t + (r - 1) / (N - 1) * ih;
+  $("#sotFcKey").hidden = !fw.length;
+  const svg = $("#sot"), W = 1000, H = 380, m = {l:34, r:150, t:fw.length ? 26 : 12, b:30}, iw = W - m.l - m.r, ih = H - m.t - m.b, wk = M.weeks, N = M.teams.length;
+  const all = [...wk, ...fw], n = all.length, li = wk.length - 1;
+  const x = i => m.l + (n === 1 ? iw/2 : i * iw / (n - 1)), y = r => m.t + (r - 1) / (N - 1) * ih;
   let g = "";
+  // Prognosegebied (toekomstige weken) licht gearceerd.
+  if(fw.length) g += `<rect x="${x(li)}" y="${m.t - 18}" width="${x(n - 1) - x(li) + 12}" height="${ih + 18}" fill="var(--deep)" opacity=".55" rx="4"/><text x="${x(li) + 8}" y="${m.t - 6}" style="font-weight:600;letter-spacing:.07em">PROGNOSE</text>`;
   for(let r = 1; r <= N; r++) g += `<line x1="${m.l}" x2="${m.l+iw}" y1="${y(r)}" y2="${y(r)}" stroke="var(--grid)"/><text x="${m.l-10}" y="${y(r)+4}" text-anchor="end">${r}</text>`;
   const cut = M.league.settings?.playoff_teams || 6, yc = (y(cut) + y(cut+1)) / 2;
   g += `<line x1="${m.l}" x2="${m.l+iw}" y1="${yc}" y2="${yc}" stroke="var(--ink-3)" stroke-dasharray="2 4"/>`;
-  wk.forEach((w,i) => g += `<text x="${x(i)}" y="${H-8}" text-anchor="middle">W${w}</text>`);
+  all.forEach((w,i) => g += `<text x="${x(i)}" y="${H-8}" text-anchor="middle" ${i > li ? 'style="font-style:italic"' : ""}>W${w}</text>`);
   const path = (rid, k) => wk.map((w,i) => `${x(i)},${y(M.sot[w][k][rid])}`).join(" ");
-  // Alle andere teams gedempt (echt = solide, verwacht = gestreept); het gekozen team in roze erbovenop.
+  const fpath = rid => [`${x(li)},${y(M.sot[wk[li]].act[rid])}`, ...fw.map((w,j) => `${x(li + 1 + j)},${y(sf[w].ord[rid])}`)].join(" ");
+  // Alle andere teams gedempt (echt = solide, verwacht = gestreept, prognose = gestippeld); het gekozen team in roze erbovenop.
   const others = S.filter(t => t.rid !== sotSel);
   others.forEach(t => g += `<polyline points="${path(t.rid,"exp")}" fill="none" stroke="var(--ink-3)" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="4 4"/>`);
   others.forEach(t => g += `<polyline points="${path(t.rid,"act")}" fill="none" stroke="var(--ink-2)" stroke-opacity=".45" stroke-width="1.75"/>`);
+  if(fw.length) others.forEach(t => g += `<polyline points="${fpath(t.rid)}" fill="none" stroke="var(--ink-2)" stroke-opacity=".35" stroke-width="1.75" stroke-dasharray="1 4" stroke-linecap="round"/>`);
   g += `<polyline points="${path(sotSel,"exp")}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 5"/>`;
   g += `<polyline points="${path(sotSel,"act")}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round"/>`;
+  if(fw.length){ g += `<polyline points="${fpath(sotSel)}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="1 6" stroke-linecap="round" stroke-linejoin="round"/>`;
+    fw.forEach((w,j) => g += `<circle cx="${x(li + 1 + j)}" cy="${y(sf[w].ord[sotSel])}" r="4" fill="var(--panel)" stroke="var(--accent)" stroke-width="2"/>`); }
   wk.forEach((w,i) => g += `<circle cx="${x(i)}" cy="${y(M.sot[w].act[sotSel])}" r="4.5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>`);
-  const lw = wk.at(-1);
-  S.forEach(t => { const r = M.sot[lw].act[t.rid], me = t.rid === sotSel;
+  // Namen rechts: bij een prognose de verwachte eindvolgorde, anders de stand na de laatste week.
+  const endRank = t => fw.length ? sf[fw.at(-1)].ord[t.rid] : M.sot[wk[li]].act[t.rid];
+  S.forEach(t => { const r = endRank(t), me = t.rid === sotSel;
     g += `<text x="${m.l+iw+10}" y="${y(r)+4}" style="fill:${me ? "var(--accent)" : "var(--ink-2)"};font-weight:${me ? 600 : 400}">${esc(t.name.length > 18 ? t.name.slice(0,17) + "…" : t.name)}</text>`; });
-  wk.forEach((w,i) => { const half = wk.length > 1 ? iw / (wk.length-1) / 2 : iw/2;
+  all.forEach((w,i) => { const half = n > 1 ? iw / (n-1) / 2 : iw/2;
     g += `<rect class="hit" data-i="${i}" x="${x(i)-half}" y="${m.t}" width="${half*2}" height="${ih}" fill="transparent"/>`; });
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = g;
   const t = M.byRid[sotSel];
-  svg.querySelectorAll(".hit").forEach(h => { h.addEventListener("pointermove", e => { const w = wk[+h.dataset.i], s = M.sot[w];
+  svg.querySelectorAll(".hit").forEach(h => { h.addEventListener("pointermove", e => { const i = +h.dataset.i, w = all[i];
+    if(i > li){ const f = sf[w]; showTip(e, `<b>${esc(t.name)} · prognose na week ${w}</b><br>Verwachte plek: ${f.ord[sotSel]}e<br>Gemiddelde plek in simulaties: ${f.avg[sotSel].toFixed(1).replace(".", ",")}${w === fw.at(-1) ? `<br>Playoffkans: ${pct(M.fc.team[sotSel].po)}` : ""}`); return; }
+    const s = M.sot[w];
     showTip(e, `<b>${esc(t.name)} · na week ${w}</b><br>Echte stand: ${s.act[sotSel]}e<br>Verwachte stand: ${s.exp[sotSel]}e`); });
     h.addEventListener("pointerleave", hideTip); });
 }
-$("#sotTeams").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; sotSel = +b.dataset.rid; store.set("rtg-sot", sotSel); renderSOT(); });
+$("#sotTeams").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; sotSel = +b.dataset.rid; store.set("rtg-sot", sotSel); renderSOT(); renderFC(); });
 
 function hbars(svg, items, {fmt, diverging, tipFn}){
   const rowH = 26, W = 520, m = {l:150, r:52, t:6, b:6}, H = m.t + m.b + items.length * rowH, iw = W - m.l - m.r;
@@ -953,8 +1159,9 @@ function renderLuck(){
     tipFn:d => `<b>${esc(d.t.name)}</b><br>Echte winsten: ${d.t.W}<br>Verwacht (all-play): ${f1(d.t.xW)}<br>All-play: ${d.t.apW}-${d.t.apL}`});
 }
 function renderWeeks(){
-  curWeek = M.weeks.includes(curWeek) ? curWeek : M.weeks.at(-1);
-  $("#weeks").innerHTML = M.weeks.map(w => `<button type="button" data-w="${w}" aria-pressed="${w === curWeek}">W${w}</button>`).join("");
+  curWeek = M.weeks.includes(curWeek) || M.fc.fw.includes(curWeek) ? curWeek : M.weeks.at(-1);
+  $("#weeks").innerHTML = M.weeks.map(w => `<button type="button" data-w="${w}" aria-pressed="${w === curWeek}">W${w}</button>`).join("")
+    + (M.fc.fw.length ? `<span class="wsep">Prognose</span>` + M.fc.fw.map(w => `<button type="button" class="fut" data-w="${w}" aria-pressed="${w === curWeek}" title="Week ${w}: matchups en projecties">W${w}</button>`).join("") : "");
 }
 const POS_ORDER = ["QB","RB","WR","TE","K","DEF"];
 let sbOpen = null;
@@ -970,6 +1177,8 @@ function muBench(m){ const st = new Set(m?.starters || []);
   return (m?.players || []).filter(pid => !st.has(pid)).map(pid => ({pid, slot:"BN", p:m.players_points?.[pid] ?? 0}))
     .sort((a,b) => POS_ORDER.indexOf(M.players[a.pid]?.pos) - POS_ORDER.indexOf(M.players[b.pid]?.pos) || b.p - a.p); }
 function renderSB(){
+  if(M.fc.fw.includes(curWeek)) return renderSBFut();
+  if($("#sbKeys").innerHTML !== SB_KEYS) $("#sbKeys").innerHTML = SB_KEYS;
   const st = M.wk[curWeek];
   $("#sbMed").textContent = `Week ${curWeek} · mediaan ${f2(st.med)} · gemiddelde ${f2(st.avg)}`;
   const row = (rid, w) => { const r = M.byRid[rid].results.find(x => x.w === w), hl = muHiLo(M.mx[rid][w]);
@@ -1000,6 +1209,147 @@ function matchupDetail(a, b, w){
     ${Array.from({length:n}, (_, i) => line(sa[i], sb[i], sa[i]?.slot || sb[i]?.slot || "–")).join("")}
     ${nb ? `<div class="mur grp">Bank</div>${Array.from({length:nb}, (_, i) => line(ba[i], bb[i], "BN", "bn")).join("")}` : ""}
   </div>`;
+}
+/* ---------- Prognose: scoreboard toekomstige weken ---------- */
+const pct = v => v >= .995 && v < 1 ? ">99%" : v > 0 && v < .005 ? "<1%" : Math.round(v * 100) + "%";
+const SB_KEYS = $("#sbKeys").innerHTML;
+function renderSBFut(){
+  const w = curWeek, P = M.fc.P[w], gs = M.fc.games.filter(g => g.w === w), live = gs.some(g => P[g.a].live || P[g.b].live);
+  $("#sbKeys").innerHTML = `<span>${live ? `<span class="livetag">LIVE</span>Week ${w} is bezig: gescoorde punten + projectie voor wie nog moet spelen` : `Week ${w} · prognose op basis van Sleeper-projecties`}</span>
+    <span><i class="wp fav" style="padding:1px 6px">62%</i>&nbsp;winkans</span><span>Score = verwachte punten van ${w === M.league.settings?.leg ? "de huidige opstelling" : "de beste opstelling van het huidige roster"}</span><span><b style="color:var(--accent)">▲</b>hoogst geprojecteerde starter</span><span>Klik op een matchup voor beide rosters</span>`;
+  const row = (rid, p) => { const x = P[rid], top = x.st.filter(s => !s.empty).reduce((a,b) => b.proj > a.proj ? b : a, {proj:-1});
+    return `<div class="sbr f ${p >= .5 ? "win" : "lose"}"><span class="wp ${p >= .5 ? "fav" : ""}">${Math.round(p * 100)}%</span>
+      <span class="n">${nm(rid)}</span><span class="ap">${x.live ? `live <b>${f1(x.scored)}</b>` : `seizoen <b>${f1(M.byRid[rid].avg)}</b>`}</span><span><span class="scorehl">${f1(x.mean)}</span></span>
+      ${top.pid ? `<div class="pf"><span class="hi"><i>▲</i> ${esc(shortName(top.pid))} <b>${f1(top.proj)}</b></span>${x.live ? `<span>projectie vooraf ${f1(x.proj)}</span>` : ""}</div>` : ""}</div>`; };
+  $("#sb").innerHTML = gs.sort((a,b) => Math.abs(a.pa - .5) - Math.abs(b.pa - .5)).map(g => {
+    const [a, b] = g.pa >= .5 ? [g.a, g.b] : [g.b, g.a], pa = a === g.a ? g.pa : 1 - g.pa, key = `${w}:${a}-${b}`, open = sbOpen === key;
+    return `<div class="sbg fut ${open ? "open" : ""}" role="button" tabindex="0" aria-expanded="${open}" data-key="${key}">${row(a, pa)}${row(b, 1 - pa)}
+      <div class="more">${open ? "▲ Rosters verbergen" : "▼ Rosters bekijken"}</div>${open ? matchupDetailFut(a, b, w, pa) : ""}</div>`; }).join("")
+    || `<p class="sub">Nog geen matchups bekend voor week ${w}.</p>`;
+}
+function matchupDetailFut(a, b, w, pa){
+  const A = M.fc.P[w][a], B = M.fc.P[w][b], cur = w === M.league.settings?.leg;
+  const val = x => x.p || x.proj, pj = x => !(cur && x.p);
+  const pl = (x, side) => { if(!x) return `<div class="pl ${side}"></div>`; if(x.empty) return `<div class="pl ${side}"><b>Leeg slot</b></div>`;
+    const p = M.players[x.pid] || {name:x.pid, pos:"?"};
+    return `<div class="pl ${side} pos-${esc(p.pos)}"><b>${esc(p.name)}</b><small><i></i>${esc(p.pos || "")}${p.team ? " · " + esc(p.team) : ""}${p.inj ? " · " + esc(p.inj) : ""}</small></div>`; };
+  const pt = (x, o, bn) => { if(!x) return `<div class="pt"></div>`; if(x.empty) return `<div class="pt">–</div>`;
+    return `<div class="pt ${pj(x) ? "pj" : ""} ${!bn && o && !o.empty && val(x) > val(o) ? "w" : ""}">${f1(val(x))}</div>`; };
+  const line = (x, y, slot, bn) => `<div class="mur ${bn ? "bn" : ""}">${pl(x, "")}${pt(x, y, bn)}<div class="sl">${esc(slot)}</div>${pt(y, x, bn)}${pl(y, "r")}</div>`;
+  const n = Math.max(A.st.length, B.st.length), nb = Math.max(A.bench.length, B.bench.length);
+  return `<div class="mu" data-stop="1">
+    <div class="mur th"><div class="pl"><b>${nm(a)}</b><small>${esc(M.byRid[a].owner)} · winkans ${Math.round(pa * 100)}%</small></div><div class="pt ${A.mean >= B.mean ? "w" : ""}">${f1(A.mean)}</div><div></div><div class="pt ${B.mean > A.mean ? "w" : ""}">${f1(B.mean)}</div><div class="pl r"><b>${nm(b)}</b><small>${esc(M.byRid[b].owner)} · winkans ${Math.round((1 - pa) * 100)}%</small></div></div>
+    <div class="mur grp">${cur ? "Huidige opstelling" : "Verwachte opstelling (beste roster volgens projecties)"}</div>
+    ${Array.from({length:n}, (_, i) => line(A.st[i], B.st[i], A.st[i]?.slot || B.st[i]?.slot || "–")).join("")}
+    ${nb ? `<div class="mur grp">Bank</div>${Array.from({length:nb}, (_, i) => line(A.bench[i], B.bench[i], "BN", true)).join("")}` : ""}
+    <div class="mur grp" style="text-transform:none;letter-spacing:0;font-weight:400">${cur ? "Cursief = projectie (speler moet nog spelen), gewoon = gescoorde punten" : "Punten = Sleeper-projectie (PPR)"}</div>
+  </div>`;
+}
+
+/* ---------- Prognose: playoffschema ---------- */
+let standMode = store.get("rtg-stand") === "po" ? "po" : "tab", brSeed = "exp";
+function renderStandMode(){
+  $("#standMode").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === standMode));
+  $("#standTab").hidden = standMode !== "tab"; $("#standPO").hidden = standMode !== "po";
+}
+function renderBracket(){
+  const F = M.fc, pw = M.league.settings?.playoff_week_start || 15;
+  $("#brSeed").hidden = F.started;
+  $("#brSeed").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === brSeed));
+  const seeds = (F.started || brSeed === "now" ? M.standings : F.order).map(t => t.rid);
+  $("#brSub").textContent = (F.started ? "Seeding en uitslagen uit Sleeper." : brSeed === "exp" ? "Seeding volgens de verwachte eindstand." : "Seeding als de playoffs nu zouden beginnen.")
+    + " Percentages = kans om het duel te winnen, op basis van de geprojecteerde rosterkracht.";
+  $("#brk").innerHTML = F.tpl ? bracketHTML(F.tpl, seeds, false, pw) + (F.ltpl ? bracketHTML(F.ltpl, seeds, true, pw) : "")
+    : `<p class="sub">Geen playoffschema gevonden in Sleeper.</p>`;
+  drawBrLinks();
+}
+// Eén bracket zoals in Sleeper: rondes naast elkaar, elk duel tussen de duels die het voeden, plaatsingsduels eronder.
+// Toilet Bowl: de verliezer van een duel schuift door; wie de laatste ronde "wint" (verliest) eindigt als laatste.
+function bracketHTML(tpl, seeds, losers, pw){
+  const F = M.fc, seedOf = Object.fromEntries(seeds.map((rid, i) => [rid, i + 1]));
+  const D = bracketDist(tpl, seeds, losers ? (a, b) => 1 - F.pWin(a, b) : F.pWin);
+  const rec = rid => { const t = M.byRid[rid], f = F.team[rid];
+    return F.started || brSeed === "now" ? `${t.W}-${t.L}${t.T ? "-" + t.T : ""}` : `verwacht ${fmtRec(f.xW, f.xL)}`; };
+  const main = tpl.filter(g => !g.p || g.p === 1), byM = Object.fromEntries(main.map(g => [g.m, g]));
+  const rounds = [...new Set(main.map(g => g.r))].sort((a,b) => a - b), last = rounds.at(-1), cols = Object.fromEntries(rounds.map(r => [r, []]));
+  // Volgorde per ronde: vanaf de finale terug, zodat elk duel naast de duels staat die het voeden.
+  const seen = new Set(), visit = g => { if(seen.has(g.m)) return; seen.add(g.m); cols[g.r].push(g);
+    [g.s1, g.s2].forEach(s => { const k = s.from?.w; if(k != null && byM[k]) visit(byM[k]); }); };
+  main.filter(g => g.r === last).forEach(visit); brSorted(main).forEach(visit);
+  const adv = losers ? ["Verliezer", "Winnaar"] : ["Winnaar", "Verliezer"];
+  const gLbl = m => { const g = tpl.find(x => x.m === m); if(!g) return "?";
+    if(g.s1.seed && g.s2.seed) return `#${Math.min(g.s1.seed, g.s2.seed)}/#${Math.max(g.s1.seed, g.s2.seed)}`;
+    return g.r === last ? "finale" : `halve finale ${cols[g.r]?.indexOf(g) + 1}`; };
+  const slot = (dist, s, win, g) => { if(!dist.size) return `<div class="bs tbd"><span class="sd">–</span><span class="n"><b>Nog onbekend</b></span><span></span></div>`;
+    const top = [...dist].sort((a,b) => b[1] - a[1]), [rid, q] = top[0], sure = q > .999;
+    const from = s.from ? `${s.from.w != null ? adv[0] : adv[1]} ${gLbl(s.from.w ?? s.from.l)}` : "";
+    const sub = sure ? `${esc(M.byRid[rid].owner)} · ${rec(rid)}` : `${from} · ${Math.round(q * 100)}%${top[1] ? `, anders ${esc(M.byRid[top[1][0]].name)} ${Math.round(top[1][1] * 100)}%` : ""}`;
+    const st = g.w == null ? "" : g.w === rid ? "won" : "lost";
+    return `<div class="bs ${sure ? "" : "tbd"} ${g.w == null && win >= .5 ? "fav" : ""} ${st}"><span class="sd">${seedOf[rid] ? "#" + seedOf[rid] : ""}</span><span class="n"><b>${nm(rid)}</b><small>${sub}</small></span><span class="p">${g.w != null ? (st === "won" ? (losers ? "door" : "W") : "") : Math.round(win * 100) + "%"}</span></div>`; };
+  const game = (g, title) => { const d = D[g.m], wA = losers ? 1 - d.pA : d.pA;
+    return `<div class="bm" data-m="${g.m}"><div class="bg ${g.p === 1 ? "final" : ""}"><div class="bt">${title}</div>${slot(d.A, g.s1, wA, g)}${slot(d.B, g.s2, 1 - wA, g)}</div></div>`; };
+  const rName = r => r === last ? (losers ? "Toilet Bowl-finale" : "Finale") : r === last - 1 ? "Halve finale" : `Ronde ${r}`;
+  const pName = p => losers ? {3:"Om plek 9", 5:"Om plek 7"}[p] || `Plaatsingsduel` : `Om plek ${p}`;
+  const links = main.flatMap(g => [g.s1, g.s2].map((s, i) => s.from?.w != null && byM[s.from.w] ? `${s.from.w}>${g.m}:${i}` : null).filter(Boolean)).join(",");
+  const f = tpl.find(g => g.p === 1), ch = f ? [...D[f.m].W].sort((a,b) => b[1] - a[1]).slice(0, 4) : [];
+  const place = tpl.filter(g => g.p && g.p !== 1).sort((a,b) => a.p - b.p);
+  return `<div class="bwrap-h"><h3>${losers ? "Toilet Bowl" : "Winners bracket"}</h3><span class="sub">${losers ? `Onderste ${seeds.length - F.cut} teams. De verliezer schuift door; wie ook de laatste ronde verliest, eindigt als laatste.` : `Top ${F.cut}, de nummers 1 en 2 hebben een bye.`}</span></div>
+  <div class="scroll"><div class="bwrap" data-links="${links}" style="min-width:${rounds.length * 230 + (rounds.length - 1) * 44}px"><svg class="blinks" aria-hidden="true"></svg>
+    ${rounds.map(r => `<div class="bcol"><h4>${rName(r)} · week ${pw + r - 1}</h4><div class="bgames">${cols[r].map(g => game(g, `Week ${pw + r - 1}${g.s1.seed && g.s2.seed ? " · " + gLbl(g.m) : ""}`)).join("")}</div></div>`).join("")}
+  </div></div>
+  <div class="bplace">${place.map(g => game(g, `${pName(g.p)} · week ${pw + g.r - 1}`)).join("")}
+    ${ch.length ? `<div class="bm"><div class="bg champ"><div class="bt">${losers ? "Kans op de laatste plek" : "Kampioenskans"} bij deze seeding</div>${ch.map(([rid, q]) => `<div class="bs"><span class="sd">#${seedOf[rid]}</span><span class="n"><b>${nm(rid)}</b></span><span class="p">${pct(q)}</span></div>`).join("")}</div></div>` : ""}</div>`;
+}
+// Verbindingslijnen tussen de duels (pas te tekenen als de bracket zichtbaar is).
+function drawBrLinks(){
+  document.querySelectorAll(".bwrap").forEach(w => { const svg = w.querySelector(".blinks"), R = w.getBoundingClientRect();
+    if(!R.width) return; svg.setAttribute("width", w.scrollWidth); svg.setAttribute("height", w.scrollHeight);
+    svg.innerHTML = (w.dataset.links || "").split(",").filter(Boolean).map(l => { const [, a, b, i] = l.match(/(\d+)>(\d+):(\d)/);
+      const A = w.querySelector(`.bm[data-m="${a}"] .bg`), B = w.querySelectorAll(`.bm[data-m="${b}"] .bs`)[+i]; if(!A || !B) return "";
+      const ra = A.getBoundingClientRect(), rb = B.getBoundingClientRect(), x1 = ra.right - R.left, y1 = ra.top + ra.height / 2 - R.top, x2 = rb.left - R.left, y2 = rb.top + rb.height / 2 - R.top, xm = (x1 + x2) / 2;
+      return `<path d="M${x1} ${y1}H${xm}V${y2}H${x2}" fill="none" stroke="var(--line)" stroke-width="2"/>`; }).join(""); });
+}
+addEventListener("resize", () => { if(M) drawBrLinks(); });
+const fmtRec = (w, l) => `${f1(w).replace(".0", "")}-${f1(l).replace(".0", "")}`;
+
+/* ---------- Prognose: verwachte eindstand en samenvatting per team ---------- */
+function fcSummary(t){
+  const F = M.fc, f = F.team[t.rid], out = [], rk = [...M.teams].sort((a,b) => b.ppg - a.ppg).indexOf(t) + 1;
+  out.push(F.fw.length ? `Staat nu ${t.rank}e (${t.W}-${t.L}${t.T ? "-" + t.T : ""}) en eindigt naar verwachting als ${f.order}e met ${fmtRec(f.xW, f.xL)}.`
+    : `Eindigde de reguliere competitie als ${t.rank}e (${t.W}-${t.L}${t.T ? "-" + t.T : ""}).`);
+  const ttl = f.champ >= .1 ? ` Titelkans ${pct(f.champ)}.` : "";
+  if(f.po >= .999) out.push((f.bye >= .999 ? "Playoffs en bye zijn binnen." : `Playoffs zijn binnen${F.nBye ? `; kans op een bye ${pct(f.bye)}` : ""}.`) + ttl);
+  else if(f.po >= .75) out.push(`Ligt op koers voor de playoffs (${pct(f.po)})${f.bye >= .1 ? `, bye-kans ${pct(f.bye)}` : ""}.` + ttl);
+  else if(f.po >= .3) out.push(`Strijdt om een playoffplek (${pct(f.po)}).` + ttl);
+  else if(f.po >= .005) out.push(`Heeft nog een kleine kans op de playoffs (${pct(f.po)}).`);
+  else out.push(f.po > 0 ? "De playoffs zijn vrijwel uitgesloten." : `Haalt de playoffs in geen van de ${SIMS.toLocaleString("nl-NL")} simulaties.`);
+  // Sleutelduel: het duel waarvan de uitslag de playoffkans het meest verschuift.
+  const key = f.po > .01 && f.po < .99 ? f.sched.filter(s => s.ifW != null && s.ifL != null).sort((a,b) => (b.ifW - b.ifL) - (a.ifW - a.ifL))[0] : null;
+  if(key && key.ifW - key.ifL >= .1) out.push(`Sleutelduel: week ${key.w} tegen ${nm(key.oid)} (winkans ${pct(key.p)}). Winst brengt de playoffkans op ${pct(key.ifW)}, verlies op ${pct(key.ifL)}.`);
+  else { const d = t.ppg - t.avg;
+    out.push(`Roster geprojecteerd op ${f1(t.ppg)} per week (${rk}e van de league), ${Math.abs(d) < 4 ? "in lijn met" : d > 0 ? "sterker dan" : "zwakker dan"} het seizoensgemiddelde van ${f1(t.avg)}.`); }
+  return out.join(" ");
+}
+function renderFC(){
+  const F = M.fc, T = F.order, cut = F.cut, fw = F.fw;
+  $("#fcP").hidden = false;
+  $("#fcSub").textContent = fw.length ? `${SIMS.toLocaleString("nl-NL")} simulaties van week ${fw[0]}${fw.length > 1 ? "–" + fw.at(-1) : ""} en de playoffs, op basis van Sleeper-projecties` : "Reguliere competitie is klaar; kansen gaan alleen nog over de playoffs";
+  const rkX = rankMap(T, t => F.team[t.rid].xW), rkC = rankMap(T, t => F.team[t.rid].champ);
+  const bar = v => `<span class="pbar"><i style="width:${Math.round(v * 100)}%"></i></span>`;
+  const head = `<tr><th>#</th><th>Team</th><th>Nu</th><th>Verwacht</th><th>Verw. PF</th><th>Playoffs</th>${F.nBye ? "<th>Bye</th>" : ""}<th>Titel</th><th>Kans per eindplek</th></tr>`;
+  const rows = T.map(t => { const f = F.team[t.rid], mx = Math.max(...f.dist);
+    return `<tr class="${f.order === cut ? "cut" : ""}"><td class="rk">${f.order}</td><td class="team">${esc(t.name)}<small>${esc(t.owner)}</small></td>
+      <td>${t.rank}e · ${t.W}-${t.L}${t.T ? "-" + t.T : ""}</td><td>${hlv(rkX.get(t), fmtRec(f.xW, f.xL))}</td><td>${f1(f.xPF)}</td>
+      <td class="pr">${pct(f.po)}${bar(f.po)}</td>${F.nBye ? `<td class="pr">${pct(f.bye)}${bar(f.bye)}</td>` : ""}<td>${hlv(rkC.get(t), pct(f.champ))}</td>
+      <td><span class="rdist" data-rid="${t.rid}">${f.dist.map((q, k) => `<i class="${k < cut ? "po" : ""}" style="height:${Math.max(1, Math.round(q / (mx || 1) * 20))}px"></i>`).join("")}</span></td></tr>`; }).join("");
+  $("#fcT").innerHTML = `<thead>${head}</thead><tbody>${rows}</tbody>`;
+  $("#fcT").querySelectorAll(".rdist").forEach(el => { const t = M.byRid[el.dataset.rid], f = F.team[t.rid];
+    el.addEventListener("pointermove", e => showTip(e, `<b>${esc(t.name)}</b><br>${f.dist.map((q, k) => q >= .005 ? `${k + 1}e: ${pct(q)}` : "").filter(Boolean).join("<br>")}<br>Gemiddelde eindplek: ${f.avgRank.toFixed(1).replace(".", ",")}`));
+    el.addEventListener("pointerleave", hideTip); });
+  $("#fcS").innerHTML = T.map(t => { const f = F.team[t.rid];
+    const ch = f.sched.map(s => `<span class="chip ${s.p >= .5 ? "fav" : ""}">W${s.w} ${esc(M.byRid[s.oid].name.length > 16 ? M.byRid[s.oid].name.slice(0, 15) + "…" : M.byRid[s.oid].name)} <b>${Math.round(s.p * 100)}%</b></span>`).join("");
+    return `<div class="fcc ${t.rid === sotSel ? "sel" : ""}"><div class="h"><b>${f.order}. ${esc(t.name)}</b><span>playoffs <strong>${pct(f.po)}</strong></span></div>
+      <p>${fcSummary(t)}</p>${ch ? `<div class="chips">${ch}</div>` : ""}</div>`; }).join("");
 }
 function renderTrends(){
   $("#trends").innerHTML = M.standings.map(t => `<div class="trr">
@@ -1185,6 +1535,8 @@ $("#pd").addEventListener("click", e => { const b = e.target.closest("th[data-so
 $("#pdScope").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; pdScope = b.dataset.k; hideTip(); renderPD(+$("#raSel").value); });
 $("#raSel").addEventListener("change", e => { store.set("rtg-ra", e.target.value); renderRA(); });
 $("#isMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; isMode = b.dataset.k; renderIS(); });
+$("#standMode").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; standMode = b.dataset.k; store.set("rtg-stand", standMode); renderStandMode(); drawBrLinks(); });
+$("#brSeed").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; brSeed = b.dataset.k; renderBracket(); });
 $("#weeks").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; curWeek = +b.dataset.w; sbOpen = null; renderWeeks(); renderSB(); renderTiles(); });
 function toggleSB(card){ sbOpen = sbOpen === card.dataset.key ? null : card.dataset.key; renderSB();
   const el = document.querySelector(`.sbg[data-key="${sbOpen || card.dataset.key}"]`); if(el){ el.focus({preventScroll:true}); if(sbOpen) el.scrollIntoView({block:"nearest", behavior:"smooth"}); } }
