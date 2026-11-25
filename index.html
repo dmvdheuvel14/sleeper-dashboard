@@ -78,6 +78,42 @@ tr.cut td{border-bottom:2px dashed var(--ink-3)}
 .res{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:4px;font:600 11px/1 var(--body)}
 .res.W{background:var(--win-bg);color:var(--win)}.res.L{background:var(--loss-bg);color:var(--loss)}.res.T{background:var(--band);color:var(--ink-2)}
 .luck-pos{color:var(--pos)}.luck-neg{color:var(--neg)}
+/* Tabs: één onderwerp tegelijk in beeld; sticky bovenaan, op telefoon horizontaal swipen */
+.tabs{position:sticky;top:0;z-index:30;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:-16px calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:12px max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;font:var(--dw) 22px/1 var(--display);letter-spacing:.04em;padding:10px 18px 8px;border-radius:999px;white-space:nowrap}
+.tabs button.mine{border-color:var(--accent);color:var(--accent)}
+.tabs button.mine[aria-pressed="true"]{color:var(--accent-ink)}
+[data-tab][hidden]{display:none!important}
+.my{gap:20px}
+.my-pick{display:grid;gap:8px}
+.my-pick .chips{display:flex;flex-wrap:wrap;gap:6px}
+.my-pick .chip{font-size:13px;padding:5px 12px}
+.my-hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.my-name{font:var(--dw) clamp(48px,9vw,88px)/.9 var(--display);text-transform:uppercase;color:var(--accent);overflow-wrap:anywhere}
+.my-hero .sub{margin-top:6px;font-size:15px}
+.my-links{display:flex;flex-wrap:wrap;gap:8px}
+.my-tiles{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.my-tiles .tile .v{font-size:46px}
+.my-tiles .tile .d .hl{display:inline-block;font-size:12px;padding:1px 6px;border-radius:4px;margin-right:4px}
+.my-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:20px;align-items:start}
+.mr{display:grid;grid-template-columns:minmax(0,1fr) auto 150px 34px;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--grid)}
+.mr:last-child{border-bottom:0}
+.mr .l{font-size:14px;color:var(--ink-2)}
+.mr .l small{display:block;font-size:12px;color:var(--ink-3)}
+.mr .v{font-weight:700;text-align:right}
+.mr .rr{position:relative;height:16px}
+.mr .rr::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;border-radius:1px;background:var(--line)}
+.mr .rr i{position:absolute;top:2px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ink-2)}
+.mr .rr i.top{background:var(--accent)}
+.mr .rr i.bot{background:var(--bg);box-shadow:inset 0 0 0 2px var(--ink-2)}
+.mr .rk2{font:700 15px/1 var(--body);text-align:right}
+.mr .rk2.top{color:var(--accent)}
+.myw td,.myw th{padding:7px 8px}
+.myw td.opp{text-align:left;overflow:hidden;text-overflow:ellipsis;max-width:190px}
+.myw td.opp .res{margin-right:6px}
+.myw th:nth-child(2){text-align:left}
+@media (max-width:520px){.mr{grid-template-columns:minmax(0,1fr) auto 70px 30px;gap:8px}.tabs button{font-size:19px;padding:9px 14px 7px}}
 .chart{width:100%;height:auto;display:block}
 .chart text{fill:var(--ink-3);font:12px var(--body)}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--ink-2)}
@@ -353,6 +389,9 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 /* Manager-efficiëntie */
 .ef td:nth-child(2),.ef th:nth-child(2){text-align:left}
 .ef td.pr{min-width:110px}
+/* Brede tabellen passen weer binnen hun kader op desktop */
+.ef th,.ef td{padding:8px 7px;font-size:13.5px}
+.ds td:nth-child(3),.ds td:nth-child(4){white-space:normal;min-width:260px;line-height:1.35}
 .efw{display:inline-flex;gap:2px;vertical-align:middle}
 .efw i{width:9px;height:18px;border-radius:2px;display:block}
 .efkey{display:inline-flex;gap:2px;vertical-align:middle}.efkey i{width:11px;height:11px;border-radius:2px;display:block}
@@ -390,6 +429,24 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .sbl.st em{color:var(--accent)}.sbl.bu em{color:var(--neg)}
 .sbl em small{display:block;font-weight:400;font-size:11px;color:var(--ink-3)}
 @media (prefers-reduced-motion:no-preference){.tile{transition:border-color .15s}}
+.ef th{white-space:normal;vertical-align:bottom}
+.dr td.tot,.dr th.tot{padding:0 6px;font-size:13.5px}
+.dr th.tot{white-space:normal;vertical-align:bottom}
+.dr .c{min-width:31px}
+@media (max-width:520px){
+  /* Telefoon: tegels twee naast elkaar, minder scrollen */
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .tile{padding:12px}
+  .tile .top{flex-wrap:wrap;gap:4px}
+  .tile .v{font-size:38px}
+  .tile .v.name{font-size:24px}
+  .tile .who{font-size:15px}
+  .t3l li{grid-template-columns:auto 1fr;font-size:12.5px}
+  .t3l li span{grid-column:2}
+  .t3l b{font-size:19px}
+  .my-tiles .tile .v{font-size:34px}
+  #tilesWeek .wk{display:none}
+}
 </style>
 </head>
 <body>
@@ -406,20 +463,43 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </header>
 
-  <div class="hlg">
+  <nav class="tabs" id="tabs" aria-label="Onderdelen">
+    <button type="button" class="mine" data-tab="team">Mijn team</button>
+    <button type="button" data-tab="overzicht">Overzicht</button>
+    <button type="button" data-tab="seizoen">Seizoen</button>
+    <button type="button" data-tab="vorm">Vorm &amp; geluk</button>
+    <button type="button" data-tab="managers">Managers</button>
+    <button type="button" data-tab="teams">Rosters</button>
+    <button type="button" data-tab="draft">Draft</button>
+    <button type="button" data-tab="uitleg">Uitleg</button>
+  </nav>
+
+  <section data-tab="team" class="my">
+    <div class="my-pick"><span class="eyebrow">Kies je team</span><div class="chips" id="myTeams"></div></div>
+    <div class="my-hero"><div><div class="my-name" id="myName"></div><div class="sub" id="mySub"></div></div>
+      <div class="my-links"><button type="button" data-go="teams">Roster-analyse →</button><button type="button" data-go="seizoen">Stand over tijd →</button></div></div>
+    <div class="tiles my-tiles" id="myTiles"></div>
+    <div class="my-grid">
+      <div class="panel"><div class="pd-h"><div><b>Waar sta je</b><div class="sub">Rang in de league per onderdeel. Roze = top 3, omrand = bottom 3.</div></div></div><div id="myRanks"></div></div>
+      <div class="panel"><div class="pd-h"><div><b>Week voor week</b><div class="sub">Uitslag, tegenstander en hoe je score die week in de league eindigde</div></div></div><div class="scroll"><table class="myw" id="myWeeks"></table></div></div>
+    </div>
+    <div class="panel"><div id="myTrend"></div></div>
+  </section>
+
+  <div class="hlg" data-tab="overzicht">
     <div class="hlg-h"><h2 id="hlWeekH">Laatste week</h2><span class="sub" id="hlWeekSub">Highlights van de laatst gespeelde week</span></div>
     <div class="tiles" id="tilesWeek"></div>
     <div class="hlg-h"><h2>Seizoen</h2><span class="sub">Records over alle weken</span></div>
     <div class="tiles" id="tilesSeason"></div>
   </div>
 
-  <section>
+  <section data-tab="overzicht">
     <div class="sec-head"><h2>Weekly scoreboard</h2><div class="weeks" id="weeks"></div></div>
     <div class="keys" id="sbKeys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span><span><b style="color:var(--accent)">▲</b>beste starter</span><span><b style="color:var(--neg)">▼</b>slechtste starter</span><span>Klik op een matchup voor beide rosters</span></div>
     <div class="sb" id="sb"></div>
   </section>
 
-  <section>
+  <section data-tab="overzicht">
     <div class="sec-head"><h2>Stand</h2><span class="sub" id="standSub"></span>
       <div class="seg" id="standMode"><button type="button" data-k="tab" aria-pressed="true">Stand</button><button type="button" data-k="po" aria-pressed="false">Playoffs</button></div></div>
     <div class="panel" id="standTab"><div class="scroll"><table id="stand"></table></div>
@@ -431,7 +511,7 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </section>
 
-  <section>
+  <section data-tab="seizoen">
     <div class="sec-head"><h2>Standings over time</h2>
       <div class="legend"><span><i class="sw"></i>Echte stand</span><span><i class="sw dash"></i>Verwachte stand (all-play)</span><span id="sotFcKey"><i class="sw dots"></i>Prognose komende weken</span></div></div>
     <div class="panel">
@@ -446,13 +526,13 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
   </section>
 
 
-  <section>
+  <section data-tab="vorm">
     <div class="sec-head"><h2>Trends &amp; streaks</h2>
       <div class="keys"><span><i class="sq w"></i>gewonnen</span><span><i class="sq"></i>verloren</span><span><i class="ci up"></i>boven mediaan</span><span><i class="ci"></i>onder mediaan</span></div></div>
     <div class="panel tr" id="trends"></div>
   </section>
 
-  <section>
+  <section data-tab="seizoen">
     <div class="sec-head"><h2>League scorecard</h2>
       <div class="keys"><span><i class="hl-k top">top 3</i></span><span><i class="hl-k bot">bottom 3</i></span></div></div>
     <div class="panel scroll"><table class="sc" id="sc"></table></div>
@@ -463,36 +543,36 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </section>
 
-  <section>
+  <section data-tab="seizoen">
     <div class="sec-head"><h2>True wins</h2><span class="sub">Elk team op elk schema: rij = team, kolom = schema van dat team</span></div>
     <div class="panel scroll"><table class="tw" id="tw"></table></div>
     <div class="keys"><span id="twScale"></span><span>Omrand = het echte schema</span><span><i class="delta">+0</i>&nbsp;winsten erbij in de laatste week (over alle 12 schema's)</span></div>
   </section>
 
-  <section>
+  <section data-tab="managers">
     <div class="sec-head"><h2>Manager-efficiëntie</h2><span class="sub" id="efSub"></span></div>
     <div class="keys"><span>Behaalde punten als deel van de best mogelijke opstelling per week</span><span><i class="hl-k top">top 3</i></span><span><i class="hl-k bot">bottom 3</i></span><span id="efKey"></span></div>
     <div class="panel scroll"><table class="ef" id="ef"></table></div>
   </section>
 
-  <section>
+  <section data-tab="managers">
     <div class="sec-head"><h2>Injuries &amp; sits</h2>
       <div class="seg" id="isMode"><button type="button" data-k="tot" aria-pressed="true">Totaal</button><button type="button" data-k="inj" aria-pressed="false">Uitval</button><button type="button" data-k="sit" aria-pressed="false">Bank</button></div></div>
     <div class="keys"><span>Misgelopen punten per team per week</span><span><i class="hl-k top">top 3</i>&nbsp;meeste punten misgelopen die week</span><span><i class="hl-k bot">bottom 3</i>&nbsp;minste</span></div>
     <div class="panel scroll"><table class="is" id="is"></table></div>
   </section>
 
-  <section>
+  <section data-tab="managers">
     <div class="sec-head"><h2>Waiver W's</h2><span class="sub">Punten van spelers die via de waiver wire of als free agent zijn opgepikt</span></div>
     <div class="panel scroll"><table class="wv" id="wv"></table></div>
   </section>
 
-  <section>
+  <section data-tab="managers">
     <div class="sec-head"><h2>Trade values</h2><span class="sub" id="trSub"></span></div>
     <div class="trades" id="trades"></div>
   </section>
 
-  <section>
+  <section data-tab="teams">
     <div class="sec-head"><h2>Roster analysis</h2><label class="sub">Team <select id="raSel"></select></label></div>
     <div class="panel">
       <div class="tp" id="raProfile"></div>
@@ -510,13 +590,13 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
   </section>
 
 
-  <section>
+  <section data-tab="seizoen">
     <div class="sec-head"><h2>Weekscores</h2>
       <div class="keys"><span><i class="hl-k top">top 3</i>&nbsp;van de week</span><span><i class="hl-k bot">bottom 3</i>&nbsp;van de week</span><span><i class="ring gold"></i>top 5 seizoen</span><span><i class="ring red"></i>bottom 5 seizoen</span></div></div>
     <div class="panel scroll"><table class="heat" id="heat"></table></div>
   </section>
 
-  <section>
+  <section data-tab="vorm">
     <div class="sec-head"><h2>Luck</h2><span class="sub">Pech en geluk uit meerdere hoeken</span></div>
     <div class="tiles" id="luckTiles"></div>
     <div class="keys"><span><i class="hl-k top">top 3</i>&nbsp;hoogste waarde</span><span><i class="hl-k bot">bottom 3</i>&nbsp;laagste waarde</span><span>Gesorteerd op pech-score (gewogen, 0-100). Ga met je muis over een kop voor uitleg.</span></div>
@@ -527,7 +607,7 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </section>
 
-  <section>
+  <section data-tab="draft">
     <div class="sec-head"><h2>Draft analysis</h2><span class="sub" id="dSub"></span></div>
     <div class="sec-head" style="margin-top:-4px">
       <div class="keys"><span><i class="dk best"></i>beste pick</span><span><i class="dk worst"></i>slechtste pick</span><span><i class="dk gone"></i>niet meer op roster</span><span><i class="ir-k">IR</i>op IR / season-ending</span><span class="poskey"><i class="pos-QB"></i>QB <i class="pos-RB"></i>RB <i class="pos-WR"></i>WR <i class="pos-TE"></i>TE <i class="pos-K"></i>K <i class="pos-DEF"></i>DEF</span></div>
@@ -547,7 +627,7 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
   </section>
 
 
-  <section>
+  <section data-tab="uitleg">
     <h2>Aannames</h2>
     <ul class="notes">
       <li>Alleen afgeronde weken tellen mee (t/m de laatst gescoorde week volgens Sleeper). Playoffweken worden nog niet apart behandeld.</li>
@@ -1014,7 +1094,7 @@ function render(){
   $("#lname").textContent = L.name; $("#season").textContent = `Sleeper · seizoen ${L.season} · ${M.teams.length} teams`;
   $("#asof").textContent = `Weken 1–${M.weeks.at(-1) || 0} · opgehaald ${new Date(M.fetched_at).toLocaleString("nl-NL", {dateStyle:"medium", timeStyle:"short"})}`;
   curWeek = M.weeks.includes(curWeek) || M.fc.fw.includes(curWeek) ? curWeek : M.weeks.at(-1);
-  renderTiles(); renderStandings(); renderStandMode(); renderBracket(); renderSOT(); renderFC(); renderHeat(); renderLuck(); renderDraft(); renderWeeks(); renderSB(); renderTrends(); renderSC(); renderTW(); renderIS(); renderWV(); renderTrades(); renderRA(); renderEF(); renderCS(); renderDR();
+  renderTiles(); renderStandings(); renderStandMode(); renderBracket(); renderSOT(); renderFC(); renderHeat(); renderLuck(); renderDraft(); renderWeeks(); renderSB(); renderTrends(); renderSC(); renderTW(); renderIS(); renderWV(); renderTrades(); renderRA(); renderEF(); renderCS(); renderDR(); renderMy();
 }
 function nm(rid){ return esc(M.byRid[rid].name); }
 
@@ -1710,6 +1790,69 @@ function toggleSB(card){ sbOpen = sbOpen === card.dataset.key ? null : card.data
   const el = document.querySelector(`.sbg[data-key="${sbOpen || card.dataset.key}"]`); if(el){ el.focus({preventScroll:true}); if(sbOpen) el.scrollIntoView({block:"nearest", behavior:"smooth"}); } }
 $("#sb").addEventListener("click", e => { if(e.target.closest("[data-stop]")) return; const c = e.target.closest(".sbg"); if(c) toggleSB(c); });
 $("#sb").addEventListener("keydown", e => { if(e.key !== "Enter" && e.key !== " ") return; const c = e.target.closest(".sbg"); if(!c || e.target !== c) return; e.preventDefault(); toggleSB(c); });
+
+/* ---------- Tabs en Mijn team ---------- */
+const TABS = ["team","overzicht","seizoen","vorm","managers","teams","draft","uitleg"];
+let curTab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (TABS.includes(store.get("rtg-tab")) ? store.get("rtg-tab") : "overzicht");
+function showTab(t, scroll){
+  curTab = t; store.set("rtg-tab", t); hideTip();
+  document.querySelectorAll(".wrap > [data-tab]").forEach(el => el.hidden = el.dataset.tab !== t);
+  $("#tabs").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === t));
+  if(history.replaceState) history.replaceState(null, "", "#" + t);
+  if(scroll && $("#tabs").getBoundingClientRect().top <= 0) $("#tabs").scrollIntoView();
+  if(M && t === "overzicht") drawBrLinks();
+  if(M && t === "teams") renderPD.fit?.();
+}
+$("#tabs").addEventListener("click", e => { const b = e.target.closest("button"); if(b) showTab(b.dataset.tab, true); });
+showTab(curTab);
+let myRid = null;
+const ord = n => n + "e";
+function rankOf(rid, key, asc){ const v = key(M.byRid[rid]), vals = M.teams.map(key); return 1 + vals.filter(x => asc ? x < v - 1e-9 : x > v + 1e-9).length; }
+function renderMy(){
+  const S = M.standings, N = M.teams.length;
+  if(!M.byRid[myRid]) myRid = M.byRid[Number(store.get("rtg-my"))] ? Number(store.get("rtg-my")) : S[0].rid;
+  const t = M.byRid[myRid], cls = r => r <= 3 ? "top" : r > N - 3 ? "bot" : "";
+  $("#myTeams").innerHTML = S.map(x => `<button type="button" class="chip ${x.rid === myRid ? "sel" : ""}" data-rid="${x.rid}" aria-pressed="${x.rid === myRid}">${esc(x.name)}</button>`).join("");
+  $("#myName").textContent = t.name;
+  const rec = `${t.W}-${t.L}${t.T ? "-" + t.T : ""}`, po = M.fc?.team?.[myRid];
+  $("#mySub").textContent = `${ord(t.rank)} in de stand · ${rec} · ${f1(t.PF)} punten${t.owner && t.owner !== t.name ? " · " + t.owner : ""}`;
+  const pc = v => (v * 100).toFixed(1) + "%", sg = v => (v >= 0 ? "+" : "−") + f1(Math.abs(v));
+  const rk = (key, asc) => rankOf(myRid, key, asc);
+  const badge = r => `<span class="hl ${cls(r)}">${ord(r)}</span> van ${N}`;
+  const tiles = [
+    ["Stand", "#" + t.rank, rec],
+    po ? ["Playoffkans", pct(po.po), `verwachte eindplek ${po.order}e`] : null,
+    ["Points for", f1(t.PF), badge(rk(x => x.PF))],
+    ["All-play", `${fmtN(t.apW)}-${fmtN(t.apL)}`, badge(rk(x => x.apW))],
+    ["Efficiëntie", pc(t.eff.pct), badge(rk(x => x.eff.pct))],
+    ["Pech-score", t.lk.score.toFixed(0), `${ord(t.lk.rank)} meeste pech`]].filter(Boolean);
+  $("#myTiles").innerHTML = tiles.map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
+  const D = M.dr;
+  const rows = [
+    ["Punten per week", f1(t.avg), x => x.avg],
+    ["All-play winsten", fmtN(t.apW), x => x.apW],
+    ["True wins", fmtN(t.twW), x => x.twW, "alle 12 schema's"],
+    ["Boven de mediaan", `${t.upCount}×`, x => x.upCount],
+    ["Geluk (all-play)", sg(t.luck), x => x.luck, "echte min verwachte winsten"],
+    ["Efficiëntie", pc(t.eff.pct), x => x.eff.pct],
+    ["Gemist per week", f1(t.eff.miss), x => x.eff.miss, "punten op de bank", true],
+    ["Consistentie (SD)", f1(t.sd), x => x.sd, "lager = stabieler", true],
+    ["Waiver-punten", f1(t.wv.tot), x => x.wv.tot],
+    D ? ["Draft-rendement", sg(D.team[myRid].vor), x => D.team[x.rid].vor, "punten boven verwachting"] : null,
+    ["Last 4 gem.", f1(t.last4), x => x.last4],
+    t.rest?.opp.length ? ["Restprogramma", f1(t.rest.str), x => x.rest.str, "gem. tegenstander · 1e = zwaarste"] : null].filter(Boolean);
+  $("#myRanks").innerHTML = rows.map(([l, v, key, sub, asc]) => { const r = rk(key, asc), c = cls(r);
+    return `<div class="mr"><div class="l">${l}${sub ? `<small>${sub}</small>` : ""}</div><div class="v">${v}</div><div class="rr" title="${ord(r)} van ${N}"><i class="${c}" style="left:calc(6px + (100% - 12px) * ${(r - 1) / (N - 1 || 1)})"></i></div><div class="rk2 ${c}">${ord(r)}</div></div>`; }).join("");
+  $("#myWeeks").innerHTML = `<thead><tr><th>Wk</th><th>Tegenstander</th><th>Score</th><th>Tegen</th><th title="Plek van je score die week (1 = hoogste)">Weekrang</th><th>All-play</th></tr></thead><tbody>${[...t.results].reverse().map(r => {
+    const sc = M.score[myRid][r.w], os = M.score[r.oid]?.[r.w] ?? 0, wr = 1 + M.teams.filter(x => M.score[x.rid][r.w] > sc + 1e-9).length, apw = N - wr;
+    return `<tr><td class="rk">${r.w}</td><td class="opp"><span class="res ${r.r}">${r.r === "W" ? "W" : r.r === "L" ? "L" : "G"}</span> ${esc(M.byRid[r.oid].name)}</td><td><b>${f1(sc)}</b></td><td>${f1(os)}</td><td>${hlv(cls(wr), ord(wr))}</td><td>${apw}-${N - 1 - apw}</td></tr>`; }).join("")}</tbody>`;
+  $("#myTrend").innerHTML = `<div class="trr" style="padding:0;border:0">${$("#trends").querySelectorAll(".trr")[S.indexOf(t)]?.innerHTML || ""}</div>`;
+}
+$("#myTeams").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; myRid = +b.dataset.rid; store.set("rtg-my", myRid); renderMy(); });
+document.querySelector(".my-links").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.go === "teams"){ $("#raSel").value = myRid; store.set("rtg-ra", myRid); renderRA(); }
+  if(b.dataset.go === "seizoen"){ sotSel = myRid; store.set("rtg-sot", myRid); renderSOT(); renderFC(); }
+  showTab(b.dataset.go, true); });
 
 function load(snap, live){ M = buildModel(snap); computeKPIs(M); render();
   $("#src").classList.toggle("live", live); $("#srcTxt").textContent = live ? "Live data" : "Snapshot"; }
