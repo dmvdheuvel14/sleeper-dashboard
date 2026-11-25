@@ -62,7 +62,7 @@ def main():
         "fetched_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
         "league": {k: league.get(k) for k in ("league_id", "name", "season", "status", "total_rosters")}
                   | {"settings": {k: league["settings"].get(k) for k in
-                                  ("playoff_week_start", "playoff_teams", "last_scored_leg", "start_week")}},
+                                  ("playoff_week_start", "playoff_teams", "last_scored_leg", "start_week", "leg")}},
         "users": [{"user_id": u["user_id"], "display_name": u["display_name"],
                    "team_name": (u.get("metadata") or {}).get("team_name")} for u in get(f"/league/{a.league}/users")],
         "rosters": [{"roster_id": r["roster_id"], "owner_id": r.get("owner_id"), "players": r.get("players") or [],
@@ -71,6 +71,11 @@ def main():
         "matchups": {str(w): trim_matchups(get(f"/league/{a.league}/matchups/{w}")) for w in range(1, last_week + 1)},
         "transactions": {str(w): trim_tx(get(f"/league/{a.league}/transactions/{w}")) for w in range(1, last_week + 1)},
     }
+    # Toekomstige weken van de reguliere competitie (matchups staan al in Sleeper) en het playoffschema.
+    reg_end = (league["settings"].get("playoff_week_start") or 15) - 1
+    fut_weeks = list(range(last_week + 1, reg_end + 1))
+    snap["future"] = {str(w): trim_matchups(get(f"/league/{a.league}/matchups/{w}")) for w in fut_weeks}
+    snap["bracket"] = get(f"/league/{a.league}/winners_bracket") or []
     # Spelersdatabase (groot, ~15 MB): alleen spelers die in deze league voorkomen bewaren.
     ids = {pid for r in snap["rosters"] for pid in r["players"]}
     ids |= {pid for ms in snap["matchups"].values() for m in ms for pid in m["players"]}
@@ -93,9 +98,9 @@ def main():
     season = get(f"/stats/nfl/regular/{league['season']}") or {}
     snap["season_rank"] = {pid: [season[pid].get("pos_rank_ppr"), season[pid].get("pts_ppr")] for pid in ids
                            if pid in season and season[pid].get("pos_rank_ppr")}
-    # Projecties (Sleeper, PPR) per speler per week, voor points scored luck.
+    # Projecties (Sleeper, PPR) per speler per week: points scored luck en de prognose voor toekomstige weken.
     snap["proj"] = {}
-    for w in range(1, last_week + 1):
+    for w in list(range(1, last_week + 1)) + fut_weeks:
         pr = get(f"/projections/nfl/regular/{league['season']}/{w}") or {}
         snap["proj"][str(w)] = {pid: round(pr[pid]["pts_ppr"], 2) for pid in ids if pid in pr and pr[pid].get("pts_ppr")}
     snap["stats"] = {}
