@@ -1112,7 +1112,7 @@ function renderPD(rid){
         return `<td data-rid="${t.rid}" data-p="${c}"><span style="background:color-mix(in srgb, ${v >= 0 ? "var(--accent)" : "var(--neg)"} ${a}%, var(--deep))" class="${a > 50 ? "strong" : ""}">${v >= 0 ? "+" : "−"}${f1(Math.abs(v))}</span></td>`; }).join("")}</tr>`).join("")}</tbody></table></div>`;
     wire("td[data-p]"); return; }
   // Balken: "bar" = aandeel (100%), "pts" = punten per week (lengte = totaal).
-  const maxW = Math.max(...M.teams.map(t => t.pd.tot / nW));
+  const maxW = Math.max(...M.teams.map(t => t.pd.tot / nW)) || 1;
   $("#pd").innerHTML = S.map(t => { const w = pdMode === "pts" ? t.pd.tot / nW / maxW * 100 : 100;
     return `<div class="pdr ${t.rid === rid ? "sel" : ""}"><span class="n">${esc(t.name)}</span><div class="pdw"><div class="pdb" style="width:${w}%" role="img" aria-label="${esc(t.name)}: ${cats.map(c => `${PD_LBL(c)} ${f1(t.pd.pct[c])}%`).join(", ")}">${cats.map(c => t.pd.pct[c] > 0 ?
       `<span class="pos-${c}" style="flex:${t.pd.pct[c]} 1 0" data-rid="${t.rid}" data-p="${c}"></span>` : "").join("")}</div>${pdMode === "pts" ? `<em>${f1(t.pd.tot / nW)} · ${rkTot(t)}e</em>` : ""}</div></div>`; }).join("");
