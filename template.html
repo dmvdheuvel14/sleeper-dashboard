@@ -389,7 +389,11 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .ply .pv{text-align:right;font-size:13px;color:var(--ink-2);line-height:1.15}
 .ply .pv small{display:block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
 .ply .pv.act{font-weight:700;color:var(--ink)}
-.ply .pv.act.up{color:var(--accent)}
+.ply .pv.act b{display:inline-block;min-width:44px;text-align:center;font:var(--dw) 21px/1 var(--display);letter-spacing:.02em;padding:4px 6px 2px;border-radius:5px}
+.keys .lg{font:700 12px/1 var(--body);padding:3px 6px;border-radius:4px}
+.lg.ok,.ply .pv.act b.ok{background:#f2c14e;color:#0a1f3c}
+.lg.hi,.ply .pv.act b.hi{background:#3fbf7f;color:#0a1f3c}
+.lg.lo,.ply .pv.act b.lo{background:#ef5350;color:#fff}
 .ply .ln{grid-column:2/-1;font-size:12px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:2px 10px}
 .ply .ln .pj{color:var(--ink-3)}
 .ply .ln .bbt{font-size:10.5px;padding:1px 7px}
@@ -401,7 +405,7 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .bd th:first-child,.bd td:first-child{text-align:left}.bd th:nth-child(2),.bd td:nth-child(2){text-align:right}
 .bd tr.tot td{font-weight:700;border-bottom:0;border-top:1px solid var(--line)}
 .bd .bbx{font-size:12px;color:var(--ink-3);margin-top:6px}
-@media (max-width:520px){.mw{padding:14px}.mw-t .n{font-size:22px}.mud-h .t .n{font-size:20px}.mw-mid{font-size:18px}.mw-vs{gap:8px}.ply{grid-template-columns:34px minmax(0,1fr) 44px 44px;gap:3px 7px}.mud-h .t .p{font-size:32px}.mwr{grid-template-columns:minmax(0,1fr) 60px 30px}}
+@media (max-width:520px){.ply .pv.act b{min-width:40px;font-size:19px;padding:4px 4px 2px}.mw{padding:14px}.mw-t .n{font-size:22px}.mud-h .t .n{font-size:20px}.mw-mid{font-size:18px}.mw-vs{gap:8px}.ply{grid-template-columns:34px minmax(0,1fr) 44px 44px;gap:3px 7px}.mud-h .t .p{font-size:32px}.mwr{grid-template-columns:minmax(0,1fr) 60px 30px}}
 .weeks button.fut{border-style:dashed;color:var(--ink-2)}
 .weeks button.fut[aria-pressed="true"]{border-style:solid;color:var(--accent-ink)}
 .weeks .wsep{align-self:center;font:600 10.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin:0 2px 0 6px}
@@ -2049,6 +2053,8 @@ function muCard(r, i){
     ${row(r.a, r.A, r.pa)}${row(r.b, r.B, 1 - r.pa)}
     <div class="bbs">${r.boom.map(x => bbChip(M, x, "boom")).join("")}${r.bust.map(x => bbChip(M, x, "bust")).join("")}</div></div>`;
 }
+// Echte punten vs projectie: binnen 10% = geel, erboven = groen, eronder = rood.
+const vsProj = (p, pj) => !(pj > 0) ? (p > 0 ? "hi" : "ok") : p > pj * 1.1 ? "hi" : p < pj * .9 ? "lo" : "ok";
 function plyHTML(r, x, rid, bn){
   if(x.empty) return `<div class="ply empty"><div class="sl">${esc(x.slot)}</div><div class="nm"><b>Leeg slot</b></div><div></div><div></div></div>`;
   const w = r.w, p = M.players[x.pid] || {name:x.pid}, pos = p.pos || "", pj = M.projx[w]?.[x.pid], ac = M.statx?.w === w ? M.statx.p[x.pid] : null;
@@ -2059,7 +2065,7 @@ function plyHTML(r, x, rid, bn){
   const pjl = x.proj > 0 ? bdLine(pos, pj) : "bye of geen projectie";
   return `<div class="ply ${cls} ${bn ? "bn" : ""} pos-${esc(pos)}" role="button" tabindex="0" aria-expanded="${open}" data-p="${esc(key)}">
     <div class="sl">${esc(x.slot)}</div><div class="nm"><b>${esc(p.name)}</b><small><i></i>${esc(pos)}${p.team ? " · " + esc(p.team) : ""}${p.inj ? ` · <span class="ij">${esc(p.inj)}</span>` : ""}</small></div>
-    <div class="pv"><small>proj</small>${f1(x.proj)}</div><div class="pv act ${played && x.p > x.proj ? "up" : ""}"><small>echt</small>${played ? f1(x.p) : "–"}</div>
+    <div class="pv"><small>proj</small>${f1(x.proj)}</div><div class="pv act"><small>echt</small>${played ? `<b class="${vsProj(x.p, x.proj)}" title="${x.proj ? `${x.p >= x.proj ? "+" : "−"}${Math.round(Math.abs(x.p / x.proj - 1) * 100)}% t.o.v. projectie` : ""}">${f1(x.p)}</b>` : "–"}</div>
     <div class="ln">${played ? `<span>${bdLine(pos, ac)}</span>` : ""}${pjl ? `<span class="pj">${played ? "proj: " : ""}${pjl}</span>` : ""}${tag}</div>
     ${open ? bdTable(M, pj, ac, played, bb) : ""}</div>`;
 }
@@ -2077,7 +2083,7 @@ function muDetailHTML(r){
   return `<div class="mud"><div class="mud-h">${side(r.a, r.A, r.pa, "")}<div class="vs">VS</div>${side(r.b, r.B, 1 - r.pa, "r")}</div>
     <div class="wpbar"><i style="width:${r.pa * 100}%"></i><i style="flex:1"></i></div>
     <div><div class="eyebrow" style="margin-bottom:8px">${cur ? "Punten per positie (gescoord, anders projectie)" : "Verwachte punten per positie"}</div><div class="pcmp">${cmp}</div></div>
-    <div class="keys"><span>${cur ? "Huidige opstelling in Sleeper" : "Verwachte opstelling: beste roster volgens de projecties"}</span><span><span class="bbt boom">BOOM</span> grootste kans op een topweek</span><span><span class="bbt bust">BUST</span> grootste kans op een tegenvaller</span><span>Klik op een speler voor de punten per stat</span></div>
+    <div class="keys"><span>${cur ? "Huidige opstelling in Sleeper" : "Verwachte opstelling: beste roster volgens de projecties"}</span><span><span class="bbt boom">BOOM</span> grootste kans op een topweek</span><span><span class="bbt bust">BUST</span> grootste kans op een tegenvaller</span><span><b class="lg ok">12.0</b> binnen 10% van de projectie</span><span><b class="lg hi">18.0</b> erboven</span><span><b class="lg lo">6.0</b> eronder</span><span>Klik op een speler voor de punten per stat</span></div>
     <div class="mud-cols">${col(r.a, r.A)}${col(r.b, r.B)}</div></div>`;
 }
 function renderMU(){
