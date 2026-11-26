@@ -447,6 +447,40 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
   .my-tiles .tile .v{font-size:34px}
   #tilesWeek .wk{display:none}
 }
+/* ---------- Verhoudingen: rijen en rasters vullen het scherm gelijkmatig ---------- */
+@media (min-width:900px){
+  .tabs{gap:6px}
+  .tabs button{flex:1 1 auto;padding-inline:10px;font-size:20px}
+}
+/* Teamknoppen: 2 rijen van 6 op desktop, 3×4 op tablet, 4×3 op telefoon */
+.my-pick .chips.teamgrid,.chips.teamgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.teamgrid .chip,.my-pick .teamgrid .chip{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;text-align:center;font-size:13px;padding:6px 8px}
+/* Weekknoppen: één rij op desktop, gelijke breedtes */
+.sec-head .weeks{flex-basis:100%}
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:6px}
+.weeks button{padding:7px 0;text-align:center}
+/* Tegelrijen: altijd volle rijen */
+.tiles5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.tiles6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.tp{grid-template-columns:repeat(9,minmax(0,1fr))}
+.my-grid{align-items:stretch}
+@media (max-width:899px){
+  .my-pick .chips.teamgrid,.chips.teamgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .tiles5{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .tiles5 > *{grid-column:span 2}
+  .tiles5 > :nth-child(n+4){grid-column:span 3}
+  .tiles6{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tp{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:520px){
+  .my-pick .chips.teamgrid,.chips.teamgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .teamgrid .chip,.my-pick .teamgrid .chip{font-size:12px;padding:6px 4px}
+  .weeks{grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+  .tiles5{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tiles5 > *,.tiles5 > :nth-child(n+4){grid-column:auto}
+  .tiles5 > :last-child{grid-column:1/-1}
+  .tiles6{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -465,9 +499,10 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 
   <nav class="tabs" id="tabs" aria-label="Onderdelen">
     <button type="button" class="mine" data-tab="team">Mijn team</button>
-    <button type="button" data-tab="overzicht">Overzicht</button>
+    <button type="button" data-tab="week">Deze week</button>
+    <button type="button" data-tab="stand">Stand &amp; playoffs</button>
     <button type="button" data-tab="seizoen">Seizoen</button>
-    <button type="button" data-tab="vorm">Vorm &amp; geluk</button>
+    <button type="button" data-tab="geluk">Geluk</button>
     <button type="button" data-tab="managers">Managers</button>
     <button type="button" data-tab="teams">Rosters</button>
     <button type="button" data-tab="draft">Draft</button>
@@ -475,10 +510,10 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
   </nav>
 
   <section data-tab="team" class="my">
-    <div class="my-pick"><span class="eyebrow">Kies je team</span><div class="chips" id="myTeams"></div></div>
+    <div class="my-pick"><span class="eyebrow">Kies je team</span><div class="chips teamgrid" id="myTeams"></div></div>
     <div class="my-hero"><div><div class="my-name" id="myName"></div><div class="sub" id="mySub"></div></div>
-      <div class="my-links"><button type="button" data-go="teams">Roster-analyse →</button><button type="button" data-go="seizoen">Stand over tijd →</button></div></div>
-    <div class="tiles my-tiles" id="myTiles"></div>
+      <div class="my-links"><button type="button" data-go="teams">Roster-analyse →</button><button type="button" data-go="stand">Stand over tijd →</button></div></div>
+    <div class="tiles tiles6 my-tiles" id="myTiles"></div>
     <div class="my-grid">
       <div class="panel"><div class="pd-h"><div><b>Waar sta je</b><div class="sub">Rang in de league per onderdeel. Roze = top 3, omrand = bottom 3.</div></div></div><div id="myRanks"></div></div>
       <div class="panel"><div class="pd-h"><div><b>Week voor week</b><div class="sub">Uitslag, tegenstander en hoe je score die week in de league eindigde</div></div></div><div class="scroll"><table class="myw" id="myWeeks"></table></div></div>
@@ -486,20 +521,22 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     <div class="panel"><div id="myTrend"></div></div>
   </section>
 
-  <div class="hlg" data-tab="overzicht">
+  <div class="hlg" data-tab="week">
     <div class="hlg-h"><h2 id="hlWeekH">Laatste week</h2><span class="sub" id="hlWeekSub">Highlights van de laatst gespeelde week</span></div>
-    <div class="tiles" id="tilesWeek"></div>
+    <div class="tiles tiles5" id="tilesWeek"></div>
     <div class="hlg-h"><h2>Seizoen</h2><span class="sub">Records over alle weken</span></div>
-    <div class="tiles" id="tilesSeason"></div>
+    <div class="tiles tiles5" id="tilesSeason"></div>
   </div>
 
-  <section data-tab="overzicht">
+
+  <section data-tab="week">
     <div class="sec-head"><h2>Weekly scoreboard</h2><div class="weeks" id="weeks"></div></div>
-    <div class="keys" id="sbKeys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span><span><b style="color:var(--accent)">▲</b>beste starter</span><span><b style="color:var(--neg)">▼</b>slechtste starter</span><span>Klik op een matchup voor beide rosters</span></div>
+    <div class="keys" id="sbKeys"><span id="sbMed"></span><span><i class="scorehl up">000</i>&nbsp;boven de mediaan</span><span>All-play = record als je die week tegen alle 11 andere teams had gespeeld</span><span><b style="color:var(--accent)">▲</b>beste starter</span><span><b style="color:var(--neg)">▼</b>slechtste starter</span><span>Klik op een matchup voor beide rosters</span><span>Gestippelde week = prognose</span></div>
     <div class="sb" id="sb"></div>
   </section>
 
-  <section data-tab="overzicht">
+
+  <section data-tab="stand">
     <div class="sec-head"><h2>Stand</h2><span class="sub" id="standSub"></span>
       <div class="seg" id="standMode"><button type="button" data-k="tab" aria-pressed="true">Stand</button><button type="button" data-k="po" aria-pressed="false">Playoffs</button></div></div>
     <div class="panel" id="standTab"><div class="scroll"><table id="stand"></table></div>
@@ -511,11 +548,12 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </section>
 
-  <section data-tab="seizoen">
+
+  <section data-tab="stand">
     <div class="sec-head"><h2>Standings over time</h2>
       <div class="legend"><span><i class="sw"></i>Echte stand</span><span><i class="sw dash"></i>Verwachte stand (all-play)</span><span id="sotFcKey"><i class="sw dots"></i>Prognose komende weken</span></div></div>
     <div class="panel">
-      <div class="chips" id="sotTeams" style="margin:0 0 10px"></div>
+      <div class="chips teamgrid" id="sotTeams" style="margin:0 0 10px"></div>
       <svg id="sot" class="chart" role="img" aria-label="Positie in de stand per week voor alle teams, echt en verwacht, plus prognose voor de resterende weken"></svg>
     </div>
     <div class="panel fcp" id="fcP">
@@ -525,12 +563,6 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </section>
 
-
-  <section data-tab="vorm">
-    <div class="sec-head"><h2>Trends &amp; streaks</h2>
-      <div class="keys"><span><i class="sq w"></i>gewonnen</span><span><i class="sq"></i>verloren</span><span><i class="ci up"></i>boven mediaan</span><span><i class="ci"></i>onder mediaan</span></div></div>
-    <div class="panel tr" id="trends"></div>
-  </section>
 
   <section data-tab="seizoen">
     <div class="sec-head"><h2>League scorecard</h2>
@@ -543,17 +575,46 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     </div>
   </section>
 
+
   <section data-tab="seizoen">
+    <div class="sec-head"><h2>Weekscores</h2>
+      <div class="keys"><span><i class="hl-k top">top 3</i>&nbsp;van de week</span><span><i class="hl-k bot">bottom 3</i>&nbsp;van de week</span><span><i class="ring gold"></i>top 5 seizoen</span><span><i class="ring red"></i>bottom 5 seizoen</span></div></div>
+    <div class="panel scroll"><table class="heat" id="heat"></table></div>
+  </section>
+
+
+  <section data-tab="seizoen">
+    <div class="sec-head"><h2>Trends &amp; streaks</h2>
+      <div class="keys"><span><i class="sq w"></i>gewonnen</span><span><i class="sq"></i>verloren</span><span><i class="ci up"></i>boven mediaan</span><span><i class="ci"></i>onder mediaan</span></div></div>
+    <div class="panel tr" id="trends"></div>
+  </section>
+
+
+  <section data-tab="geluk">
+    <div class="sec-head"><h2>Luck</h2><span class="sub">Pech en geluk uit meerdere hoeken</span></div>
+    <div class="tiles tiles5" id="luckTiles"></div>
+    <div class="keys"><span><i class="hl-k top">top 3</i>&nbsp;hoogste waarde</span><span><i class="hl-k bot">bottom 3</i>&nbsp;laagste waarde</span><span>Gesorteerd op pech-score (gewogen, 0-100). Ga met je muis over een kop voor uitleg.</span></div>
+    <div class="panel scroll"><table class="lk" id="lk"></table></div>
+    <div class="two">
+      <div class="panel"><div class="sub" style="margin-bottom:6px">All-play geluk: echte winsten min verwachte winsten (all-play)</div><svg id="luck" class="chart" role="img" aria-label="All-play geluk per team"></svg></div>
+      <div class="panel"><div class="sub" style="margin-bottom:6px">Points scored luck: gemiddeld per week gescoord min geprojecteerd (Sleeper-projectie van je starters)</div><svg id="luckTW" class="chart" role="img" aria-label="Points scored luck per team"></svg></div>
+    </div>
+  </section>
+
+
+  <section data-tab="geluk">
     <div class="sec-head"><h2>True wins</h2><span class="sub">Elk team op elk schema: rij = team, kolom = schema van dat team</span></div>
     <div class="panel scroll"><table class="tw" id="tw"></table></div>
     <div class="keys"><span id="twScale"></span><span>Omrand = het echte schema</span><span><i class="delta">+0</i>&nbsp;winsten erbij in de laatste week (over alle 12 schema's)</span></div>
   </section>
+
 
   <section data-tab="managers">
     <div class="sec-head"><h2>Manager-efficiëntie</h2><span class="sub" id="efSub"></span></div>
     <div class="keys"><span>Behaalde punten als deel van de best mogelijke opstelling per week</span><span><i class="hl-k top">top 3</i></span><span><i class="hl-k bot">bottom 3</i></span><span id="efKey"></span></div>
     <div class="panel scroll"><table class="ef" id="ef"></table></div>
   </section>
+
 
   <section data-tab="managers">
     <div class="sec-head"><h2>Injuries &amp; sits</h2>
@@ -562,15 +623,18 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     <div class="panel scroll"><table class="is" id="is"></table></div>
   </section>
 
+
   <section data-tab="managers">
     <div class="sec-head"><h2>Waiver W's</h2><span class="sub">Punten van spelers die via de waiver wire of als free agent zijn opgepikt</span></div>
     <div class="panel scroll"><table class="wv" id="wv"></table></div>
   </section>
 
+
   <section data-tab="managers">
     <div class="sec-head"><h2>Trade values</h2><span class="sub" id="trSub"></span></div>
     <div class="trades" id="trades"></div>
   </section>
+
 
   <section data-tab="teams">
     <div class="sec-head"><h2>Roster analysis</h2><label class="sub">Team <select id="raSel"></select></label></div>
@@ -590,23 +654,6 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
   </section>
 
 
-  <section data-tab="seizoen">
-    <div class="sec-head"><h2>Weekscores</h2>
-      <div class="keys"><span><i class="hl-k top">top 3</i>&nbsp;van de week</span><span><i class="hl-k bot">bottom 3</i>&nbsp;van de week</span><span><i class="ring gold"></i>top 5 seizoen</span><span><i class="ring red"></i>bottom 5 seizoen</span></div></div>
-    <div class="panel scroll"><table class="heat" id="heat"></table></div>
-  </section>
-
-  <section data-tab="vorm">
-    <div class="sec-head"><h2>Luck</h2><span class="sub">Pech en geluk uit meerdere hoeken</span></div>
-    <div class="tiles" id="luckTiles"></div>
-    <div class="keys"><span><i class="hl-k top">top 3</i>&nbsp;hoogste waarde</span><span><i class="hl-k bot">bottom 3</i>&nbsp;laagste waarde</span><span>Gesorteerd op pech-score (gewogen, 0-100). Ga met je muis over een kop voor uitleg.</span></div>
-    <div class="panel scroll"><table class="lk" id="lk"></table></div>
-    <div class="two">
-      <div class="panel"><div class="sub" style="margin-bottom:6px">All-play geluk: echte winsten min verwachte winsten (all-play)</div><svg id="luck" class="chart" role="img" aria-label="All-play geluk per team"></svg></div>
-      <div class="panel"><div class="sub" style="margin-bottom:6px">Points scored luck: gemiddeld per week gescoord min geprojecteerd (Sleeper-projectie van je starters)</div><svg id="luckTW" class="chart" role="img" aria-label="Points scored luck per team"></svg></div>
-    </div>
-  </section>
-
   <section data-tab="draft">
     <div class="sec-head"><h2>Draft analysis</h2><span class="sub" id="dSub"></span></div>
     <div class="sec-head" style="margin-top:-4px">
@@ -625,7 +672,6 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
       </div>
     </div>
   </section>
-
 
   <section data-tab="uitleg">
     <h2>Aannames</h2>
@@ -1186,7 +1232,7 @@ let sotSel = null;
 function renderSOT(){
   const S = M.standings, fw = M.fc.fw, sf = M.fc.sotF;
   if(!M.byRid[sotSel]) sotSel = M.byRid[Number(store.get("rtg-sot"))] ? Number(store.get("rtg-sot")) : S[0].rid;
-  $("#sotTeams").innerHTML = S.map(t => `<button type="button" class="chip ${t.rid === sotSel ? "sel" : ""}" data-rid="${t.rid}" aria-pressed="${t.rid === sotSel}">${esc(t.name)}</button>`).join("");
+  $("#sotTeams").innerHTML = S.map(t => `<button type="button" class="chip ${t.rid === sotSel ? "sel" : ""}" data-rid="${t.rid}" title="${esc(t.name)}" aria-pressed="${t.rid === sotSel}">${esc(t.name)}</button>`).join("");
   $("#sotFcKey").hidden = !fw.length;
   const svg = $("#sot"), W = 1000, H = 380, m = {l:34, r:150, t:fw.length ? 26 : 12, b:30}, iw = W - m.l - m.r, ih = H - m.t - m.b, wk = M.weeks, N = M.teams.length;
   const all = [...wk, ...fw], n = all.length, li = wk.length - 1;
@@ -1367,7 +1413,7 @@ function renderLuck(){
 function renderWeeks(){
   curWeek = M.weeks.includes(curWeek) || M.fc.fw.includes(curWeek) ? curWeek : M.weeks.at(-1);
   $("#weeks").innerHTML = M.weeks.map(w => `<button type="button" data-w="${w}" aria-pressed="${w === curWeek}">W${w}</button>`).join("")
-    + (M.fc.fw.length ? `<span class="wsep">Prognose</span>` + M.fc.fw.map(w => `<button type="button" class="fut" data-w="${w}" aria-pressed="${w === curWeek}" title="Week ${w}: matchups en projecties">W${w}</button>`).join("") : "");
+    + (M.fc.fw.length ? M.fc.fw.map(w => `<button type="button" class="fut" data-w="${w}" aria-pressed="${w === curWeek}" title="Prognose week ${w}: matchups en projecties">W${w}</button>`).join("") : "");
 }
 const POS_ORDER = ["QB","RB","WR","TE","K","DEF"];
 let sbOpen = null;
@@ -1792,15 +1838,16 @@ $("#sb").addEventListener("click", e => { if(e.target.closest("[data-stop]")) re
 $("#sb").addEventListener("keydown", e => { if(e.key !== "Enter" && e.key !== " ") return; const c = e.target.closest(".sbg"); if(!c || e.target !== c) return; e.preventDefault(); toggleSB(c); });
 
 /* ---------- Tabs en Mijn team ---------- */
-const TABS = ["team","overzicht","seizoen","vorm","managers","teams","draft","uitleg"];
-let curTab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (TABS.includes(store.get("rtg-tab")) ? store.get("rtg-tab") : "overzicht");
+const TABS = ["team","week","stand","seizoen","geluk","managers","teams","draft","uitleg"], OLD_TAB = {overzicht:"week", vorm:"seizoen"};
+const tabOf = v => TABS.includes(v) ? v : OLD_TAB[v];
+let curTab = tabOf(location.hash.slice(1)) || tabOf(store.get("rtg-tab")) || "week";
 function showTab(t, scroll){
   curTab = t; store.set("rtg-tab", t); hideTip();
   document.querySelectorAll(".wrap > [data-tab]").forEach(el => el.hidden = el.dataset.tab !== t);
   $("#tabs").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.tab === t));
   if(history.replaceState) history.replaceState(null, "", "#" + t);
   if(scroll && $("#tabs").getBoundingClientRect().top <= 0) $("#tabs").scrollIntoView();
-  if(M && t === "overzicht") drawBrLinks();
+  if(M && t === "stand") drawBrLinks();
   if(M && t === "teams") renderPD.fit?.();
 }
 $("#tabs").addEventListener("click", e => { const b = e.target.closest("button"); if(b) showTab(b.dataset.tab, true); });
@@ -1812,7 +1859,7 @@ function renderMy(){
   const S = M.standings, N = M.teams.length;
   if(!M.byRid[myRid]) myRid = M.byRid[Number(store.get("rtg-my"))] ? Number(store.get("rtg-my")) : S[0].rid;
   const t = M.byRid[myRid], cls = r => r <= 3 ? "top" : r > N - 3 ? "bot" : "";
-  $("#myTeams").innerHTML = S.map(x => `<button type="button" class="chip ${x.rid === myRid ? "sel" : ""}" data-rid="${x.rid}" aria-pressed="${x.rid === myRid}">${esc(x.name)}</button>`).join("");
+  $("#myTeams").innerHTML = S.map(x => `<button type="button" class="chip ${x.rid === myRid ? "sel" : ""}" data-rid="${x.rid}" title="${esc(x.name)}" aria-pressed="${x.rid === myRid}">${esc(x.name)}</button>`).join("");
   $("#myName").textContent = t.name;
   const rec = `${t.W}-${t.L}${t.T ? "-" + t.T : ""}`, po = M.fc?.team?.[myRid];
   $("#mySub").textContent = `${ord(t.rank)} in de stand · ${rec} · ${f1(t.PF)} punten${t.owner && t.owner !== t.name ? " · " + t.owner : ""}`;
@@ -1851,7 +1898,7 @@ function renderMy(){
 $("#myTeams").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; myRid = +b.dataset.rid; store.set("rtg-my", myRid); renderMy(); });
 document.querySelector(".my-links").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return;
   if(b.dataset.go === "teams"){ $("#raSel").value = myRid; store.set("rtg-ra", myRid); renderRA(); }
-  if(b.dataset.go === "seizoen"){ sotSel = myRid; store.set("rtg-sot", myRid); renderSOT(); renderFC(); }
+  if(b.dataset.go === "stand"){ sotSel = myRid; store.set("rtg-sot", myRid); renderSOT(); renderFC(); }
   showTab(b.dataset.go, true); });
 
 function load(snap, live){ M = buildModel(snap); computeKPIs(M); render();
