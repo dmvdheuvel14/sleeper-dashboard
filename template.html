@@ -323,6 +323,89 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .inj{display:inline-block;font-size:10.5px;font-weight:600;padding:1px 6px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
 @media (max-width:640px){.trr{grid-template-columns:1fr}}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+/* Upcoming matchup: Matchup of the week (hero), alle matchups, gekozen matchup met rosters en punten-breakdown */
+.mw{border:2px solid var(--accent);border-radius:10px;background:var(--panel);padding:18px 20px;display:grid;gap:16px}
+.mw-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.mw-badge{font:var(--dw) 22px/1 var(--display);letter-spacing:.05em;padding:6px 12px 4px;border-radius:6px;background:var(--accent);color:var(--accent-ink)}
+.mw-score{font-size:13px;color:var(--ink-2)}.mw-score b{font:var(--dw) 30px/1 var(--display);color:var(--accent);margin-right:4px;vertical-align:-3px}
+.mw-vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:14px}
+.mw-t{min-width:0}.mw-t.r{text-align:right}
+.mw-t .n{font:var(--dw) clamp(28px,4.6vw,46px)/.95 var(--display);text-transform:uppercase;overflow-wrap:anywhere}
+.mw-t .o{font-size:13px;color:var(--ink-3);margin-top:4px}
+.mw-t .p{font:var(--dw) clamp(40px,6vw,60px)/1 var(--display);margin-top:6px}
+.mw-t .p small{font:500 12px/1 var(--body);color:var(--ink-3);margin-left:6px;letter-spacing:0}
+.mw-t.fav .p{color:var(--accent)}
+.mw-mid{font:var(--dw) 26px/1 var(--display);color:var(--ink-3)}
+.wpbar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--deep)}
+.wpbar i{display:block;background:var(--accent)}.wpbar i + i{background:var(--h4)}
+.wpl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-2);margin-top:4px}
+.mw-why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:6px 22px}
+.mwr{display:grid;grid-template-columns:minmax(0,1fr) 86px 34px;align-items:center;gap:10px;font-size:13.5px;padding:5px 0;border-bottom:1px solid var(--grid)}
+.mwr .l{color:var(--ink-2);min-width:0}.mwr .l small{display:block;color:var(--ink-3);font-size:12px;line-height:1.35}
+.mwr .b{height:6px;border-radius:3px;background:var(--deep);overflow:hidden}.mwr .b i{display:block;height:100%;background:var(--accent)}
+.mwr .v{text-align:right;font-weight:700}
+.mw-bb{display:flex;flex-wrap:wrap;gap:6px}
+.bbt{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-size:12px;padding:3px 9px;border-radius:999px;font-weight:600}
+.bbt.boom{background:var(--accent);color:var(--accent-ink)}
+.bbt.bust{background:var(--deep);color:var(--neg);box-shadow:inset 0 0 0 1.5px var(--neg)}
+.bbt em{font-style:normal;font-weight:400;opacity:.85}
+.mug{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:10px}
+.mug .sbg{display:grid;gap:2px}
+.mug .sbg.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.mug .rk3{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase;padding:4px 0 2px}
+.mug .rk3 b{color:var(--ink);font-weight:700}
+.mug .rk3 .motw{color:var(--accent);font-weight:700}
+.mug .bbs{display:flex;flex-wrap:wrap;gap:4px;padding:6px 0 4px;border-top:1px solid var(--grid)}
+.mug .bbs .bbt{font-size:11px;padding:2px 7px}
+.mud{display:grid;gap:14px}
+.mud-h{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:end}
+.mud-h .t .n{font:var(--dw) clamp(24px,3.6vw,34px)/1 var(--display);text-transform:uppercase;overflow-wrap:anywhere}
+.mud-h .t.r{text-align:right}
+.mud-h .t .o{font-size:12.5px;color:var(--ink-3)}
+.mud-h .t .p{font:var(--dw) 40px/1 var(--display);margin-top:4px}.mud-h .t.fav .p{color:var(--accent)}
+.mud-h .t .p small{font:500 12px/1 var(--body);color:var(--ink-3);margin:0 6px;letter-spacing:0}
+.mud-h .vs{font:var(--dw) 22px/1 var(--display);color:var(--ink-3);padding-bottom:8px}
+.pcmp{display:grid;gap:5px}
+.pcr{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;gap:8px;font-size:12px}
+.pcr .s{display:flex;align-items:center;gap:6px;min-width:0}.pcr .s.l{flex-direction:row-reverse}
+.pcr .s i{display:block;height:12px;border-radius:3px;background:var(--pc);min-width:2px}
+.pcr .s span{color:var(--ink-2);white-space:nowrap}.pcr .s.w span{color:var(--ink);font-weight:700}
+.pcr .c{text-align:center;font:600 10.5px/1 var(--body);letter-spacing:.04em;color:var(--ink-3);background:var(--deep);border-radius:4px;padding:4px 0}
+.mud-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px;align-items:start}
+.mud-col{display:grid;gap:0}
+.mud-col > .grp{font:600 11px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);padding:12px 0 6px}
+.mud-col > .grp:first-child{padding-top:0}
+.ply{display:grid;grid-template-columns:40px minmax(0,1fr) 50px 50px;gap:4px 10px;align-items:center;padding:8px 6px 8px 8px;border-bottom:1px solid var(--grid);border-left:3px solid transparent;cursor:pointer}
+.ply:hover{background:#ffffff08}
+.ply:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.ply.boom{border-left-color:var(--accent);background:#ff8fb112}
+.ply.bust{border-left-color:var(--neg);background:#7fb4e60f}
+.ply .sl{text-align:center;font:600 10.5px/1 var(--body);letter-spacing:.04em;color:var(--ink-3);background:var(--deep);border-radius:4px;padding:5px 0}
+.ply .nm{min-width:0;line-height:1.25}
+.ply .nm b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ply .nm small{display:block;font-size:11.5px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ply .nm small i{display:inline-block;width:4px;height:10px;border-radius:2px;background:var(--pc);margin-right:5px;vertical-align:-1px}
+.ply .nm small .ij{color:var(--red);font-weight:600}
+.ply .pv{text-align:right;font-size:13px;color:var(--ink-2);line-height:1.15}
+.ply .pv small{display:block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
+.ply .pv.act{font-weight:700;color:var(--ink)}
+.ply .pv.act b{display:inline-block;min-width:44px;text-align:center;font:var(--dw) 21px/1 var(--display);letter-spacing:.02em;padding:4px 6px 2px;border-radius:5px}
+.keys .lg{font:700 12px/1 var(--body);padding:3px 6px;border-radius:4px}
+.lg.ok,.ply .pv.act b.ok{background:#f2c14e;color:#0a1f3c}
+.lg.hi,.ply .pv.act b.hi{background:#3fbf7f;color:#0a1f3c}
+.lg.lo,.ply .pv.act b.lo{background:#ef5350;color:#fff}
+.ply .ln{grid-column:2/-1;font-size:12px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:2px 10px}
+.ply .ln .pj{color:var(--ink-3)}
+.ply .ln .bbt{font-size:10.5px;padding:1px 7px}
+.ply .ln .bbq{color:var(--ink-3);white-space:nowrap}
+.ply.bn .nm b{font-weight:500;color:var(--ink-2)}
+.ply.empty{cursor:default}.ply.empty .nm b{color:var(--ink-3);font-weight:400}
+.ply .bd{grid-column:1/-1;margin-top:6px;background:var(--deep);border-radius:6px;padding:8px 10px;cursor:default}
+.bd table{font-size:12.5px}.bd th,.bd td{padding:4px 6px}
+.bd th:first-child,.bd td:first-child{text-align:left}.bd th:nth-child(2),.bd td:nth-child(2){text-align:right}
+.bd tr.tot td{font-weight:700;border-bottom:0;border-top:1px solid var(--line)}
+.bd .bbx{font-size:12px;color:var(--ink-3);margin-top:6px}
+@media (max-width:520px){.ply .pv.act b{min-width:40px;font-size:19px;padding:4px 4px 2px}.mw{padding:14px}.mw-t .n{font-size:22px}.mud-h .t .n{font-size:20px}.mw-mid{font-size:18px}.mw-vs{gap:8px}.ply{grid-template-columns:34px minmax(0,1fr) 44px 44px;gap:3px 7px}.mud-h .t .p{font-size:32px}.mwr{grid-template-columns:minmax(0,1fr) 60px 30px}}
 .weeks button.fut{border-style:dashed;color:var(--ink-2)}
 .weeks button.fut[aria-pressed="true"]{border-style:solid;color:var(--accent-ink)}
 .weeks .wsep{align-self:center;font:600 10.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin:0 2px 0 6px}
@@ -459,6 +542,8 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 .sec-head .weeks{flex-basis:100%}
 .weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:6px}
 .weeks button{padding:7px 0;text-align:center}
+#muWeeks{grid-template-columns:repeat(auto-fill,minmax(120px,max-content))}
+#muWeeks button{padding:7px 16px}
 /* Tegelrijen: altijd volle rijen */
 .tiles5{grid-template-columns:repeat(5,minmax(0,1fr))}
 .tiles6{grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -499,6 +584,7 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
 
   <nav class="tabs" id="tabs" aria-label="Onderdelen">
     <button type="button" class="mine" data-tab="team">Mijn team</button>
+    <button type="button" data-tab="matchup">Upcoming matchup</button>
     <button type="button" data-tab="week">Weekly recap</button>
     <button type="button" data-tab="stand">Stand &amp; playoffs</button>
     <button type="button" data-tab="seizoen">Seizoen</button>
@@ -519,6 +605,15 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
       <div class="panel"><div class="pd-h"><div><b>Week voor week</b><div class="sub">Uitslag, tegenstander en hoe je score die week in de league eindigde</div></div></div><div class="scroll"><table class="myw" id="myWeeks"></table></div></div>
     </div>
     <div class="panel"><div id="myTrend"></div></div>
+  </section>
+
+  <section data-tab="matchup">
+    <div class="sec-head"><h2>Upcoming matchup</h2><div class="weeks" id="muWeeks"></div></div>
+    <div class="keys" id="muKeys"></div>
+    <div id="motw"></div>
+    <div class="hlg-h" style="margin-top:8px"><h2 style="font-size:clamp(26px,4vw,32px)">Alle matchups</h2><span class="sub">Gesorteerd op Matchup of the week-score. Klik voor de rosters.</span></div>
+    <div class="mug" id="muList"></div>
+    <div class="panel" id="muDetail"></div>
   </section>
 
   <div class="hlg" data-tab="week">
@@ -677,6 +772,9 @@ th.srt{cursor:pointer;user-select:none}th.srt:hover{color:var(--ink)}th.srt.on{c
     <h2>Aannames</h2>
     <ul class="notes">
       <li>Alleen afgeronde weken tellen mee (t/m de laatst gescoorde week volgens Sleeper). Playoffweken worden nog niet apart behandeld.</li>
+      <li>Upcoming matchup: de lopende (of eerstvolgende) week, met de huidige opstelling in Sleeper; voor latere weken de beste opstelling volgens de projecties. Proj = Sleeper-projectie (PPR), echt = gescoorde punten. Klik op een speler voor de punten per stat volgens de puntentelling van deze league (projectie en echt naast elkaar).</li>
+      <li>Boom/bust: boom = een week in de NFL-brede top van je positie (QB/TE/K/DEF top 6, RB/WR top 12), bust = buiten startersniveau (QB/TE/K/DEF buiten top 18, RB/WR buiten top 36). De puntengrenzen zijn de mediaan over alle gespeelde weken. De kans komt uit een normale verdeling rond 75% projectie + 25% eigen seizoensgemiddelde, met als spreiding de eigen standaardafwijking gemengd met een schatting op basis van de projectie (weegt als 4 wedstrijden). Per matchup worden de 2 grootste boomkansen en de 2 grootste bustrisico's (QB/RB/WR/TE) uitgelicht.</li>
+      <li>Matchup of the week: score 0-100 uit vijf onderdelen, elk ten opzichte van de andere matchups die week (beste = 1, slechtste = 0): impact op de playoffs 30 (verschil in playoffkans tussen winst en verlies, beide teams opgeteld, uit de 10.000 simulaties), spanning 25 (winkans dicht bij 50-50), verwachte punten samen 20, topspelers 15 (starters met seizoensrang QB ≤ 8, RB/WR ≤ 15, TE ≤ 6) en positie in de stand 10.</li>
       <li>Rangorde: meeste winsten, daarna meeste punten (PF). Stippellijn = playoffgrens.</li>
       <li>Prognose (toekomstige weken): per team de som van de Sleeper-projecties (PPR) van de starters. Voor de lopende week is dat de opstelling die nu in Sleeper staat (al gescoorde punten tellen echt, wie nog moet spelen telt met zijn projectie); voor latere weken de beste opstelling van het huidige roster volgens de projecties, zonder spelers op IR. Winkans = normale verdeling rond die projecties, met per team een spreiding van half de eigen weekspreiding en half het leaguegemiddelde.</li>
       <li>Verwachte eindstand: de rest van de reguliere competitie en de playoffs worden 10.000 keer gesimuleerd. Verwacht record en PF zijn gemiddelden; playoffs/bye/titel = aandeel simulaties. Voor de playoffs telt de gemiddelde rosterprojectie van de resterende weken. Volgorde = gemiddelde eindplek. Sleutelduel = het resterende duel waarvan winst of verlies de playoffkans het meest verschuift.</li>
@@ -717,14 +815,25 @@ const store = {get(k){try{return localStorage.getItem(k)}catch(e){return null}},
 /* ---------- Data ophalen ---------- */
 async function getJSON(p){const r = await fetch(API + p); if(!r.ok) throw new Error(r.status); return r.json();}
 // NFL-weekstats: oude weken uit de snapshot, alleen de laatste en ontbrekende weken live ophalen (~0,5 MB per week).
-const STAT_KEYS = ["pos_rank_ppr","fum_lost","pass_int","rec_drop","pass_yd","rush_yd","rec_yd","pass_td","rush_td","rec_td","fgm","xpm","sack","int","fum_rec","def_td","def_st_td","safe","pts_allow"];
+const STAT_KEYS = ["pos_rank_ppr","fum_lost","pass_int","rec_drop","pass_yd","rush_yd","rec_yd","pass_td","rush_td","rec_td","fgm","xpm","sack","int","fum_rec","def_td","def_st_td","safe","pts_allow","gp","pts_ppr"];
+// Stat-breakdown voor de Upcoming matchup-tab: deze stats plus alles waar de league punten voor geeft.
+const BD_KEYS = ["gp","pts_ppr","pass_att","pass_cmp","pass_yd","pass_td","pass_int","rush_att","rush_yd","rush_td","rec_tgt","rec","rec_yd","rec_td","fum_lost","fgm","fga","xpm","xpa","sack","int","fum_rec","def_td","def_st_td","safe","pts_allow"];
+const pickBD = (x, sc) => { const o = {}; for(const k in x){ const v = x[k]; if(typeof v === "number" && v && (BD_KEYS.includes(k) || sc[k])) o[k] = Math.round(v * 100) / 100; } return o; };
 // DEF-spelers zijn teamcodes (bv. DET); die ook meenemen.
-async function liveProj(season, wk, ids, fresh = []){
+async function liveProj(season, wk, ids, fresh = [], projx = {}, sc = {}){
   const out = {...(SNAPSHOT?.proj || {})}, last = wk.at(-1);
+  Object.assign(projx, SNAPSHOT?.projx || {});
   await Promise.all(wk.filter(w => !out[w] || w === last || fresh.includes(w)).map(async w => {
     const pr = await getJSON(`/projections/nfl/regular/${season}/${w}`).catch(() => null); if(!pr) return;
-    const o = {}; ids.forEach(id => { if(pr[id]?.pts_ppr) o[id] = pr[id].pts_ppr; }); out[w] = o; }));
+    const o = {}, ox = {}; ids.forEach(id => { if(pr[id]?.pts_ppr){ o[id] = pr[id].pts_ppr; if(fresh.includes(w)) ox[id] = pickBD(pr[id], sc); } }); out[w] = o;
+    if(fresh.includes(w)) projx[w] = ox; }));
   return out;
+}
+// Lopende week: stats tot nu toe (Sleeper werkt ze tijdens de wedstrijden bij).
+async function liveCur(season, w, ids, sc){
+  const st = await getJSON(`/stats/nfl/regular/${season}/${w}`).catch(() => null);
+  if(!st) return SNAPSHOT?.statx?.w === w ? SNAPSHOT.statx : null;
+  const p = {}; ids.forEach(id => { if(st[id]) p[id] = pickBD(st[id], sc); }); return {w, p};
 }
 async function liveStats(season, wk, ids){
   const out = {...(SNAPSHOT?.stats || {})}, last = wk.at(-1);
@@ -749,6 +858,7 @@ async function fetchLive(leagueId){
     Promise.all(wk.map(w => getJSON(`${L}/matchups/${w}`))), Promise.all(wk.map(w => getJSON(`${L}/transactions/${w}`))),
     Promise.all(fw.map(w => getJSON(`${L}/matchups/${w}`).catch(() => []))), getJSON(`${L}/winners_bracket`).catch(() => SNAPSHOT?.bracket || []),
     getJSON(`${L}/losers_bracket`).catch(() => SNAPSHOT?.lbracket || [])]);
+  const projx = {};
   const trimM = m => ({roster_id:m.roster_id, matchup_id:m.matchup_id, points:m.points||0, players_points:m.players_points||{}, starters:m.starters||[], players:m.players||[]});
   const matchups = {}, transactions = {}, future = {};
   weeks.forEach((w, i) => matchups[i+1] = w.map(trimM));
@@ -764,11 +874,12 @@ async function fetchLive(leagueId){
     users:users.map(u => ({user_id:u.user_id, display_name:u.display_name, team_name:(u.metadata||{}).team_name})),
     rosters:rosters.map(r => ({roster_id:r.roster_id, owner_id:r.owner_id, players:r.players||[], starters:r.starters||[], reserve:r.reserve||[]})),
     roster_positions:league.roster_positions || [], matchups, transactions, players, future, bracket, lbracket,
-    scoring:{fum_lost:league.scoring_settings?.fum_lost || 0, pass_int:league.scoring_settings?.pass_int || 0, rec:league.scoring_settings?.rec || 0, rec_yd:league.scoring_settings?.rec_yd || 0},
+    scoring:{...(league.scoring_settings || {})}, projx,
+    statx:fw.includes(league.settings.leg) ? await liveCur(league.season, league.settings.leg, ids, league.scoring_settings || {}) : null,
     stats:await liveStats(league.season, wk, ids),
     season_rank:await getJSON(`/stats/nfl/regular/${league.season}`).then(ss => { const o = {}; Object.keys({...players, ...Object.fromEntries((SNAPSHOT?.draft?.picks || []).map(p => [p.player_id, 1]))}).forEach(id => { const x = ss[id]; if(x?.pos_rank_ppr) o[id] = [x.pos_rank_ppr, x.pts_ppr]; }); return o; }).catch(() => SNAPSHOT?.season_rank || {}),
     draft:SNAPSHOT?.draft || null,
-    proj:await liveProj(league.season, [...wk, ...fw], ids, fw)};
+    proj:await liveProj(league.season, [...wk, ...fw], ids, fw, projx, league.scoring_settings || {})};
 }
 
 /* ---------- Model: teams, weken, wedstrijden ---------- */
@@ -796,7 +907,7 @@ function buildModel(s){
   return {league:s.league, fetched_at:s.fetched_at, teams, byRid, weeks, score, bench, games, mx,
     players:s.players || {}, rosters:Object.fromEntries((s.rosters || []).map(r => [r.roster_id, r])),
     slots:(s.roster_positions || []).filter(x => x !== "BN" && x !== "IR" && x !== "TAXI"), tx:s.transactions || {},
-    stats:s.stats || {}, scoring:s.scoring || {}, srank:s.season_rank || {}, draft:s.draft || null, proj:s.proj || {},
+    stats:s.stats || {}, scoring:s.scoring || {}, projx:s.projx || {}, statx:s.statx || null, srank:s.season_rank || {}, draft:s.draft || null, proj:s.proj || {},
     fmx:fmx(s, weeks), bracket:s.bracket || null, lbracket:s.lbracket || null};
 }
 // Toekomstige weken: matchup per team per week (alleen weken die nog niet gespeeld zijn).
@@ -1140,7 +1251,7 @@ function render(){
   $("#lname").textContent = L.name; $("#season").textContent = `Sleeper · seizoen ${L.season} · ${M.teams.length} teams`;
   $("#asof").textContent = `Weken 1–${M.weeks.at(-1) || 0} · opgehaald ${new Date(M.fetched_at).toLocaleString("nl-NL", {dateStyle:"medium", timeStyle:"short"})}`;
   curWeek = M.weeks.includes(curWeek) || M.fc.fw.includes(curWeek) ? curWeek : M.weeks.at(-1);
-  renderTiles(); renderStandings(); renderStandMode(); renderBracket(); renderSOT(); renderFC(); renderHeat(); renderLuck(); renderDraft(); renderWeeks(); renderSB(); renderTrends(); renderSC(); renderTW(); renderIS(); renderWV(); renderTrades(); renderRA(); renderEF(); renderCS(); renderDR(); renderMy();
+  renderTiles(); renderStandings(); renderStandMode(); renderBracket(); renderSOT(); renderFC(); renderHeat(); renderLuck(); renderDraft(); renderWeeks(); renderSB(); renderTrends(); renderSC(); renderTW(); renderIS(); renderWV(); renderTrades(); renderRA(); renderEF(); renderCS(); renderDR(); renderMy(); renderMU();
 }
 function nm(rid){ return esc(M.byRid[rid].name); }
 
@@ -1837,8 +1948,171 @@ function toggleSB(card){ sbOpen = sbOpen === card.dataset.key ? null : card.data
 $("#sb").addEventListener("click", e => { if(e.target.closest("[data-stop]")) return; const c = e.target.closest(".sbg"); if(c) toggleSB(c); });
 $("#sb").addEventListener("keydown", e => { if(e.key !== "Enter" && e.key !== " ") return; const c = e.target.closest(".sbg"); if(!c || e.target !== c) return; e.preventDefault(); toggleSB(c); });
 
+/* ---------- Upcoming matchup: boom/bust, Matchup of the week, rosters met punten-breakdown ---------- */
+// Boom = een week in de top van je positie, bust = onder startersniveau (NFL-brede PPR-rang per week: [boom, bust]).
+const BB_RANK = {QB:[6,18], RB:[12,36], WR:[12,36], TE:[6,18], K:[6,18], DEF:[6,18]};
+const BB_FALL = {QB:[24,12], RB:[19,7], WR:[19,7], TE:[14,5], K:[12,5], DEF:[12,3]};
+const STAR = {QB:8, RB:15, WR:15, TE:6}; // topspeler = seizoensrang (PPR) binnen deze grens
+const MOTW = [["impact",30,"Impact op de playoffs"],["close",25,"Spanning"],["total",20,"Verwachte punten"],["stars",15,"Topspelers"],["stand",10,"Positie in de stand"]];
+const median = v => { const a = [...v].sort((x,y) => x - y), n = a.length; return n ? (n % 2 ? a[(n-1)/2] : (a[n/2-1] + a[n/2]) / 2) : null; };
+function bbModel(M){
+  // Drempels per positie: per week de PPR-score van de speler rond de grensrang, mediaan over alle weken.
+  const thr = {}, hist = {};
+  for(const pos in BB_RANK) thr[pos] = BB_RANK[pos].map((k, i) => median(M.weeks.map(w => { let best = null;
+    for(const [pid, x] of Object.entries(M.stats[w]?.p || {})){
+      if(M.players[pid]?.pos !== pos || !x.pos_rank_ppr || x.pos_rank_ppr >= 999 || x.pts_ppr == null) continue;
+      const d = Math.abs(x.pos_rank_ppr - k); if(d <= 3 && (!best || d < best.d)) best = {d, v:x.pts_ppr}; }
+    return best?.v; }).filter(v => v != null)) ?? BB_FALL[pos][i]);
+  // Weekscores per speler in gespeelde wedstrijden: league-punten als hij op een roster stond, anders Sleeper PPR.
+  M.weeks.forEach(w => { const st = M.stats[w]?.p || {}, lp = {};
+    M.teams.forEach(t => Object.assign(lp, M.mx[t.rid][w]?.players_points || {}));
+    new Set([...Object.keys(st), ...Object.keys(lp)]).forEach(pid => { const x = st[pid];
+      const played = x ? (x.gp != null ? x.gp > 0 : !!(lp[pid] || x.pts_ppr)) : !!lp[pid];
+      if(played) (hist[pid] ||= []).push(lp[pid] ?? x?.pts_ppr ?? 0); }); });
+  return {thr, hist};
+}
+// Kans op boom/bust: normale verdeling rond de projectie (deels eigen gemiddelde), spreiding = eigen SD gemengd met een prior.
+function bbOf(M, pid, proj){
+  const pos = M.players[pid]?.pos; if(!(proj > 0) || !BB_RANK[pos]) return null;
+  const v = M.bb.hist[pid] || [], n = v.length, avg = n ? v.reduce((a,b) => a + b, 0) / n : proj;
+  const sdp = n > 1 ? Math.sqrt(v.reduce((a,b) => a + (b - avg) ** 2, 0) / (n - 1)) : 0, s0 = .4 * proj + (pos === "K" || pos === "DEF" ? 2 : 2.5);
+  const sd = Math.sqrt((n * sdp ** 2 + 4 * s0 ** 2) / (n + 4)), mean = n >= 3 ? .75 * proj + .25 * avg : proj, [tb, tl] = M.bb.thr[pos];
+  return {boom:1 - Phi((tb - mean) / sd), bust:Phi((tl - mean) / sd), mean, sd, n, avg, sdp, tb, tl, hi:n ? Math.max(...v) : null, lo:n ? Math.min(...v) : null};
+}
+function muWeekData(M, w){
+  const N = M.teams.length, P = M.fc.P[w];
+  const swing = rid => { const s = M.fc.team[rid]?.sched.find(x => x.w === w); return s && s.ifW != null && s.ifL != null ? s.ifW - s.ifL : 0; };
+  const rows = M.fc.games.filter(g => g.w === w).map(g => {
+    const [a, b] = g.pa >= .5 ? [g.a, g.b] : [g.b, g.a], pa = a === g.a ? g.pa : 1 - g.pa, A = P[a], B = P[b];
+    const pl = [...A.st.map(x => ({...x, rid:a})), ...B.st.map(x => ({...x, rid:b}))].filter(x => !x.empty).map(x => ({...x, bb:bbOf(M, x.pid, x.proj)}));
+    const sk = pl.filter(x => x.bb && STAR[M.players[x.pid]?.pos] != null); // highlights alleen QB/RB/WR/TE
+    const boom = [...sk].sort((x,y) => y.bb.boom - x.bb.boom).slice(0, 2);
+    const bust = sk.filter(x => !boom.includes(x)).sort((x,y) => y.bb.bust - x.bb.bust).slice(0, 2);
+    const stars = pl.filter(x => (M.srank[x.pid]?.[0] || 999) <= (STAR[M.players[x.pid]?.pos] || 0));
+    const ra = M.byRid[a].rank, rb = M.byRid[b].rank;
+    return {key:`${w}:${a}-${b}`, w, a, b, pa, A, B, pl, boom, bust, stars, sa:swing(a), sb:swing(b), ra, rb,
+      c:{impact:swing(a) + swing(b), close:1 - 2 * Math.abs(pa - .5), total:A.mean + B.mean, stars:stars.length, stand:1 - ((ra + rb) / 2 - 1) / (N - 1)}}; });
+  MOTW.forEach(([k]) => { const v = rows.map(r => r.c[k]), lo = Math.min(...v), hi = Math.max(...v);
+    rows.forEach(r => { r.n ||= {}; r.r ||= {}; r.n[k] = hi > lo ? (r.c[k] - lo) / (hi - lo) : .5; r.r[k] = 1 + v.filter(x => x > r.c[k] + 1e-9).length; }); });
+  rows.forEach(r => r.score = MOTW.reduce((s, [k, wt]) => s + wt * r.n[k], 0));
+  return rows.sort((x,y) => y.score - x.score);
+}
+// Statregel per positie: [stat, label, decimalen bij projectie]; de eerste twee altijd, de rest alleen als > 0.
+const BD_LINE = {QB:[["pass_yd","pass yd",0],["pass_td","TD",1],["pass_int","INT",1],["rush_yd","rush yd",0],["rush_td","rush TD",1]],
+  RB:[["rush_att","car",1],["rush_yd","rush yd",0],["rush_td","TD",1],["rec","rec",1],["rec_yd","rec yd",0],["rec_td","rec TD",1]],
+  WR:[["rec","rec",1],["rec_yd","yd",0],["rec_tgt","tgt",1],["rec_td","TD",1],["rush_yd","rush yd",0],["rush_td","rush TD",1]],
+  K:[["fgm","FG",1],["xpm","XP",1],["fga","FGA",1]], DEF:[["sack","sacks",1],["int","INT",1],["fum_rec","FR",1],["def_td","TD",1],["pts_allow","pt tegen",0]]};
+BD_LINE.TE = BD_LINE.WR;
+const nl = (v, d) => (d ? (Math.round(v * 10) / 10).toFixed(Number.isInteger(v) ? 0 : 1) : String(Math.round(v))).replace(".", ",");
+function bdLine(pos, x){ if(!x) return ""; return (BD_LINE[pos] || []).map(([k, lb, d], i) => { const v = x[k] || 0;
+  return Number(nl(v, d).replace(",", ".")) || i < 2 ? `${nl(v, d)} ${lb}` : null; }).filter(Boolean).join(" · "); }
+const SC_ORDER = ["pass_yd","pass_td","pass_2pt","pass_int","rush_yd","rush_td","rush_2pt","rec","rec_yd","rec_td","rec_2pt","fum_lost","fgm_0_19","fgm_20_29","fgm_30_39","fgm_40_49","fgm_50_59","fgm_60p","fgmiss","xpm","xpmiss","sack","int","fum_rec","ff","def_td","def_st_td","st_td","safe","blk_kick"];
+const SC_LBL = {pass_yd:"Passing yards", pass_td:"Passing TD", pass_2pt:"2-pt pass", pass_int:"Interceptions", rush_yd:"Rushing yards", rush_td:"Rushing TD", rush_2pt:"2-pt run",
+  rec:"Receptions", rec_yd:"Receiving yards", rec_td:"Receiving TD", rec_2pt:"2-pt catch", fum_lost:"Fumbles verloren", fgmiss:"FG gemist", xpm:"Extra points", xpmiss:"XP gemist",
+  sack:"Sacks", int:"Interceptions", fum_rec:"Fumble recoveries", ff:"Forced fumbles", def_td:"Defensive TD", def_st_td:"Return TD", st_td:"Special teams TD", safe:"Safety",
+  blk_kick:"Blocked kick", def_st_fum_rec:"ST fumble recovery", st_fum_rec:"ST fumble recovery", def_st_ff:"ST forced fumble", st_ff:"ST forced fumble", fum_rec_td:"Fumble return TD"};
+const scLbl = k => SC_LBL[k] || (k.startsWith("fgm_") ? "FG " + k.slice(4).replace("_", "-").replace("p", "+") : k.startsWith("pts_allow_") ? "Punten tegen " + k.slice(10).replace("_", "-").replace("p", "+") : k);
+// Punten per stat volgens de puntentelling van de league (projectie en echt naast elkaar).
+function bdTable(M, pj, ac, played, bb){
+  const sc = M.scoring, keys = Object.keys(sc).filter(k => sc[k] && (pj?.[k] || (played && ac?.[k])))
+    .sort((a,b) => (SC_ORDER.indexOf(a) + 1 || 99) - (SC_ORDER.indexOf(b) + 1 || 99));
+  const val = (x, k, d) => !x?.[k] ? "–" : k.startsWith("pts_allow_") ? nl(x.pts_allow || 0, 0) : nl(x[k], d);
+  const pt = (x, k) => (x?.[k] || 0) * sc[k], tot = x => keys.reduce((a,k) => a + pt(x, k), 0);
+  const rows = keys.map(k => `<tr><td>${esc(scLbl(k))}</td><td>${val(pj, k, 1)}</td><td>${pj?.[k] ? f1(pt(pj, k)) : "–"}</td><td>${played ? val(ac, k, 0) : "–"}</td><td>${played && ac?.[k] ? f1(pt(ac, k)) : "–"}</td></tr>`).join("");
+  const bx = bb ? `<div class="bbx">Kans op boom (≥ ${f1(bb.tb)} pt) ${pct(bb.boom)} · bust (≤ ${f1(bb.tl)} pt) ${pct(bb.bust)}${bb.n ? ` · ${bb.n} wedstrijden: gem. ${f1(bb.avg)}, SD ${f1(bb.sdp)}, hoogste ${f1(bb.hi)}, laagste ${f1(bb.lo)}` : " · nog geen wedstrijden dit seizoen"}</div>` : "";
+  return `<div class="bd" data-stop="1">${keys.length ? `<div class="scroll"><table><thead><tr><th>Stat</th><th>Proj</th><th>pt</th><th>Echt</th><th>pt</th></tr></thead><tbody>${rows}
+    <tr class="tot"><td>Totaal</td><td></td><td>${f1(tot(pj))}</td><td></td><td>${played ? f1(tot(ac)) : "–"}</td></tr></tbody></table></div>` : `<div class="sub">Geen projectie of stats voor deze week.</div>`}${bx}</div>`;
+}
+let muWeek = null, muSel = null, muOpen = null;
+const recOf = t => `${t.W}-${t.L}${t.T ? "-" + t.T : ""}`;
+const sgPct = v => (v >= 0 ? "+" : "−") + Math.round(Math.abs(v) * 100) + "%";
+function bbChip(M, x, kind){ return `<span class="bbt ${kind}" title="${esc(M.byRid[x.rid].name)}">${kind.toUpperCase()} ${esc(shortName(x.pid))} <em>${pct(x.bb[kind])}</em></span>`; }
+function motwHTML(r){
+  const team = (rid, X, p, side) => { const t = M.byRid[rid];
+    return `<div class="mw-t ${side} ${p >= .5 ? "fav" : ""}"><div class="n">${nm(rid)}</div><div class="o">${ord(t.rank)} in de stand · ${recOf(t)} · ${esc(t.owner)}</div>
+      <div class="p">${f1(X.mean)}<small>${X.live ? `live ${f1(X.scored)}` : "verwacht"}</small></div></div>`; };
+  const sn = rid => esc(M.byRid[rid].name);
+  const det = {impact:[`${sgPct(r.c.impact)}`, `Winst vs verlies, playoffkans: ${sn(r.a)} ${sgPct(r.sa)}, ${sn(r.b)} ${sgPct(r.sb)}`],
+    close:[`${Math.round(r.pa * 100)}-${Math.round((1 - r.pa) * 100)}`, "Winkans, hoe dichter bij 50-50 hoe spannender"],
+    total:[f1(r.c.total), "Samen verwacht"],
+    stars:[String(r.c.stars), r.stars.map(x => shortName(x.pid)).map(esc).join(", ") || "Geen"],
+    stand:[`${ord(r.ra)} & ${ord(r.rb)}`, "Plek in de stand van beide teams"]};
+  const why = MOTW.map(([k, wt, lb]) => `<div class="mwr"><div class="l">${lb} <b>${det[k][0]}</b><small title="${det[k][1]}">${det[k][1]}</small></div>
+    <div class="b" title="Ten opzichte van de andere matchups deze week"><i style="width:${Math.round(r.n[k] * 100)}%"></i></div><div class="v">${ord(r.r[k])}</div></div>`).join("");
+  return `<div class="mw"><div class="mw-top"><span class="mw-badge">★ Matchup of the week · week ${r.w}</span><span class="mw-score"><b>${Math.round(r.score)}</b>/ 100</span></div>
+    <div class="mw-vs">${team(r.a, r.A, r.pa, "")}<div class="mw-mid">VS</div>${team(r.b, r.B, 1 - r.pa, "r")}</div>
+    <div><div class="wpbar"><i style="width:${r.pa * 100}%"></i><i style="flex:1"></i></div><div class="wpl"><span>Winkans ${pct(r.pa)}</span><span>${pct(1 - r.pa)}</span></div></div>
+    <div class="mw-why">${why}</div>
+    <div class="mw-bb">${r.boom.map(x => bbChip(M, x, "boom")).join("")}${r.bust.map(x => bbChip(M, x, "bust")).join("")}</div></div>`;
+}
+function muCard(r, i){
+  const row = (rid, X, p) => `<div class="sbr f ${p >= .5 ? "win" : "lose"}"><span class="wp ${p >= .5 ? "fav" : ""}">${Math.round(p * 100)}%</span><span class="n">${nm(rid)}</span>
+    <span class="ap">${X.live ? `live <b>${f1(X.scored)}</b>` : `${ord(M.byRid[rid].rank)} · ${recOf(M.byRid[rid])}`}</span><span><span class="scorehl">${f1(X.mean)}</span></span></div>`;
+  return `<div class="sbg ${r.key === muSel ? "sel" : ""}" role="button" tabindex="0" data-key="${r.key}" aria-pressed="${r.key === muSel}">
+    <div class="rk3">${i ? `<span>#${i + 1}</span>` : `<span class="motw">★ Matchup of the week</span>`}<span>score <b>${Math.round(r.score)}</b></span></div>
+    ${row(r.a, r.A, r.pa)}${row(r.b, r.B, 1 - r.pa)}
+    <div class="bbs">${r.boom.map(x => bbChip(M, x, "boom")).join("")}${r.bust.map(x => bbChip(M, x, "bust")).join("")}</div></div>`;
+}
+// Echte punten vs projectie: binnen 10% = geel, erboven = groen, eronder = rood.
+const vsProj = (p, pj) => !(pj > 0) ? (p > 0 ? "hi" : "ok") : p > pj * 1.1 ? "hi" : p < pj * .9 ? "lo" : "ok";
+function plyHTML(r, x, rid, bn){
+  if(x.empty) return `<div class="ply empty"><div class="sl">${esc(x.slot)}</div><div class="nm"><b>Leeg slot</b></div><div></div><div></div></div>`;
+  const w = r.w, p = M.players[x.pid] || {name:x.pid}, pos = p.pos || "", pj = M.projx[w]?.[x.pid], ac = M.statx?.w === w ? M.statx.p[x.pid] : null;
+  const played = !!(ac && (ac.gp > 0 || x.p)), key = `${rid}:${x.pid}`, open = muOpen === key;
+  const bb = r.pl.find(y => y.pid === x.pid && y.rid === rid)?.bb ?? bbOf(M, x.pid, x.proj);
+  const cls = r.boom.some(y => y.pid === x.pid) ? "boom" : r.bust.some(y => y.pid === x.pid) ? "bust" : "";
+  const tag = cls ? `<span class="bbt ${cls}">${cls.toUpperCase()} ${pct(bb[cls])}</span>` : bb && !bn ? `<span class="bbq">boom ${pct(bb.boom)} · bust ${pct(bb.bust)}</span>` : "";
+  const pjl = x.proj > 0 ? bdLine(pos, pj) : "bye of geen projectie";
+  return `<div class="ply ${cls} ${bn ? "bn" : ""} pos-${esc(pos)}" role="button" tabindex="0" aria-expanded="${open}" data-p="${esc(key)}">
+    <div class="sl">${esc(x.slot)}</div><div class="nm"><b>${esc(p.name)}</b><small><i></i>${esc(pos)}${p.team ? " · " + esc(p.team) : ""}${p.inj ? ` · <span class="ij">${esc(p.inj)}</span>` : ""}</small></div>
+    <div class="pv"><small>proj</small>${f1(x.proj)}</div><div class="pv act"><small>echt</small>${played ? `<b class="${vsProj(x.p, x.proj)}" title="${x.proj ? `${x.p >= x.proj ? "+" : "−"}${Math.round(Math.abs(x.p / x.proj - 1) * 100)}% t.o.v. projectie` : ""}">${f1(x.p)}</b>` : "–"}</div>
+    <div class="ln">${played ? `<span>${bdLine(pos, ac)}</span>` : ""}${pjl ? `<span class="pj">${played ? "proj: " : ""}${pjl}</span>` : ""}${tag}</div>
+    ${open ? bdTable(M, pj, ac, played, bb) : ""}</div>`;
+}
+function muDetailHTML(r){
+  const side = (rid, X, p, cls) => { const t = M.byRid[rid];
+    return `<div class="t ${cls} ${p >= .5 ? "fav" : ""}"><div class="n">${nm(rid)}</div><div class="o">${ord(t.rank)} · ${recOf(t)} · winkans ${pct(p)}</div>
+      <div class="p">${cls ? `<small>${X.live ? `live ${f1(X.scored)}` : "verwacht"}</small>` : ""}${f1(X.mean)}${cls ? "" : `<small>${X.live ? `live ${f1(X.scored)}` : "verwacht"}</small>`}</div></div>`; };
+  const posPts = X => { const o = {}; X.st.filter(s => !s.empty).forEach(s => { const ps = M.players[s.pid]?.pos; o[ps] = (o[ps] || 0) + (s.p || s.proj); }); return o; };
+  const pa = posPts(r.A), pb = posPts(r.B), mx = Math.max(1, ...POS_ORDER.map(k => Math.max(pa[k] || 0, pb[k] || 0)));
+  const bar = (v, o, cls) => `<div class="s ${cls} ${v > o + .05 ? "w" : ""}"><i style="width:${(v || 0) / mx * 80}%"></i><span>${f1(v || 0)}</span></div>`;
+  const cmp = POS_ORDER.filter(k => pa[k] || pb[k]).map(k => `<div class="pcr pos-${k}">${bar(pa[k], pb[k] || 0, "l")}<div class="c">${k}</div>${bar(pb[k], pa[k] || 0, "")}</div>`).join("");
+  const col = (rid, X) => `<div class="mud-col"><div class="grp">${nm(rid)} · starters</div>${X.st.map(x => plyHTML(r, x, rid, false)).join("")}
+    ${X.bench.length ? `<div class="grp">Bank</div>${X.bench.map(x => plyHTML(r, x, rid, true)).join("")}` : ""}</div>`;
+  const cur = r.w === M.league.settings?.leg;
+  return `<div class="mud"><div class="mud-h">${side(r.a, r.A, r.pa, "")}<div class="vs">VS</div>${side(r.b, r.B, 1 - r.pa, "r")}</div>
+    <div class="wpbar"><i style="width:${r.pa * 100}%"></i><i style="flex:1"></i></div>
+    <div><div class="eyebrow" style="margin-bottom:8px">${cur ? "Punten per positie (gescoord, anders projectie)" : "Verwachte punten per positie"}</div><div class="pcmp">${cmp}</div></div>
+    <div class="keys"><span>${cur ? "Huidige opstelling in Sleeper" : "Verwachte opstelling: beste roster volgens de projecties"}</span><span><span class="bbt boom">BOOM</span> grootste kans op een topweek</span><span><span class="bbt bust">BUST</span> grootste kans op een tegenvaller</span><span><b class="lg ok">12.0</b> binnen 10% van de projectie</span><span><b class="lg hi">18.0</b> erboven</span><span><b class="lg lo">6.0</b> eronder</span><span>Klik op een speler voor de punten per stat</span></div>
+    <div class="mud-cols">${col(r.a, r.A)}${col(r.b, r.B)}</div></div>`;
+}
+function renderMU(){
+  const fw = M.fc.fw, cur = M.league.settings?.leg;
+  if(!fw.length){ $("#muWeeks").innerHTML = $("#muKeys").innerHTML = $("#muList").innerHTML = ""; $("#muDetail").hidden = true;
+    $("#motw").innerHTML = `<p class="sub">De reguliere competitie is klaar: er staan geen matchups meer gepland.</p>`; return; }
+  M.bb ||= bbModel(M);
+  if(!fw.includes(muWeek)) muWeek = fw.includes(cur) ? cur : fw[0];
+  $("#muWeeks").innerHTML = fw.map(w => `<button type="button" data-w="${w}" aria-pressed="${w === muWeek}">Week ${w}${w === cur ? " · nu" : ""}</button>`).join("");
+  const rows = muWeekData(M, muWeek), live = rows.some(r => r.A.live || r.B.live);
+  $("#muDetail").hidden = !rows.length;
+  if(!rows.length){ $("#motw").innerHTML = `<p class="sub">Nog geen matchups bekend voor week ${muWeek}.</p>`; $("#muList").innerHTML = $("#muKeys").innerHTML = ""; return; }
+  if(!rows.some(r => r.key === muSel)) muSel = rows[0].key;
+  $("#muKeys").innerHTML = `<span>${live ? `<span class="livetag">LIVE</span>Week ${muWeek} is bezig: gescoorde punten + projectie voor wie nog moet spelen` : `Week ${muWeek} · verwachte scores op basis van Sleeper-projecties`}</span><span><i class="wp fav" style="padding:1px 6px">62%</i>&nbsp;winkans</span><span>Matchup of the week-score: impact 30, spanning 25, punten 20, topspelers 15, stand 10</span>`;
+  $("#motw").innerHTML = motwHTML(rows[0]);
+  $("#muList").innerHTML = rows.map(muCard).join("");
+  $("#muDetail").innerHTML = muDetailHTML(rows.find(r => r.key === muSel));
+}
+$("#muWeeks").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; muWeek = +b.dataset.w; muSel = muOpen = null; renderMU(); });
+function pickMU(card){ muSel = card.dataset.key; muOpen = null; renderMU(); $("#muDetail").scrollIntoView({block:"start", behavior:"smooth"}); }
+$("#muList").addEventListener("click", e => { const c = e.target.closest(".sbg"); if(c) pickMU(c); });
+$("#muList").addEventListener("keydown", e => { if(e.key !== "Enter" && e.key !== " ") return; const c = e.target.closest(".sbg"); if(!c || e.target !== c) return; e.preventDefault(); pickMU(c); });
+function togglePly(el){ const k = el.dataset.p; muOpen = muOpen === k ? null : k; renderMU();
+  const n = [...document.querySelectorAll("#muDetail .ply")].find(x => x.dataset.p === k); n?.focus({preventScroll:true}); }
+$("#muDetail").addEventListener("click", e => { if(e.target.closest("[data-stop]")) return; const p = e.target.closest(".ply[data-p]"); if(p) togglePly(p); });
+$("#muDetail").addEventListener("keydown", e => { if(e.key !== "Enter" && e.key !== " ") return; const p = e.target.closest(".ply[data-p]"); if(!p || e.target !== p) return; e.preventDefault(); togglePly(p); });
+
 /* ---------- Tabs en Mijn team ---------- */
-const TABS = ["team","week","stand","seizoen","geluk","managers","teams","draft","uitleg"], OLD_TAB = {overzicht:"week", vorm:"seizoen"};
+const TABS = ["team","matchup","week","stand","seizoen","geluk","managers","teams","draft","uitleg"], OLD_TAB = {overzicht:"week", vorm:"seizoen"};
 const tabOf = v => TABS.includes(v) ? v : OLD_TAB[v];
 let curTab = tabOf(location.hash.slice(1)) || tabOf(store.get("rtg-tab")) || "week";
 function showTab(t, scroll){

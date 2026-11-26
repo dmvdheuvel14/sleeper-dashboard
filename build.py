@@ -33,7 +33,16 @@ def trim_tx(rows):
 
 # Weekstats die het dashboard gebruikt (spelers en team-defenses).
 STAT_KEYS = ("fum_lost", "pass_int", "rec_drop", "pass_yd", "rush_yd", "rec_yd", "pass_td", "rush_td", "rec_td",
-             "fgm", "xpm", "sack", "int", "fum_rec", "def_td", "def_st_td", "safe", "pts_allow", "pos_rank_ppr")
+             "fgm", "xpm", "sack", "int", "fum_rec", "def_td", "def_st_td", "safe", "pts_allow", "pos_rank_ppr",
+             "gp", "pts_ppr")
+# Stat-breakdown voor de Upcoming matchup-tab (naast alle stats waar de league punten voor geeft).
+BD_KEYS = ("gp", "pts_ppr", "pass_att", "pass_cmp", "pass_yd", "pass_td", "pass_int", "rush_att", "rush_yd", "rush_td",
+           "rec_tgt", "rec", "rec_yd", "rec_td", "fum_lost", "fgm", "fga", "xpm", "xpa", "sack", "int", "fum_rec",
+           "def_td", "def_st_td", "safe", "pts_allow")
+
+
+def pick_bd(x, sc):
+    return {k: round(v, 2) for k, v in x.items() if isinstance(v, (int, float)) and v and (k in BD_KEYS or sc.get(k))}
 
 
 def fill_k_def_ranks(st):
@@ -94,16 +103,24 @@ def main():
     snap["players"] = {pid: trim_player(allp[pid]) for pid in ids if pid in allp}
     # Weekstats (NFL): wie speelde, fumbles lost, interceptions, drops. Alleen league-spelers bewaren.
     sc = league.get("scoring_settings") or {}
-    snap["scoring"] = {k: sc.get(k, 0) for k in ("fum_lost", "pass_int", "rec", "rec_yd")}
+    snap["scoring"] = dict(sc)  # volledige puntentelling van de league (voor de punten-breakdown)
     # Seizoensranking NFL-breed (PPR) per speler: [positierang, punten].
     season = get(f"/stats/nfl/regular/{league['season']}") or {}
     snap["season_rank"] = {pid: [season[pid].get("pos_rank_ppr"), season[pid].get("pts_ppr")] for pid in ids
                            if pid in season and season[pid].get("pos_rank_ppr")}
     # Projecties (Sleeper, PPR) per speler per week: points scored luck en de prognose voor toekomstige weken.
-    snap["proj"] = {}
+    snap["proj"], snap["projx"] = {}, {}
     for w in list(range(1, last_week + 1)) + fut_weeks:
         pr = get(f"/projections/nfl/regular/{league['season']}/{w}") or {}
         snap["proj"][str(w)] = {pid: round(pr[pid]["pts_ppr"], 2) for pid in ids if pid in pr and pr[pid].get("pts_ppr")}
+        if w in fut_weeks:  # stat-projecties (rec, yards, TD's) voor de komende weken
+            snap["projx"][str(w)] = {pid: pick_bd(pr[pid], sc) for pid in ids if pid in pr and pr[pid].get("pts_ppr")}
+    # Lopende week: de stats tot nu toe (live tijdens de wedstrijden).
+    cur = league["settings"].get("leg") or 0
+    snap["statx"] = None
+    if cur in fut_weeks:
+        st = get(f"/stats/nfl/regular/{league['season']}/{cur}") or {}
+        snap["statx"] = {"w": cur, "p": {pid: pick_bd(st[pid], sc) for pid in ids if pid in st}}
     snap["stats"] = {}
     for w in range(1, last_week + 1):
         st = get(f"/stats/nfl/regular/{league['season']}/{w}") or {}
